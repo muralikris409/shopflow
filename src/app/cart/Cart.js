@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
+  const [totalBill,setTotalBill]=useState(0);
   const [error, setError] = useState(null); 
   const userCartService = new UserCartService();
   const isLoggedIn = useSelector(state => state.session.user);
@@ -23,6 +24,7 @@ const Cart = () => {
           const userCart = await userCartService.viewCart(isLoggedIn.id);
           
           setProducts(userCart.items);
+          setTotalBill(userCart.totalAmount);
 
         } else {
           const guestCart = typeof window !== 'undefined' ? guestGetCart() : [];
@@ -42,9 +44,12 @@ const Cart = () => {
         await userCartService.updateCartCount(isLoggedIn.id, productId, 'increase');
         const userCart = await userCartService.viewCart(isLoggedIn.id);
         setProducts(userCart.items);
+        setTotalBill(userCart.totalAmount);
+
       } else {
         guestIncreaseQuantity(productId);
         setProducts(guestGetCart());
+
       }
     } catch (err) {
       setError('Failed to update item quantity. Please try again later.');
@@ -57,6 +62,8 @@ const Cart = () => {
         await userCartService.updateCartCount(isLoggedIn.id, productId, 'decrease');
         const userCart = await userCartService.viewCart(isLoggedIn.id);
         setProducts(userCart.items);
+        setTotalBill(userCart.totalAmount);
+
       } else {
         guestDecreaseQuantity(productId);
         setProducts(guestGetCart());
@@ -72,6 +79,8 @@ const Cart = () => {
         await userCartService.deleteFromCart(isLoggedIn.id, productId);
         const userCart = await userCartService.viewCart(isLoggedIn.id);
         setProducts(userCart.items);
+        setTotalBill(userCart.totalAmount);
+
       } else {
         guestRemoveProduct(productId);
         setProducts(guestGetCart());
@@ -108,8 +117,11 @@ const Cart = () => {
                 {products.map((product, index) => (
   <CartTile
     key={index}
+    totalBill={totalBill}
     product={isLoggedIn?product.product:product}
     index={index}
+    totalPrice={product?.totalPrice}
+    
     onIncreaseQuantity={handleIncreaseQuantity}
     onDecreaseQuantity={handleDecreaseQuantity}
     onRemoveProduct={handleRemoveProduct}
@@ -125,7 +137,7 @@ const Cart = () => {
               <div className="mt-6 border-t border-gray-200 pt-6">
                 <div className="flex justify-between text-base font-medium text-gray-900">
                   <p>Total</p>
-                  <p>${products?.totalPrice}</p>
+                  <p>${isLoggedIn?totalBill:products?.totalPrice}</p>
                 </div>
                 <div className="mt-6 text-center">
                   <button
@@ -156,7 +168,7 @@ const Cart = () => {
 
 export default Cart;
 
-function CartTile({ product=[],isLoggedIn, index, onIncreaseQuantity, onDecreaseQuantity, onRemoveProduct,quantity }) {
+function CartTile({ product=[],isLoggedIn, index, totalPrice,totalBill,onIncreaseQuantity,onDecreaseQuantity, onRemoveProduct,quantity }) {
   console.log(quantity)
   return (
     <li key={index} className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
@@ -173,7 +185,7 @@ function CartTile({ product=[],isLoggedIn, index, onIncreaseQuantity, onDecrease
 
           <div className="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
             <p className="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
-              ${product.offerPrice?.toFixed(2)}
+              ${isLoggedIn?totalPrice:product.totalPrice?.toFixed(2)}
             </p>
 
             <div className="sm:order-1">

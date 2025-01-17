@@ -1083,7 +1083,7 @@ function SearchBar() {
     const dispatch = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"])();
     const ref = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const handleSearch = ()=>{
-        console.log(ref);
+        console.log();
         dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$genericReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateSearch"])(ref.current.value));
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].reload("/products");
     };
@@ -1105,8 +1105,9 @@ function SearchBar() {
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>{
-                            // dispatch(updateSearch(ref.current.value));console.log(state)
-                            handleSearch;
+                            dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$genericReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateSearch"])(ref.current.value));
+                            console.log(state);
+                        // handleSearch
                         },
                         type: "submit",
                         className: "absolute right-0 top-0 h-full px-4 bg-orange-500 text-white rounded-r-lg hover:bg-orange-600",

@@ -270,14 +270,14 @@ function UserCartService() {
     };
     this.deleteFromCart = async function(userId, productId) {
         try {
-            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post('/user/cart/deleteFromCart', null, {
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].delete('/user/cart/deleteFromCart', {
                 params: {
                     userId,
                     productId
                 },
                 headers: getHeaders()
             });
-            if (response.status === 200 && response.data.success) {
+            if (response.status === 200) {
                 return response.data;
             } else {
                 throw new Error(response.data.message || 'Failed to delete item from cart');

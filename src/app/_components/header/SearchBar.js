@@ -10,8 +10,8 @@ export default function SearchBar() {
   const dispatch=useDispatch();
 
   const ref=useRef(null);
-  const handleSearch=()=>{
-    console.log(ref);
+    const handleSearch=()=>{
+    console.log()
     dispatch(updateSearch(ref.current.value));
     Router.reload("/products");
     
@@ -27,8 +27,8 @@ export default function SearchBar() {
         />
         <button
           onClick={()=>{
-            // dispatch(updateSearch(ref.current.value));console.log(state)
-            handleSearch
+            dispatch(updateSearch(ref.current.value));console.log(state)
+            // handleSearch
           }}
           type="submit"
           className="absolute right-0 top-0 h-full px-4 bg-orange-500 text-white rounded-r-lg hover:bg-orange-600"

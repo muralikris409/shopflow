@@ -1,8 +1,8 @@
 {
   "pages": {
     "/product/[name]/page": [
-      "static/chunks/_a91c21._.js",
-      "static/chunks/src_app_favicon_ico_mjs_ddfdf0._.js",
+      "static/chunks/_df74ce._.js",
+      "static/chunks/src_app_icon_png_mjs_f06f12._.js",
       "static/chunks/[root of the server]__a2f1cd._.css",
       "static/chunks/node_modules_next_6e9986._.js",
       "static/chunks/node_modules_axios_lib_c4c49c._.js",
