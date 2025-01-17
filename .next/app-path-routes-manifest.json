@@ -1,0 +1,1 @@
+{"/api/auth/[...nextauth]/route":"/api/auth/[...nextauth]","/favicon.ico/route":"/favicon.ico","/_not-found/page":"/_not-found","/cart/page":"/cart","/(authentication)/auth/page":"/auth","/product/[name]/page":"/product/[name]","/page":"/","/products/page":"/products","/products/subcategory/[id]/page":"/products/subcategory/[id]"}
