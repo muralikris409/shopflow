@@ -2,10 +2,12 @@ import { axiosInstance as axios } from '../api/axios';
 
 export async function loadWishlist(userId, token) {
   try {
-    const response = await axios.get('/viewWishlist', {
+    const response = await axios.get('/user/wishlist/viewWishlist', {
       params: { userId },
       headers: {
         Authorization: `Bearer ${token}`,
+        
+    'Content-Type': 'application/json',
       },
     });
     return response.data.data.products || [];
@@ -15,31 +17,29 @@ export async function loadWishlist(userId, token) {
   }
 }
 
-export async function addProductToWishlist(userId, product, token) {
+
+export async function addOrRemoveProductFromWishlist(userId, productId, token) {
   try {
-    await axios.post('/addOrRemoveItem', null, {
-      params: { userId, productId: product.id },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.post(
+      '/user/wishlist/addOrRemoveItem',
+      {},
+      {
+        params: { userId, productId: productId },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response; 
   } catch (error) {
-    console.error('Error adding product to wishlist:', error);
+    console.error('Error adding or removing product to wishlist:', error);
+    throw error;
   }
 }
 
-export async function removeProductFromWishlist(userId, productId, token) {
-  try {
-    await axios.post('/addOrRemoveItem', null, {
-      params: { userId, productId },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  } catch (error) {
-    console.error('Error removing product from wishlist:', error);
-  }
-}
+
+
 
 export async function getWishlist(userId, token) {
   return await loadWishlist(userId, token);

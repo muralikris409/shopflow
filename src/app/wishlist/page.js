@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { loadWishlist, removeProductFromWishlist } from '../service/WishListService';
 import { useSelector } from 'react-redux';
 import WithAuth from '../_routeprotector/WithAuth';
+import { addOrRemoveProductFromWishlist } from '../service/WishListService';
 const Wishlist = () => {
   const [products, setProducts] = useState([]);
   
@@ -18,7 +19,8 @@ const Wishlist = () => {
       try {
         if (userId) {
           const wishlistProducts = await loadWishlist(userId, token);
-          console.log(wishlistProducts);
+          console.log("wishlist:",wishlistProducts);
+
           setProducts(wishlistProducts);
         }
       } catch (err) {
@@ -30,13 +32,15 @@ const Wishlist = () => {
   }, [userId, token]);
 
   const handleRemoveProduct = async (productId) => {
+    console.log(products);
     try {
       if (userId) {
         setProducts((prevProducts) => prevProducts.filter((product) => product.productId !== productId));
-        await removeProductFromWishlist(userId, productId, token);
+        await addOrRemoveProductFromWishlist(userId, productId, token);
       }
     } catch (err) {
       setError('Failed to remove product from wishlist. Please try again later.');
+      console.log(err)
     }
   };
 
@@ -82,6 +86,7 @@ const Wishlist = () => {
 export default WithAuth(Wishlist);
 
 function WishlistTile({ product, onRemoveProduct }) {
+  
   return (
     <li className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
       <div className="shrink-0">

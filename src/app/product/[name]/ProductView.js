@@ -3,10 +3,11 @@ import { addProduct } from '@/app/service/GuestCartService';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import UserCartService from "../../service/UserCartService";
-
+import { addOrRemoveProductFromWishlist } from '@/app/service/WishListService';
 const ProductView = ({ product = {} }) => {
   const isLoggedIn = useSelector((state) => state.session.user);
   console.log(isLoggedIn);
+  const token = useSelector((state) => state.session.token);    
 
   const {
     name = "Unknown Product",
@@ -55,7 +56,21 @@ const ProductView = ({ product = {} }) => {
       setMessageType('success');
     }
   }
-  
+  async function handleAddorRemoveFromWishlist() {
+    try {
+      const response = await addOrRemoveProductFromWishlist(isLoggedIn.id, product.id,token);
+      console.log(response);
+        setMessage(response?.data?.message||"Product Added to Wishlist");
+        setMessageType('success');
+     
+      
+      
+    } catch (error) {
+      setMessage('An unexpected error occurred. Please try again.');
+      setMessageType('error');
+      console.error("Error updating wishlist:", error);
+    }
+  }
   return (
     <section className="py-12 sm:py-16">
       <div className="container mx-auto px-4">
@@ -128,6 +143,12 @@ const ProductView = ({ product = {} }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 Add to Cart
+              </button>
+              <button onClick={handleAddorRemoveFromWishlist} type="button" className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" className="shrink-0 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                Add to Wishlist
               </button>
             </div>
 

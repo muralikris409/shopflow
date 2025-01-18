@@ -6,22 +6,22 @@ module.exports = {
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: __turbopack_require_stub__ } = __turbopack_context__;
 {
 __turbopack_esm__({
-    "addProductToWishlist": (()=>addProductToWishlist),
+    "addOrRemoveProductFromWishlist": (()=>addOrRemoveProductFromWishlist),
     "clearWishlist": (()=>clearWishlist),
     "getWishlist": (()=>getWishlist),
-    "loadWishlist": (()=>loadWishlist),
-    "removeProductFromWishlist": (()=>removeProductFromWishlist)
+    "loadWishlist": (()=>loadWishlist)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/api/axios.js [app-ssr] (ecmascript)");
 ;
 async function loadWishlist(userId, token) {
     try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].get('/viewWishlist', {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].get('/user/wishlist/viewWishlist', {
             params: {
                 userId
             },
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
             }
         });
         return response.data.data.products || [];
@@ -30,34 +30,22 @@ async function loadWishlist(userId, token) {
         return [];
     }
 }
-async function addProductToWishlist(userId, product, token) {
+async function addOrRemoveProductFromWishlist(userId, productId, token) {
     try {
-        await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].post('/addOrRemoveItem', null, {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].post('/user/wishlist/addOrRemoveItem', {}, {
             params: {
                 userId,
-                productId: product.id
+                productId: productId
             },
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
             }
         });
+        return response;
     } catch (error) {
-        console.error('Error adding product to wishlist:', error);
-    }
-}
-async function removeProductFromWishlist(userId, productId, token) {
-    try {
-        await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].post('/addOrRemoveItem', null, {
-            params: {
-                userId,
-                productId
-            },
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-    } catch (error) {
-        console.error('Error removing product from wishlist:', error);
+        console.error('Error adding or removing product to wishlist:', error);
+        throw error;
     }
 }
 async function getWishlist(userId, token) {
@@ -132,6 +120,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$red
 ;
 ;
 ;
+;
 const Wishlist = ()=>{
     const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
@@ -142,7 +131,7 @@ const Wishlist = ()=>{
             try {
                 if (userId) {
                     const wishlistProducts = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$WishListService$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["loadWishlist"])(userId, token);
-                    console.log(wishlistProducts);
+                    console.log("wishlist:", wishlistProducts);
                     setProducts(wishlistProducts);
                 }
             } catch (err) {
@@ -155,13 +144,15 @@ const Wishlist = ()=>{
         token
     ]);
     const handleRemoveProduct = async (productId)=>{
+        console.log(products);
         try {
             if (userId) {
                 setProducts((prevProducts)=>prevProducts.filter((product)=>product.productId !== productId));
-                await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$WishListService$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["removeProductFromWishlist"])(userId, productId, token);
+                await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$WishListService$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["addOrRemoveProductFromWishlist"])(userId, productId, token);
             }
         } catch (err) {
             setError('Failed to remove product from wishlist. Please try again later.');
+            console.log(err);
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -176,19 +167,19 @@ const Wishlist = ()=>{
                         children: "Your Wishlist"
                     }, void 0, false, {
                         fileName: "[project]/src/app/wishlist/page.js",
-                        lineNumber: 49,
+                        lineNumber: 53,
                         columnNumber: 13
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                         className: "text-2xl font-semibold text-gray-900",
                         children: "Your Wishlist is empty"
                     }, void 0, false, {
                         fileName: "[project]/src/app/wishlist/page.js",
-                        lineNumber: 50,
+                        lineNumber: 54,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/wishlist/page.js",
-                    lineNumber: 46,
+                    lineNumber: 50,
                     columnNumber: 9
                 }, this),
                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -196,7 +187,7 @@ const Wishlist = ()=>{
                     children: error
                 }, void 0, false, {
                     fileName: "[project]/src/app/wishlist/page.js",
-                    lineNumber: 55,
+                    lineNumber: 59,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -214,43 +205,43 @@ const Wishlist = ()=>{
                                             onRemoveProduct: handleRemoveProduct
                                         }, index, false, {
                                             fileName: "[project]/src/app/wishlist/page.js",
-                                            lineNumber: 66,
+                                            lineNumber: 70,
                                             columnNumber: 21
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/wishlist/page.js",
-                                    lineNumber: 64,
+                                    lineNumber: 68,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/wishlist/page.js",
-                                lineNumber: 63,
+                                lineNumber: 67,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/wishlist/page.js",
-                            lineNumber: 62,
+                            lineNumber: 66,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/wishlist/page.js",
-                        lineNumber: 61,
+                        lineNumber: 65,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/wishlist/page.js",
-                    lineNumber: 60,
+                    lineNumber: 64,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/wishlist/page.js",
-            lineNumber: 45,
+            lineNumber: 49,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/wishlist/page.js",
-        lineNumber: 44,
+        lineNumber: 48,
         columnNumber: 5
     }, this);
 };
@@ -267,12 +258,12 @@ function WishlistTile({ product, onRemoveProduct }) {
                     alt: product.name
                 }, void 0, false, {
                     fileName: "[project]/src/app/wishlist/page.js",
-                    lineNumber: 88,
+                    lineNumber: 93,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/wishlist/page.js",
-                lineNumber: 87,
+                lineNumber: 92,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -287,17 +278,17 @@ function WishlistTile({ product, onRemoveProduct }) {
                                 children: product.name
                             }, void 0, false, {
                                 fileName: "[project]/src/app/wishlist/page.js",
-                                lineNumber: 94,
+                                lineNumber: 99,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/wishlist/page.js",
-                            lineNumber: 93,
+                            lineNumber: 98,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/wishlist/page.js",
-                        lineNumber: 92,
+                        lineNumber: 97,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -319,34 +310,34 @@ function WishlistTile({ product, onRemoveProduct }) {
                                     d: "M6 18L18 6M6 6l12 12"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/wishlist/page.js",
-                                    lineNumber: 111,
+                                    lineNumber: 116,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/wishlist/page.js",
-                                lineNumber: 104,
+                                lineNumber: 109,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/wishlist/page.js",
-                            lineNumber: 99,
+                            lineNumber: 104,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/wishlist/page.js",
-                        lineNumber: 98,
+                        lineNumber: 103,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/wishlist/page.js",
-                lineNumber: 91,
+                lineNumber: 96,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/wishlist/page.js",
-        lineNumber: 86,
+        lineNumber: 91,
         columnNumber: 5
     }, this);
 }
