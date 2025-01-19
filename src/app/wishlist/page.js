@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useEffect,useState } from 'react';
 import { loadWishlist, removeProductFromWishlist } from '../service/WishListService';
 import { useSelector } from 'react-redux';
 import WithAuth from '../_routeprotector/WithAuth';
@@ -107,7 +108,7 @@ function WishlistTile({ product, onRemoveProduct }) {
             className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900"
           >
             <svg
-              className="h-5 w-5"
+              className=  "h-5 w-5"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"

@@ -1,19 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { createOrder } from '../service/PaymentService';  
-import { verifyPayment } from '../service/PaymentService'; 
+import { createOrder, verifyPayment } from '../service/PaymentService';  
+import { checkOutOrder, getOrderById, verifyPaymentAndUpdateOrder } from '../service/OrderService';
 
 const OrderSummary = ({ 
   title, 
   steps, 
-  data, 
+  userId,
+   orders,
   shippingMethods, 
+  
   billingAddress,
   totalBill 
 }) => {
+   
+    
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [orderData, setOrderData] = useState(orders?.orders?.order?.items||orders.orders.items);
+  console.log("orderData:",orders);
 
   useEffect(() => {
+    // const fetchOrders = async () => {
+    //   try {
+    //     const orders = await getOrderById(orderId);
+    //     setOrderData(orders);
+    //   } catch (err) {
+    //     setError(err.message);
+    //   }
+    // };
+
+    // fetchOrders();
+
     // Dynamically load Razorpay script
     const script = document.createElement('script');
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
@@ -25,41 +42,38 @@ const OrderSummary = ({
     return () => {
       document.body.removeChild(script); // Cleanup script when component unmounts
     };
-  }, []);
-
+  }, [userId]);
+  const handleVerify=async (verifiedData)=>{
+    // console.log(verifiedData);
+    const response=await verifyPaymentAndUpdateOrder(
+razorpay_order_id,
+razorpay_payment_id,
+razorpay_signature
+)
+console.log(response);
+  }
   const handlePayment = async () => {
     setLoading(true);
     try {
-      const userId = 1; 
-      const items = data.map(cartItem => ({
-        productId: cartItem.product.id,
-        quantity: cartItem.quantity,
-      }));
-
-      // Step 1: Create the order
-      const { razorpayOrder, order } = await createOrder(userId, items);
-      console.log(razorpayOrder);
-
-      // Step 2: Set Razorpay options
+    const {razorpayOrder,...data}=await checkOutOrder(orders.id||orders.orders.id);
+    console.log(razorpayOrder);
       const options = {
         key: 'rzp_test_nTbKdtgjeOQLhc', // Replace with your Razorpay Key
-        amount: Math.ceil(100), // Amount in paise (multiply by 100)
-        currency: razorpayOrder.currency,
+        amount: Math.ceil(totalBill * 100), // Amount in paise (multiply by 100)
+        currency: razorpayOrder?.currency,
         name: 'Your Shop',
         description: 'Payment for your order',
-        order_id: razorpayOrder.id,
+        order_id: razorpayOrder?.id,
         handler: async function (response) {
-            console.log(response)
-          const { razorpay_payment_id, 
-            razorpay_signature,
-        razorpay_order_id } = response;
+          console.log(response);
+          const { razorpay_payment_id, razorpay_signature, razorpay_order_id } = response;
 
           // Step 3: Verify the payment
           const verificationResult = await verifyPayment(razorpay_order_id, razorpay_payment_id, razorpay_signature);
     
           if (verificationResult.success) {
-            const verifyResponse=await verifyPayment(this.order_id,payment_id,razorpay_signature);
-            console.log(verifyResponse);
+            const verifyResponse = await verifyPayment(this.order_id, razorpay_payment_id, razorpay_signature);
+            handleVerify(verificationResult);
             // Proceed with further actions like redirecting or showing order confirmation
           } else {
             alert('Payment verification failed.');
@@ -78,13 +92,14 @@ const OrderSummary = ({
       // Step 4: Instantiate Razorpay after script load
       const rzp = new window.Razorpay(options); // Use `window.Razorpay` since it's globally available after script load
       rzp.open();
+      
     } catch (err) {
       setLoading(false);
       setError(err.message);
       console.error('Payment process failed:', err);
     }
   };
-
+  console.log("data ",orderData[0]?.items);
   return (
     <div>
       {/* Order summary and steps layout */}
@@ -115,19 +130,32 @@ const OrderSummary = ({
         <div className="px-4 pt-8">
           <p className="text-xl font-medium">Order Summary</p>
           <p className="text-gray-400">Check your items. And select a suitable shipping method.</p>
-          {/* Cart items display */}
-          <div className="mt-8 space-y-3 max-h-96 overflow-y-scroll rounded-lg border bg-white px-2 py-4 sm:px-6">
-            {data?.map((cartItem, index) => (
-              <div key={index} className="flex flex-col rounded-lg bg-white sm:flex-row">
-                <img className="m-2 h-24 w-28 rounded-md border object-cover object-center" src={cartItem.product?.image || "/_assets/image.png"} alt={cartItem.product.name} />
-                <div className="flex w-full flex-col px-4 py-4">
-                  <span className="font-semibold">{cartItem?.product.name}</span>
-                  <span className="float-right text-gray-400">{cartItem?.product.description}</span>
-                  <span className="float-right text-gray-400">{"Quantity: " + cartItem?.quantity}</span>
-                  <p className="text-lg font-bold">{"$" + cartItem?.product.offerPrice}</p>
-                </div>
-              </div>
-            ))}
+          {/* Order items display */}
+          <div className="mt-8 space-y-2  max-h-96 overflow-y-scroll rounded-lg border bg-white px-2 py-4 sm:px-6">
+          {orderData?.map((orderItem, index) => {
+        console.log("Item",orderItem);
+  return (<div key={index} className="flex flex-col rounded-lg bg-white sm:flex-row">
+    <img
+      className="m-2 h-24 w-28 rounded-md border object-cover object-center"
+      src={orderItem.product?.image || "/_assets/image.png"}
+      alt={orderItem.product?.name || "Product Image"}
+    />
+    <div className="flex w-full flex-col px-4 py-4">
+      <span className="font-semibold">{orderItem?.product.name || "Product Name"}</span>
+      <span className="float-right text-gray-400">
+        {orderItem.product?.description || "No description available."}
+      </span>
+      <span className="float-right text-gray-400">
+        {"Quantity: " + (orderItem.quantity || 1)}
+      </span>
+      <p className="text-lg font-bold">
+        {"$" + (orderItem.product?.offerPrice || "0.00")}
+      </p>
+    </div>
+  </div>)
+})}
+
+
           </div>
           
           <p className="text-lg p-2">{"Total Bill: $" + totalBill}</p>

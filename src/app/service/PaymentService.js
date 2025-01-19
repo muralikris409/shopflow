@@ -8,7 +8,6 @@ export const createOrder = async (userId, items) => {
     });
     console.log(response);
 
-    // Handle error if the response is not successful
     if (response.status !== 201) {
       throw new Error("Error creating order");
     }

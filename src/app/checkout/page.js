@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import OrderSummary from './Checkout';  
 import UserCartService from '../service/UserCartService';
 import { useSelector } from 'react-redux';
+import { useSearchParams } from 'next/navigation';
 
 const fieldData = {
   title: "Order Summary",
@@ -38,7 +39,9 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const userCartService = new UserCartService();
   const userId = useSelector((state) => state.session.user?.id);
-  
+  const searchParams = useSearchParams();
+  const orders = JSON.parse(searchParams.get('data'))||[];
+
   const fetchProducts = async () => {
     if (!userId) return;  
     try {
@@ -69,6 +72,8 @@ export default function Page() {
       title={fieldData.title} 
       steps={fieldData.steps} 
       data={products.items} 
+      userId={userId}
+      orders={orders}
       totalBill={products.totalAmount}
       shippingMethods={fieldData.shippingMethods} 
       billingAddress={fieldData.billingAddress}

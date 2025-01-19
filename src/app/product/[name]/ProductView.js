@@ -4,12 +4,16 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import UserCartService from "../../service/UserCartService";
 import { addOrRemoveProductFromWishlist } from '@/app/service/WishListService';
+import { useRouter } from 'next/navigation';
+import { createOrder } from '@/app/service/OrderService';
+
 const ProductView = ({ product = {} }) => {
   const isLoggedIn = useSelector((state) => state.session.user);
-  console.log(isLoggedIn);
-  const token = useSelector((state) => state.session.token);    
+  const token = useSelector((state) => state.session.token);
+  const router = useRouter();
 
   const {
+    id,
     name = "Unknown Product",
     description = "No description available.",
     actualPrice = 0,
@@ -17,6 +21,7 @@ const ProductView = ({ product = {} }) => {
     discountPercentage = 0,
     rating = 0,
     stock = 0,
+    image = "/_assets/image.png",
   } = product;
 
   const reviewsCount = 1209;
@@ -25,91 +30,103 @@ const ProductView = ({ product = {} }) => {
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
 
-  function handleBuy() {
-    console.log("Buying product:", product);
-  }
-
-  function handleAddToCart() {
-    console.log("Adding product to cart:", product);
-  
-    if (isLoggedIn) {
+  const showMessage = (msg, type) => {
+    setMessage(msg);
+    setMessageType(type);
+    setTimeout(() => {
+      setMessage('');
+      setMessageType('');
+    }, 3000); // Clear message after 3 seconds
+  };
+  const handleNavigation = (order) => {
+    const data = {
+      orders: order
       
-      userCartService.addItemToCart(isLoggedIn.id, product.id) 
+    };
+
+    // Stringify the object and encode it to make it URL-safe
+    const encodedData = encodeURIComponent(JSON.stringify(data));
+
+    router.push(`/checkout?data=${encodedData}`);
+  };
+  const handleBuy = async () => {
+    try {
+      const userId = isLoggedIn ? isLoggedIn.id : "";
+      const items = [{ productId: id, quantity: 1 }];
+
+      const order = await createOrder(userId, items);
+      console.log("Order:", order);
+
+      showMessage('Order created successfully! Redirecting to checkout...', 'success');
+      handleNavigation(order);
+    } catch (err) {
+      console.error('Order creation failed:', err);
+      showMessage('Failed to create order. Please try again.', 'error');
+    }
+  };
+
+  const handleAddToCart = () => {
+    console.log("Adding product to cart:", product);
+
+    if (isLoggedIn) {
+      userCartService.addItemToCart(isLoggedIn.id, id)
         .then((response) => {
-          console.log(response)
           if (response.status === 200 || response.status === 201) {
-            setMessage('Product added to your cart!');
-            setMessageType('success');
+            showMessage('Product added to your cart!', 'success');
           } else {
-            setMessage(response.message || 'Failed to add product to cart. Please try again.');
-            setMessageType('error');
+            showMessage(response.message || 'Failed to add product to cart. Please try again.', 'error');
           }
         })
         .catch((error) => {
-          setMessage('An unexpected error occurred. Please try again.');
-          setMessageType('error');
+          showMessage('An unexpected error occurred. Please try again.', 'error');
           console.error("Error adding to cart:", error);
         });
     } else {
       addProduct(product);
-      setMessage('Product added to your guest cart!');
-      setMessageType('success');
+      showMessage('Product added to your guest cart!', 'success');
     }
-  }
-  async function handleAddorRemoveFromWishlist() {
+  };
+
+  const handleAddorRemoveFromWishlist = async () => {
     try {
-      const response = await addOrRemoveProductFromWishlist(isLoggedIn.id, product.id,token);
-      console.log(response);
-        setMessage(response?.data?.message||"Product Added to Wishlist");
-        setMessageType('success');
-     
-      
-      
+      const response = await addOrRemoveProductFromWishlist(isLoggedIn.id, id, token);
+      showMessage(response?.data?.message || "Product added to Wishlist", 'success');
     } catch (error) {
-      setMessage('An unexpected error occurred. Please try again.');
-      setMessageType('error');
+      showMessage('An unexpected error occurred. Please try again.', 'error');
       console.error("Error updating wishlist:", error);
     }
-  }
+  };
+
   return (
     <section className="py-12 sm:py-16">
       <div className="container mx-auto px-4">
+        {/* Navigation */}
         <nav className="flex">
           <ol role="list" className="flex items-center">
             <li className="text-left">
-              <div className="-m-1">
-                <a href="#" className="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"> Home </a>
-              </div>
+              <a href="#" className="rounded-md p-1 text-sm font-medium text-gray-600 hover:text-gray-800">Home</a>
             </li>
             <li className="text-left">
-              <div className="flex items-center">
-                <span className="mx-2 text-gray-400">/</span>
-                <div className="-m-1">
-                  <a href="#" className="rounded-md p-1 text-sm font-medium text-gray-600 focus:text-gray-900 focus:shadow hover:text-gray-800"> Products </a>
-                </div>
-              </div>
+              <span className="mx-2 text-gray-400">/</span>
+              <a href="#" className="rounded-md p-1 text-sm font-medium text-gray-600 hover:text-gray-800">Products</a>
             </li>
           </ol>
         </nav>
 
-        <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
-          <div className="lg:col-span-3 lg:row-end-1">
-            <div className="lg:flex lg:items-start">
-              <div className="lg:order-2 lg:ml-5">
-                <div className="max-w-xl overflow-hidden rounded-lg">
-                  <img className="h-full w-full max-w-full object-cover"  src={product?.image || "/_assets/image.png"} alt={name} />
-                </div>
-              </div>
-              <div className="mt-2 w-full lg:order-1 lg:w-32 lg:flex-shrink-0"></div>
-            </div>
+        {/* Product Content */}
+        <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-5 lg:gap-16">
+          {/* Product Image */}
+          <div className="lg:col-span-3">
+            <img className="h-full w-full max-w-full object-cover" src={image} alt={name} />
           </div>
 
-          <div className="lg:col-span-2 lg:row-span-2 lg:row-end-2">
+          {/* Product Details */}
+          <div className="lg:col-span-2">
             <h1 className="text-2xl font-bold text-gray-900">{name}</h1>
-
             <div className="mt-5 flex items-center">
+              {/* Ratings */}
               <div className="flex items-center">
-                {Array.from({ length: Math.ceil(rating) }).map((_, index) => (
+                {Array.from({ length: 5 }).map((_, index) => (
                   <svg
                     key={index}
                     className={`block h-4 w-4 align-middle ${index < Math.floor(rating) ? 'text-yellow-500' : 'text-gray-400'}`}
@@ -124,6 +141,7 @@ const ProductView = ({ product = {} }) => {
               <p className="ml-2 text-sm font-medium text-gray-500">{reviewsCount} Reviews</p>
             </div>
 
+            {/* Price */}
             <h2 className="mt-8 text-base text-gray-900">Price</h2>
             <div className="mt-3 flex items-center">
               <span className="text-3xl font-bold">${offerPrice.toFixed(2)}</span>
@@ -131,42 +149,36 @@ const ProductView = ({ product = {} }) => {
               <span className="ml-2 text-sm text-green-600">({discountPercentage.toFixed(2)}% off)</span>
             </div>
 
+            {/* Action Buttons */}
             <div className="mt-10 grid grid-col md:grid-row lg:grid-row gap-5 items-center space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
-              <button onClick={handleBuy} type="button" className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" className="shrink-0 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
+              <button onClick={handleBuy} className="inline-flex items-center justify-center rounded-md bg-gray-900 px-12 py-3 text-white hover:bg-gray-800">
                 Buy Now
               </button>
-              <button onClick={handleAddToCart} type="button" className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" className="shrink-0 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
+              <button onClick={handleAddToCart} className="inline-flex items-center justify-center rounded-md bg-gray-900 px-12 py-3 text-white hover:bg-gray-800">
                 Add to Cart
               </button>
-              <button onClick={handleAddorRemoveFromWishlist} type="button" className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" className="shrink-0 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
+              <button onClick={handleAddorRemoveFromWishlist} className="inline-flex items-center justify-center rounded-md bg-gray-900 px-12 py-3 text-white hover:bg-gray-800">
                 Add to Wishlist
               </button>
             </div>
 
+            {/* Message Display */}
             {message && (
               <div className={`mt-4 p-2 text-sm ${messageType === 'success' ? 'text-green-600' : 'text-red-600'}`}>
                 {message}
               </div>
             )}
 
+            {/* Additional Details */}
             <ul className="mt-8 space-y-2">
-              <li className="flex items-center text-left text-sm font-medium text-gray-600">
-                <svg className="mr-2 block h-5 w-5 align-middle text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <li className="flex items-center text-sm font-medium text-gray-600">
+                <svg className="mr-2 block h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Free shipping worldwide
               </li>
-              <li className="flex items-center text-left text-sm font-medium text-gray-600">
-                <svg className="mr-2 block h-5 w-5 align-middle text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <li className="flex items-center text-sm font-medium text-gray-600">
+                <svg className="mr-2 block h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                 </svg>
                 Cancel Anytime
@@ -174,6 +186,7 @@ const ProductView = ({ product = {} }) => {
             </ul>
           </div>
 
+          {/* Product Description */}
           <div className="lg:col-span-3">
             <div className="prose max-w-none">
               <p>{description}</p>

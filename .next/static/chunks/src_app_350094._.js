@@ -89,24 +89,44 @@ const withAuth = (WrappedComponent)=>{
         const isLoggedIn = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"])({
             "withAuth.useSelector[isLoggedIn]": (state)=>state.session.user
         }["withAuth.useSelector[isLoggedIn]"]);
+        const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true); // Add a loading state
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
             "withAuth.useEffect": ()=>{
-                if (!isLoggedIn) {
+                if (isLoggedIn !== undefined) {
+                    setLoading(false);
+                }
+            }
+        }["withAuth.useEffect"], [
+            isLoggedIn
+        ]);
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+            "withAuth.useEffect": ()=>{
+                if (!loading && !isLoggedIn) {
                     router.push('/auth');
                 }
             }
         }["withAuth.useEffect"], [
+            loading,
             isLoggedIn,
             router
         ]);
+        if (loading) {
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                children: "Loading..."
+            }, void 0, false, {
+                fileName: "[project]/src/app/_routeprotector/WithAuth.js",
+                lineNumber: 24,
+                columnNumber: 14
+            }, this);
+        }
         return isLoggedIn ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(WrappedComponent, {
             ...props
         }, void 0, false, {
             fileName: "[project]/src/app/_routeprotector/WithAuth.js",
-            lineNumber: 16,
+            lineNumber: 27,
             columnNumber: 25
         }, this) : null;
-    }, "xoKeVB1ProExXN9tpmv4LUoRJUE=", false, function() {
+    }, "v92IOJfwe7W8oEfFynXpFVxiNds=", false, function() {
         return [
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"]
@@ -134,6 +154,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$red
 ;
 var _s = __turbopack_refresh__.signature();
 'use client';
+;
 ;
 ;
 ;
@@ -194,19 +215,19 @@ const Wishlist = ()=>{
                         children: "Your Wishlist"
                     }, void 0, false, {
                         fileName: "[project]/src/app/wishlist/page.js",
-                        lineNumber: 53,
+                        lineNumber: 54,
                         columnNumber: 13
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                         className: "text-2xl font-semibold text-gray-900",
                         children: "Your Wishlist is empty"
                     }, void 0, false, {
                         fileName: "[project]/src/app/wishlist/page.js",
-                        lineNumber: 54,
+                        lineNumber: 55,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/wishlist/page.js",
-                    lineNumber: 50,
+                    lineNumber: 51,
                     columnNumber: 9
                 }, this),
                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -214,7 +235,7 @@ const Wishlist = ()=>{
                     children: error
                 }, void 0, false, {
                     fileName: "[project]/src/app/wishlist/page.js",
-                    lineNumber: 59,
+                    lineNumber: 60,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -232,43 +253,43 @@ const Wishlist = ()=>{
                                             onRemoveProduct: handleRemoveProduct
                                         }, index, false, {
                                             fileName: "[project]/src/app/wishlist/page.js",
-                                            lineNumber: 70,
+                                            lineNumber: 71,
                                             columnNumber: 21
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/wishlist/page.js",
-                                    lineNumber: 68,
+                                    lineNumber: 69,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/wishlist/page.js",
-                                lineNumber: 67,
+                                lineNumber: 68,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/wishlist/page.js",
-                            lineNumber: 66,
+                            lineNumber: 67,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/wishlist/page.js",
-                        lineNumber: 65,
+                        lineNumber: 66,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/wishlist/page.js",
-                    lineNumber: 64,
+                    lineNumber: 65,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/wishlist/page.js",
-            lineNumber: 49,
+            lineNumber: 50,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/wishlist/page.js",
-        lineNumber: 48,
+        lineNumber: 49,
         columnNumber: 5
     }, this);
 };
@@ -292,12 +313,12 @@ function WishlistTile({ product, onRemoveProduct }) {
                     alt: product.name
                 }, void 0, false, {
                     fileName: "[project]/src/app/wishlist/page.js",
-                    lineNumber: 93,
+                    lineNumber: 94,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/wishlist/page.js",
-                lineNumber: 92,
+                lineNumber: 93,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -312,17 +333,17 @@ function WishlistTile({ product, onRemoveProduct }) {
                                 children: product.name
                             }, void 0, false, {
                                 fileName: "[project]/src/app/wishlist/page.js",
-                                lineNumber: 99,
+                                lineNumber: 100,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/wishlist/page.js",
-                            lineNumber: 98,
+                            lineNumber: 99,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/wishlist/page.js",
-                        lineNumber: 97,
+                        lineNumber: 98,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -344,34 +365,34 @@ function WishlistTile({ product, onRemoveProduct }) {
                                     d: "M6 18L18 6M6 6l12 12"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/wishlist/page.js",
-                                    lineNumber: 116,
+                                    lineNumber: 117,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/wishlist/page.js",
-                                lineNumber: 109,
+                                lineNumber: 110,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/wishlist/page.js",
-                            lineNumber: 104,
+                            lineNumber: 105,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/wishlist/page.js",
-                        lineNumber: 103,
+                        lineNumber: 104,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/wishlist/page.js",
-                lineNumber: 96,
+                lineNumber: 97,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/wishlist/page.js",
-        lineNumber: 91,
+        lineNumber: 92,
         columnNumber: 5
     }, this);
 }

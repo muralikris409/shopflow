@@ -18,7 +18,6 @@ const createOrder = async (userId, items)=>{
             items
         });
         console.log(response);
-        // Handle error if the response is not successful
         if (response.status !== 201) {
             throw new Error("Error creating order");
         }
@@ -97,6 +96,7 @@ const OrderSummary = ({ title, steps, data, shippingMethods, billingAddress, tot
             // Step 1: Create the order
             const { razorpayOrder, order } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$PaymentService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createOrder"])(userId, items);
             console.log(razorpayOrder);
+            console.log(order);
             // Step 2: Set Razorpay options
             const options = {
                 key: 'rzp_test_nTbKdtgjeOQLhc',
