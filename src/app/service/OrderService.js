@@ -10,13 +10,15 @@ export const createOrder = async (userId, items) => {
   }
 };
 
-export const verifyPaymentAndUpdateOrder = async (orderId, paymentId, paymentSignature) => {
+export const verifyPaymentAndUpdateOrder = async (razorpayId, paymentId, paymentSignature,orderId) => {
+    console.log(orderId);
   try {
     const response = await axiosInstance.post('/user/order/verify', {}
     ,
     {
         params:{
             orderId,
+            razorpayId,
             paymentId,
             paymentSignature,
         }
@@ -40,10 +42,22 @@ export const checkOutOrder = async (orderId) => {
     throw new Error(error?.response?.data?.message || 'Error fetching user orders.');
   }
 };
-
+export const getOrderByUserId = async (userId) => {
+    console.log("userId:", userId);
+    try {
+      const response = await axiosInstance.get(`/user/order/getUserOrder?userId=${userId}`
+       
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user orders:', error);
+      throw new Error(error?.response?.data?.message || 'Error fetching user orders.');
+    }
+  };
 export const cancelOrder = async (orderId) => {
+    console.log(orderId);
   try {
-    const response = await axiosInstance.put(`/user/order/${orderId}/cancel`);
+    const response = await axiosInstance.put(`/user/order/${orderId}/cancel?orderId=${orderId}`);
     return response.data;
   } catch (error) {
     console.error('Error cancelling order:', error);

@@ -20,16 +20,23 @@ export const createOrder = async (userId, items) => {
 };
 
 export const verifyPayment = async (orderId, paymentId, paymentSignature) => {
+    console.log(orderId);
+    console.log(paymentId);
+    console.log(paymentSignature)
   try {
     const response = await axiosInstance.post("user/order/verify", {
-      orderId,
-      paymentId,
-      paymentSignature,
-    });
-
-    if (response.status !== 200) {
-      throw new Error("Payment verification failed");
+    },
+    {
+        params:{
+            orderId,
+            paymentId,
+            paymentSignature,
+        }
     }
+
+);
+
+  
 
     return response.data; 
   } catch (error) {

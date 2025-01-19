@@ -93,11 +93,11 @@ export default function UserMenu() {
                   Sign out
                 </button>
               </li>
-              <li className="px-4 py-2">
+              {/* <li className="px-4 py-2">
                 <Link href="/account" className="block hover:text-orange-500 hover:underline">
                   My Account
                 </Link>
-              </li>
+              </li> */}
               <li className="px-4 py-2">
                 <Link href="/orders" className="block hover:text-orange-500 hover:underline">
                   My Orders
@@ -108,16 +108,7 @@ export default function UserMenu() {
                   My Wishlist
                 </Link>
               </li>
-              <li className="px-4 py-2">
-                <Link href="/coupons" className="block hover:text-orange-500 hover:underline">
-                  My Coupons
-                </Link>
-              </li>
-              <li className="px-4 py-2">
-                <Link href="/help" className="block hover:text-orange-500 hover:underline">
-                  Help Center
-                </Link>
-              </li>
+           
             </ul>
           ) : (
             <div className="p-4 text-center">

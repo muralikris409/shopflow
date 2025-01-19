@@ -373,8 +373,8 @@ var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_
 {
 __turbopack_esm__({
     "cancelOrder": (()=>cancelOrder),
+    "checkOutOrder": (()=>checkOutOrder),
     "createOrder": (()=>createOrder),
-    "getOrderById": (()=>getOrderById),
     "verifyPaymentAndUpdateOrder": (()=>verifyPaymentAndUpdateOrder)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/api/axios.js [app-ssr] (ecmascript)");
@@ -393,10 +393,12 @@ const createOrder = async (userId, items)=>{
 };
 const verifyPaymentAndUpdateOrder = async (orderId, paymentId, paymentSignature)=>{
     try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].post('/user/order/verify', {
-            orderId,
-            paymentId,
-            paymentSignature
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].post('/user/order/verify', {}, {
+            params: {
+                orderId,
+                paymentId,
+                paymentSignature
+            }
         });
         return response.data;
     } catch (error) {
@@ -404,10 +406,11 @@ const verifyPaymentAndUpdateOrder = async (orderId, paymentId, paymentSignature)
         throw new Error(error?.response?.data?.message || 'Error verifying payment.');
     }
 };
-const getOrderById = async (orderId)=>{
+const checkOutOrder = async (orderId)=>{
+    console.log("orderid:", orderId);
     try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].get(`/user/order/checkoutOrder?${orderId}`);
-        return response.data.orders;
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].post(`/user/order/checkoutOrder?orderId=${orderId}`);
+        return response.data;
     } catch (error) {
         console.error('Error fetching user orders:', error);
         throw new Error(error?.response?.data?.message || 'Error fetching user orders.');

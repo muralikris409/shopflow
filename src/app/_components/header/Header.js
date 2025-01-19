@@ -44,13 +44,13 @@ export default function Header() {
             <Link href="#" className="text-sm text-gray-300">
               Download the <br/><span className="text-white hover:text-orange-500">ShopFlow App</span>
             </Link>
-            <OptionsMenu />
+            {/* <OptionsMenu /> */}
             <UserMenu />
             <div>
             <Link href="/cart" className="relative flex items-center justify-center text-gray-300 hover:text-white">
               {CartIcon}
               {(isLoggedIn)&&<span className="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 text-xs font-bold leading-none text-white bg-orange-500 rounded-full transform translate-x-2 -translate-y-2">
-                0
+                
               </span>}
             </Link>
             </div>
@@ -67,7 +67,7 @@ export default function Header() {
 
         {isMobileMenuOpen && (
           <div className="lg:hidden bg-gray-800 px-4 py-2 space-y-4">
-            <OptionsMenu />
+            {/* <OptionsMenu /> */}
             <UserMenu />
           </div>
         )}

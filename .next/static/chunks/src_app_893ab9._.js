@@ -223,6 +223,7 @@ __turbopack_esm__({
     "cancelOrder": (()=>cancelOrder),
     "checkOutOrder": (()=>checkOutOrder),
     "createOrder": (()=>createOrder),
+    "getOrderByUserId": (()=>getOrderByUserId),
     "verifyPaymentAndUpdateOrder": (()=>verifyPaymentAndUpdateOrder)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/api/axios.js [app-client] (ecmascript)");
@@ -239,12 +240,16 @@ const createOrder = async (userId, items)=>{
         throw new Error(error?.response?.data?.message || 'Error creating order.');
     }
 };
-const verifyPaymentAndUpdateOrder = async (orderId, paymentId, paymentSignature)=>{
+const verifyPaymentAndUpdateOrder = async (razorpayId, paymentId, paymentSignature, orderId)=>{
+    console.log(orderId);
     try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post('/user/order/verify', {
-            orderId,
-            paymentId,
-            paymentSignature
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post('/user/order/verify', {}, {
+            params: {
+                orderId,
+                razorpayId,
+                paymentId,
+                paymentSignature
+            }
         });
         return response.data;
     } catch (error) {
@@ -253,17 +258,29 @@ const verifyPaymentAndUpdateOrder = async (orderId, paymentId, paymentSignature)
     }
 };
 const checkOutOrder = async (orderId)=>{
+    console.log("orderid:", orderId);
     try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].get(`/user/order/checkoutOrder?${orderId}`);
-        return response.data.orders;
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post(`/user/order/checkoutOrder?orderId=${orderId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user orders:', error);
+        throw new Error(error?.response?.data?.message || 'Error fetching user orders.');
+    }
+};
+const getOrderByUserId = async (userId)=>{
+    console.log("userId:", userId);
+    try {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].get(`/user/order/getUserOrder?userId=${userId}`);
+        return response.data;
     } catch (error) {
         console.error('Error fetching user orders:', error);
         throw new Error(error?.response?.data?.message || 'Error fetching user orders.');
     }
 };
 const cancelOrder = async (orderId)=>{
+    console.log(orderId);
     try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].put(`/user/order/${orderId}/cancel`);
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].put(`/user/order/${orderId}/cancel?orderId=${orderId}`);
         return response.data;
     } catch (error) {
         console.error('Error cancelling order:', error);
