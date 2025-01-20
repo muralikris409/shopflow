@@ -31,6 +31,7 @@ const Cart = () => {
           const userCart = await userCartService.viewCart(isLoggedIn.id);
           setProducts(userCart.items);
           setTotalBill(userCart.totalAmount);
+          console.log(userCart);
         } else {
           const guestCart = typeof window !== 'undefined' ? guestGetCart() : [];
           setProducts(guestCart);
@@ -82,8 +83,11 @@ const Cart = () => {
       if (isLoggedIn) {
         await userCartService.deleteFromCart(isLoggedIn.id, productId);
         const userCart = await userCartService.viewCart(isLoggedIn.id);
+        
         setProducts(userCart.items);
         setTotalBill(userCart.totalAmount);
+        
+
       } else {
         guestRemoveProduct(productId);
         setProducts(guestGetCart());

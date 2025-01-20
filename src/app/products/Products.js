@@ -57,19 +57,21 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ProductCard from "../_components/ProductCard";
 import { axiosInstance as axios } from "../api/axios";
-import { getFilteredProducts,getProducts, getSearchedProduct } from "../service/ProductService";
+import { getFilteredProducts, getProducts, getSearchedProduct } from "../service/ProductService";
 import Pagination from "../_components/Pagination"; 
 
 export default function Products(props) {
   const { filter, search } = useSelector((state) => state.generic.data);
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false); 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 10;
-
+  
   useEffect(() => {
     const fetchFilteredProducts = async () => {
+      setLoading(true); 
       try {
         let response;
         if (search) {
@@ -82,9 +84,10 @@ export default function Products(props) {
       
         setProducts(response.data);
         setTotalPages(response.totalPages);
-
       } catch (err) {
         setError(err);
+      } finally {
+        setLoading(false); // End loading
       }
     };
 
@@ -94,7 +97,9 @@ export default function Products(props) {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="w-min-full grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {error ? (
+        {loading ? (
+          <p>Loading products...</p>
+        ) : error ? (
           <p>Failed to load products. Please try again later.</p>
         ) : products?.length > 0 ? (
           products?.map((product) => (
@@ -114,6 +119,7 @@ export default function Products(props) {
     </div>
   );
 }
+
 
 // export async function getSearchedProduct(query, page) {
 //   const response = await axios.get("/products/getProductBySearch", {

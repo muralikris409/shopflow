@@ -6,8 +6,9 @@ import { fetchData } from "./_lib/categoryReducer";
 // import { getProducts } from "./data/ProductService";
 import Products from "./products/Products";
 import ProductCarousel from "./_components/ProductCarousel";
-import { getProducts } from "./service/ProductService";
-import FlashDeal from "./_components/FlashDeal"; 
+import {getFlashDeals, getProducts, getTrendingProducts } from "./service/ProductService";
+import FlashDeal from "./_components/Deals"; 
+import Deals from "./_components/Deals";
 
 export default async function Home()  {
   let products = [];
@@ -22,12 +23,20 @@ export default async function Home()  {
   console.log(products)
   return (
     <>
-   <div className="flex flex-col lg:flex-row px-2">
+   <div className="flex flex-col lg:flex-row">
         <Carousel />
     
-        <FlashDeal/>
+        
 </div>
- 
+<div className="flex flex-col lg:flex-row">
+<Deals title={"Flash Deals"} fetchData={getFlashDeals}/>
+<Deals title={"Trending Products"} fetchData={getTrendingProducts}/>
+        
+</div>
+
+
+
+
       <ProductCarousel title={"Picks for you"} href={"/products"}>
   {products && products?.length > 0 ? ( 
     products.slice(0, 10).map((product, i) => (
@@ -37,6 +46,7 @@ export default async function Home()  {
     <p className="text-gray-500">No products available.</p>
   )}
 </ProductCarousel>
+
     </>
   );
 }

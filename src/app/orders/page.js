@@ -2,15 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import { getOrderByUserId, cancelOrder } from '../service/OrderService';
 import { useSelector } from 'react-redux';
-
+import withAuth from '../_routeprotector/WithAuth';
 const OrderTile = ({ order, onCancel }) => {
   const handleCancel = () => {
     onCancel(order.id);
   };
-
+ console.log(order);
   return (
     <section className="bg-white py-5 text-gray-700 sm:py-5 lg:py-5  overflow-y-hidden">
-      <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-4">
         <div className="mx-auto max-w-md text-center mb-4">
           <h2 className="font-serif text-2xl font-bold sm:text-3xl">
             Order ID <span className="text-gray-500"># {order.id}</span>
@@ -39,7 +39,7 @@ const OrderTile = ({ order, onCancel }) => {
                     Cancel
                   </button>
                 )}
-              <p className="text-sm text-gray-500">Estimated arrival: {order.estimatedArrival}</p>
+              {/* <p className="text-sm text-gray-500">Estimated arrival: {order.estimatedArrival}</p> */}
             </div>
             <div className="flex items-center space-x-4 mt-4 overflow-x-auto scroll-smooth">
               {order.items.map((item) => (
@@ -78,11 +78,11 @@ const OrderPage = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      if (!userId) return; // Early return if userId is not available
+      if (!userId) return; 
       try {
         setLoading(true);
         const data = await getOrderByUserId(userId);
-        setOrders(data.orders || []); // Fallback to empty array if orders is not available
+        setOrders(data.orders || []); 
       } catch (err) {
         setError(err?.message || "An error occurred");
       } finally {
@@ -118,15 +118,18 @@ const OrderPage = () => {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">My Orders</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <>
+    <h1 className="text-3xl font-bold mb-6 text-center">My Orders</h1>
+
+    <div className="container mx-auto p-4 max-h-lvh overflow-y-scroll my-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {orders.map((order) => (
           <OrderTile key={order.id} order={order} onCancel={handleCancelOrder} />
         ))}
       </div>
     </div>
+    </>
   );
 };
 
-export default OrderPage;
+export default withAuth(OrderPage);

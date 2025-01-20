@@ -70,7 +70,7 @@ const Wishlist = () => {
                   {products.map((product, index) => (
                     <WishlistTile
                       key={index}
-                      product={product}
+                      product={product.product}
                       onRemoveProduct={handleRemoveProduct}
                     />
                   ))}
@@ -87,28 +87,35 @@ const Wishlist = () => {
 export default WithAuth(Wishlist);
 
 function WishlistTile({ product, onRemoveProduct }) {
-  
   return (
     <li className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
       <div className="shrink-0">
-        <img className="h-24 w-24 max-w-full rounded-lg object-cover" src={product.image} alt={product.name} />
+        <img className="h-24 w-24 max-w-full rounded-lg object-cover" src={product.image||"/_assets/image.png"} alt={product.name} />
       </div>
 
       <div className="relative flex flex-1 flex-col justify-between">
         <div className="sm:col-gap-5 sm:grid sm:grid-cols-2">
           <div className="pr-8 sm:pr-5">
             <p className="text-base font-semibold text-gray-900">{product.name}</p>
+            <p className="text-sm text-gray-500">Brand: {product.brand}</p>
+            <p className="text-sm text-gray-500">{product.description}</p>
+            <div className="flex items-center space-x-2">
+              <p className="text-sm text-gray-500 line-through">${product.actualPrice}</p>
+              <p className="text-sm text-orange-500">${product.offerPrice}</p>
+              <p className="text-sm text-green-500">({product.discountPercentage}% off)</p>
+            </div>
+            <p className="text-sm text-gray-500">Rating: {product.rating} / 5</p>
           </div>
         </div>
 
         <div className="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
           <button
-            onClick={() => onRemoveProduct(product.productId)}
+            onClick={() => onRemoveProduct(product.id)}
             type="button"
             className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900"
           >
             <svg
-              className=  "h-5 w-5"
+              className="h-5 w-5"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -122,3 +129,5 @@ function WishlistTile({ product, onRemoveProduct }) {
     </li>
   );
 }
+
+

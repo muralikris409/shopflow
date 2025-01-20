@@ -21,7 +21,7 @@ const withAuth = (WrappedComponent) => {
     }, [loading, isLoggedIn, router]);
 
     if (loading) {
-      return <div>Loading...</div>; 
+      return <div>Loading.......</div>; 
     }
 
     return isLoggedIn ? <WrappedComponent {...props} /> : null;

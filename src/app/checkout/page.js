@@ -4,6 +4,7 @@ import OrderSummary from './Checkout';
 import UserCartService from '../service/UserCartService';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'next/navigation';
+import withAuth from '../_routeprotector/WithAuth';
 
 const fieldData = {
   title: "Order Summary",
@@ -34,7 +35,7 @@ const fieldData = {
   }
 };
 
-export default function Page() {
+function Page() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const userCartService = new UserCartService();
@@ -80,3 +81,4 @@ export default function Page() {
     />
   );
 }
+export default withAuth(Page);

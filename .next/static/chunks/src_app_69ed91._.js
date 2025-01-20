@@ -26,8 +26,11 @@ const createOrder = async (userId, items)=>{
         throw new Error(error?.response?.data?.message || 'Error creating order.');
     }
 };
-const verifyPaymentAndUpdateOrder = async (razorpayId, paymentId, paymentSignature, orderId)=>{
-    console.log(orderId);
+const verifyPaymentAndUpdateOrder = async (orderId, razorpayId, paymentId, paymentSignature)=>{
+    console.log("order_id:", orderId);
+    console.log("razorpayId:", razorpayId);
+    console.log("paymentId:", paymentId);
+    console.log("siign:", paymentSignature);
     try {
         const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post('/user/order/verify', {}, {
             params: {
@@ -99,10 +102,11 @@ const OrderTile = ({ order, onCancel })=>{
     const handleCancel = ()=>{
         onCancel(order.id);
     };
+    console.log(order);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         className: "bg-white py-5 text-gray-700 sm:py-5 lg:py-5  overflow-y-hidden",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8",
+            className: "mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-4",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "mx-auto max-w-md text-center mb-4",
@@ -171,29 +175,16 @@ const OrderTile = ({ order, onCancel })=>{
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex justify-between items-center mb-2",
-                                children: [
-                                    order.orderStatus !== 'CANCELLED' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        className: "px-4 py-1 bg-red-500 text-white rounded hover:bg-red-700 transition-colors duration-200",
-                                        onClick: handleCancel,
-                                        children: "Cancel"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/orders/page.js",
-                                        lineNumber: 35,
-                                        columnNumber: 19
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-sm text-gray-500",
-                                        children: [
-                                            "Estimated arrival: ",
-                                            order.estimatedArrival
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/app/orders/page.js",
-                                        lineNumber: 42,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
+                                children: order.orderStatus !== 'CANCELLED' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    className: "px-4 py-1 bg-red-500 text-white rounded hover:bg-red-700 transition-colors duration-200",
+                                    onClick: handleCancel,
+                                    children: "Cancel"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/orders/page.js",
+                                    lineNumber: 35,
+                                    columnNumber: 19
+                                }, this)
+                            }, void 0, false, {
                                 fileName: "[project]/src/app/orders/page.js",
                                 lineNumber: 33,
                                 columnNumber: 13
@@ -306,11 +297,11 @@ const OrderPage = ()=>{
         "OrderPage.useEffect": ()=>{
             const fetchOrders = {
                 "OrderPage.useEffect.fetchOrders": async ()=>{
-                    if (!userId) return; // Early return if userId is not available
+                    if (!userId) return;
                     try {
                         setLoading(true);
                         const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$OrderService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getOrderByUserId"])(userId);
-                        setOrders(data.orders || []); // Fallback to empty array if orders is not available
+                        setOrders(data.orders || []);
                     } catch (err) {
                         setError(err?.message || "An error occurred");
                     } finally{
@@ -360,8 +351,7 @@ const OrderPage = ()=>{
             columnNumber: 12
         }, this);
     }
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "container mx-auto p-4",
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                 className: "text-3xl font-bold mb-6 text-center",
@@ -369,29 +359,32 @@ const OrderPage = ()=>{
             }, void 0, false, {
                 fileName: "[project]/src/app/orders/page.js",
                 lineNumber: 122,
-                columnNumber: 7
+                columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
-                children: orders.map((order)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(OrderTile, {
-                        order: order,
-                        onCancel: handleCancelOrder
-                    }, order.id, false, {
-                        fileName: "[project]/src/app/orders/page.js",
-                        lineNumber: 125,
-                        columnNumber: 11
-                    }, this))
+                className: "container mx-auto p-4 max-h-lvh overflow-y-scroll my-10",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
+                    children: orders.map((order)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(OrderTile, {
+                            order: order,
+                            onCancel: handleCancelOrder
+                        }, order.id, false, {
+                            fileName: "[project]/src/app/orders/page.js",
+                            lineNumber: 127,
+                            columnNumber: 11
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/src/app/orders/page.js",
+                    lineNumber: 125,
+                    columnNumber: 7
+                }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/orders/page.js",
-                lineNumber: 123,
-                columnNumber: 7
+                lineNumber: 124,
+                columnNumber: 5
             }, this)
         ]
-    }, void 0, true, {
-        fileName: "[project]/src/app/orders/page.js",
-        lineNumber: 121,
-        columnNumber: 5
-    }, this);
+    }, void 0, true);
 };
 _s(OrderPage, "zn54W0HDfMWNdD2KHsb800M4r94=", false, function() {
     return [
@@ -399,10 +392,11 @@ _s(OrderPage, "zn54W0HDfMWNdD2KHsb800M4r94=", false, function() {
     ];
 });
 _c1 = OrderPage;
-const __TURBOPACK__default__export__ = OrderPage;
-var _c, _c1;
+const __TURBOPACK__default__export__ = _c2 = withAuth(OrderPage);
+var _c, _c1, _c2;
 __turbopack_refresh__.register(_c, "OrderTile");
 __turbopack_refresh__.register(_c1, "OrderPage");
+__turbopack_refresh__.register(_c2, "%default%");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }

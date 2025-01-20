@@ -35,7 +35,6 @@ const getFilteredProducts = async (filters)=>{
     }
 };
 async function subCategoryProducts(id) {
-    console.log(id);
     try {
         const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["axiosInstance"].get("/products/getProductsByCategory", {
             params: {

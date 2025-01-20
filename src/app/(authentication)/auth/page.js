@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSession } from "../../_lib/sessionReducer";
 import { useRouter } from "next/navigation";
 import { googleOAuth, login, signUp } from "@/app/service/UserService";
-
+import Link from "next/link";
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({});
@@ -213,9 +213,9 @@ const AuthForm = () => {
 
         {isLogin && (
           <div className="mt-4">
-            <a href="#" className="text-sm text-gray-500 hover:text-orange-500">
+            <Link href="user/forgetpwd" className="text-sm text-gray-500 hover:text-orange-500">
               Forgot your password?
-            </a>
+            </Link>
           </div>
         )}
 

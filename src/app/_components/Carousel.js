@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
@@ -32,6 +32,7 @@ export const Carousel = ({
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
         }, 3000);
+        return () => clearInterval(interval); // Cleanup interval on unmount
     }, [items.length]);
 
     const goToSlide = (index) => {
@@ -47,34 +48,33 @@ export const Carousel = ({
     };
 
     return (
-        <div id="default-carousel" className="relative h-95 w-4/4 m-1 lg:w-3/4 m-3 sm:m-4 md:m-6 lg:m-8 p-0.5   bg-gray-900 rounded-lg" data-carousel="slide">
-            <div className="relative h-56 overflow-hidden rounded-lg md:h-96 ">
+        <div className="relative w-full h-96 m-0 bg-gray-900  overflow-hidden" data-carousel="slide">
+            <div className="relative h-full overflow-hidden">
                 {items.map((item, index) => (
                     <div
                         key={index}
-                        className={`${
-                            index === currentIndex ? 'block' : 'hidden'
-                        } duration-700 ease-in-out`}
+                        className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
                         data-carousel-item
                     >
                         <Link href={item.link}>
                             <img
                                 src={item.src}
-                                className="absolute object-cover	 block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer"
+                                className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
                                 alt={item.alt || 'Carousel Image'}
                             />
+                            <div className="absolute inset-0 bg-white/30 backdrop-blur-md rounded-lg"></div>
                         </Link>
                     </div>
                 ))}
             </div>
 
-            <div className="absolute z-9 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+            <div className="absolute z-10 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
                 {items.map((_, index) => (
                     <button
                         key={index}
                         type="button"
-                        className={`w-3 h-3 rounded-full ${
-                            index === currentIndex ? 'bg-blue-600' : 'bg-gray-300'
+                        className={`w-3 h-3 rounded-full transition duration-300 ${
+                            index === currentIndex ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'
                         }`}
                         aria-current={index === currentIndex ? 'true' : 'false'}
                         aria-label={`Slide ${index + 1}`}
@@ -94,7 +94,7 @@ export const Carousel = ({
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
-                        viewBox="0 0 6 10"
+                        viewBox="0 0  6 10"
                     >
                         <path
                             stroke="currentColor"
@@ -110,7 +110,7 @@ export const Carousel = ({
 
             <button
                 type="button"
-                className="absolute top-0 right-0 z-9 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                 onClick={goToNext}
             >
                 <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">

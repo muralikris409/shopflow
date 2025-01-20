@@ -19,7 +19,7 @@ export const createOrder = async (userId, items) => {
   }
 };
 
-export const verifyPayment = async (orderId, paymentId, paymentSignature) => {
+export const verifyPayment = async (orderId,razorpayId, paymentId, paymentSignature) => {
     console.log(orderId);
     console.log(paymentId);
     console.log(paymentSignature)
@@ -28,6 +28,7 @@ export const verifyPayment = async (orderId, paymentId, paymentSignature) => {
     },
     {
         params:{
+            razorpayId,
             orderId,
             paymentId,
             paymentSignature,
@@ -36,11 +37,22 @@ export const verifyPayment = async (orderId, paymentId, paymentSignature) => {
 
 );
 
+
   
 
     return response.data; 
   } catch (error) {
     console.error("Error in verifyPayment:", error);
     throw error;
+  }
+};
+export const failedVerify = async (orderId) => {
+    console.log("orderid:",orderId)
+  try { 
+    const response = await axiosInstance.post(`/user/order/failedVerify?orderId=${orderId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user orders:', error);
+    throw new Error(error?.response?.data?.message || 'Error fetching user orders.');
   }
 };

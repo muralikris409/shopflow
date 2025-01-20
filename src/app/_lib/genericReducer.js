@@ -5,6 +5,7 @@ const initialState={
         search:null,
         language:null,
         country:null,
+        signature:null,
     },
 }
 const genericReducer = createSlice({

@@ -353,6 +353,7 @@ function Products(props) {
     }["Products.useSelector"]);
     const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [currentPage, setCurrentPage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
     const [totalPages, setTotalPages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
     const itemsPerPage = 10;
@@ -360,6 +361,7 @@ function Products(props) {
         "Products.useEffect": ()=>{
             const fetchFilteredProducts = {
                 "Products.useEffect.fetchFilteredProducts": async ()=>{
+                    setLoading(true);
                     try {
                         let response;
                         if (search) {
@@ -373,6 +375,8 @@ function Products(props) {
                         setTotalPages(response.totalPages);
                     } catch (err) {
                         setError(err);
+                    } finally{
+                        setLoading(false); // End loading
                     }
                 }
             }["Products.useEffect.fetchFilteredProducts"];
@@ -388,28 +392,34 @@ function Products(props) {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "w-min-full grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4",
-                children: error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    children: "Loading products..."
+                }, void 0, false, {
+                    fileName: "[project]/src/app/products/Products.js",
+                    lineNumber: 101,
+                    columnNumber: 11
+                }, this) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     children: "Failed to load products. Please try again later."
                 }, void 0, false, {
                     fileName: "[project]/src/app/products/Products.js",
-                    lineNumber: 98,
+                    lineNumber: 103,
                     columnNumber: 11
                 }, this) : products?.length > 0 ? products?.map((product)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_components$2f$ProductCard$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         product: product
                     }, product.id, false, {
                         fileName: "[project]/src/app/products/Products.js",
-                        lineNumber: 101,
+                        lineNumber: 106,
                         columnNumber: 13
                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     children: "No products available"
                 }, void 0, false, {
                     fileName: "[project]/src/app/products/Products.js",
-                    lineNumber: 104,
+                    lineNumber: 109,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/products/Products.js",
-                lineNumber: 96,
+                lineNumber: 99,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -420,18 +430,18 @@ function Products(props) {
                     onPageChange: (page)=>setCurrentPage(page)
                 }, void 0, false, {
                     fileName: "[project]/src/app/products/Products.js",
-                    lineNumber: 108,
+                    lineNumber: 113,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/products/Products.js",
-                lineNumber: 107,
+                lineNumber: 112,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/products/Products.js",
-        lineNumber: 95,
+        lineNumber: 98,
         columnNumber: 5
     }, this);
 } // export async function getSearchedProduct(query, page) {
@@ -458,7 +468,7 @@ function Products(props) {
  //     throw err;
  //   }
  // };
-_s(Products, "bvVNPUVQkOPSDgGm1JKJZnIBOH4=", false, function() {
+_s(Products, "bthHZGySnS/GHkkVnJYTo1tOCVk=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"]
     ];

@@ -1,4 +1,4 @@
-import { axiosInstance as axios } from "../api/axios";
+import { axiosInstance as axios, axiosInstance } from "../api/axios";
 
 export async function login(formdata) {
     const { email, password } = formdata;
@@ -73,3 +73,35 @@ export async function googleOAuth(data) {
         }
     }
 }
+
+export async function forgotPassword(email) {
+  try {
+    const response = await axiosInstance.post(`user/forgotPassword?email=${email}`);
+    console.log(response)
+    if (response.status === 200) {
+      return {
+        ok: true,
+        data: response.data,
+      };
+    }
+    return {
+      ok: false,
+      message: response.data?.message || "Something went wrong.",
+    };
+  } catch (err) {
+    console.log(err)
+    throw err;
+  }
+}
+export async function resetPassword(token,password){
+    try{
+    const response=await axiosInstance.post(`user/resetPassword?token=${token}&newPassword=${password}`);
+        return response;
+    console.log(response);
+   
+}
+catch(err){
+    console.log(err);
+}
+}
+

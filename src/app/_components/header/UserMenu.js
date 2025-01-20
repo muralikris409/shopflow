@@ -104,6 +104,11 @@ export default function UserMenu() {
                 </Link>
               </li>
               <li className="px-4 py-2">
+                <Link href="/cart" className="block hover:text-orange-500 hover:underline">
+                  My Cart
+                </Link>
+              </li>
+              <li className="px-4 py-2">
                 <Link href="/wishlist" className="block hover:text-orange-500 hover:underline">
                   My Wishlist
                 </Link>

@@ -19,7 +19,6 @@ export const getFilteredProducts = async (filters) => {
 };
 
 export async function subCategoryProducts(id) {
-    console.log(id);
     try {
         const response = await axios.get("/products/getProductsByCategory", {
             params: { subCategoryId: id },
@@ -28,6 +27,7 @@ export async function subCategoryProducts(id) {
         return response.data;
     } catch (err) {
         console.error("Error fetching products by subcategory:", err.message);
+        
         throw new Error("Unable to fetch products for the selected subcategory. Please try again later.");
     }
 }
@@ -44,7 +44,7 @@ export async function getProducts(page = 1) {
     }
 }
 
-export default async function getFlashDeals() {
+export  async function getFlashDeals() {
     try {
         const flashdeal = await axios.get("/products/flashDealProducts");
         return flashdeal.data;
@@ -53,7 +53,42 @@ export default async function getFlashDeals() {
         throw new Error("Unable to fetch flash deals. Please try again later.");
     }
 }
-
+export  async function getTrendingProducts() {
+    try {
+        const trending = await axios.get("/products/getTrendingProducts");
+        return trending.data;
+    } catch (err) {
+        console.error("Error fetching flash deals:", err.message);
+        throw new Error("Unable to fetch flash deals. Please try again later.");
+    }
+}
+export  async function getNewArrivals() {
+    try {
+        const newarrival = await axios.get("/products/getNewArrivals");
+        return newarrival.data;
+    } catch (err) {
+        console.error("Error fetching flash deals:", err.message);
+        throw new Error("Unable to fetch flash deals. Please try again later.");
+    }
+}
+export  async function getLimitedTimeOffers() {
+    try {
+        const limiteddeal = await axios.get("/products/getLimitedTimeOffers");
+        return limiteddeal.data;
+    } catch (err) {
+        console.error("Error fetching flash deals:", err.message);
+        throw new Error("Unable to fetch flash deals. Please try again later.");
+    }
+}
+export  async function getClearanceSaleProducts() {
+    try {
+        const clearanceSale = await axios.get("/products/getClearanceSaleProducts");
+        return clearanceSale.data;
+    } catch (err) {
+        console.error("Error fetching flash deals:", err.message);
+        throw new Error("Unable to fetch flash deals. Please try again later.");
+    }
+}
 export async function getCategory() {
     try {
         const categories = await axios.get("/products/Category");

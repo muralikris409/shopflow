@@ -8,7 +8,6 @@ import { useSelector,useDispatch } from 'react-redux';
 import MenuBar from "./MenuBar"
 import { fetchData } from '@/app/_lib/categoryReducer';
 import SearchBar from './SearchBar';
-
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isLoggedIn=useSelector(state=>state.session.user);
@@ -20,6 +19,7 @@ export default function Header() {
 
   useEffect(() => {
     dispatch(fetchData('/products/category'));
+    
   }, [dispatch]);
 
   const categories=useSelector(state=>state.api);

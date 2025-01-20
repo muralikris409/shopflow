@@ -49,6 +49,9 @@ const Carousel = ({ items = [
                     }["Carousel.useEffect.interval"]);
                 }
             }["Carousel.useEffect.interval"], 3000);
+            return ({
+                "Carousel.useEffect": ()=>clearInterval(interval)
+            })["Carousel.useEffect"]; // Cleanup interval on unmount
         }
     }["Carousel.useEffect"], [
         items.length
@@ -63,46 +66,54 @@ const Carousel = ({ items = [
         setCurrentIndex((prevIndex)=>(prevIndex - 1 + items.length) % items.length);
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        id: "default-carousel",
-        className: "relative h-95 w-4/4 m-1 lg:w-3/4 m-3 sm:m-4 md:m-6 lg:m-8 p-0.5   bg-gray-900 rounded-lg",
+        className: "relative w-full h-96 m-0 bg-gray-900  overflow-hidden",
         "data-carousel": "slide",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "relative h-56 overflow-hidden rounded-lg md:h-96 ",
+                className: "relative h-full overflow-hidden",
                 children: items.map((item, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: `${index === currentIndex ? 'block' : 'hidden'} duration-700 ease-in-out`,
+                        className: `absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`,
                         "data-carousel-item": true,
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             href: item.link,
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                src: item.src,
-                                className: "absolute object-cover block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer",
-                                alt: item.alt || 'Carousel Image'
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/_components/Carousel.js",
-                                lineNumber: 61,
-                                columnNumber: 29
-                            }, this)
-                        }, void 0, false, {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                    src: item.src,
+                                    className: "object-cover w-full h-full transition-transform duration-300 transform hover:scale-105",
+                                    alt: item.alt || 'Carousel Image'
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/_components/Carousel.js",
+                                    lineNumber: 60,
+                                    columnNumber: 29
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "absolute inset-0 bg-white/30 backdrop-blur-md rounded-lg"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/_components/Carousel.js",
+                                    lineNumber: 65,
+                                    columnNumber: 29
+                                }, this)
+                            ]
+                        }, void 0, true, {
                             fileName: "[project]/src/app/_components/Carousel.js",
-                            lineNumber: 60,
+                            lineNumber: 59,
                             columnNumber: 25
                         }, this)
                     }, index, false, {
                         fileName: "[project]/src/app/_components/Carousel.js",
-                        lineNumber: 53,
+                        lineNumber: 54,
                         columnNumber: 21
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/_components/Carousel.js",
-                lineNumber: 51,
+                lineNumber: 52,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute z-9 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse",
+                className: "absolute z-10 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse",
                 children: items.map((_, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         type: "button",
-                        className: `w-3 h-3 rounded-full ${index === currentIndex ? 'bg-blue-600' : 'bg-gray-300'}`,
+                        className: `w-3 h-3 rounded-full transition duration-300 ${index === currentIndex ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'}`,
                         "aria-current": index === currentIndex ? 'true' : 'false',
                         "aria-label": `Slide ${index + 1}`,
                         onClick: ()=>goToSlide(index)
@@ -128,7 +139,7 @@ const Carousel = ({ items = [
                             "aria-hidden": "true",
                             xmlns: "http://www.w3.org/2000/svg",
                             fill: "none",
-                            viewBox: "0 0 6 10",
+                            viewBox: "0 0  6 10",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                                 stroke: "currentColor",
                                 strokeLinecap: "round",
@@ -166,7 +177,7 @@ const Carousel = ({ items = [
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 type: "button",
-                className: "absolute top-0 right-0 z-9 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none",
+                className: "absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none",
                 onClick: goToNext,
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                     className: "inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none",
@@ -215,7 +226,7 @@ const Carousel = ({ items = [
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/_components/Carousel.js",
-        lineNumber: 50,
+        lineNumber: 51,
         columnNumber: 9
     }, this);
 };
@@ -428,12 +439,16 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: __turbopack_require_stub__ } = __turbopack_context__;
 {
 __turbopack_esm__({
-    "default": (()=>getFlashDeals),
     "getCategory": (()=>getCategory),
+    "getClearanceSaleProducts": (()=>getClearanceSaleProducts),
     "getFilteredProducts": (()=>getFilteredProducts),
+    "getFlashDeals": (()=>getFlashDeals),
+    "getLimitedTimeOffers": (()=>getLimitedTimeOffers),
+    "getNewArrivals": (()=>getNewArrivals),
     "getProductByID": (()=>getProductByID),
     "getProducts": (()=>getProducts),
     "getSearchedProduct": (()=>getSearchedProduct),
+    "getTrendingProducts": (()=>getTrendingProducts),
     "subCategoryProducts": (()=>subCategoryProducts)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
@@ -457,7 +472,6 @@ const getFilteredProducts = async (filters)=>{
     }
 };
 async function subCategoryProducts(id) {
-    console.log(id);
     try {
         const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].get("/products/getProductsByCategory", {
             params: {
@@ -488,6 +502,42 @@ async function getFlashDeals() {
     try {
         const flashdeal = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].get("/products/flashDealProducts");
         return flashdeal.data;
+    } catch (err) {
+        console.error("Error fetching flash deals:", err.message);
+        throw new Error("Unable to fetch flash deals. Please try again later.");
+    }
+}
+async function getTrendingProducts() {
+    try {
+        const trending = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].get("/products/getTrendingProducts");
+        return trending.data;
+    } catch (err) {
+        console.error("Error fetching flash deals:", err.message);
+        throw new Error("Unable to fetch flash deals. Please try again later.");
+    }
+}
+async function getNewArrivals() {
+    try {
+        const newarrival = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].get("/products/getNewArrivals");
+        return newarrival.data;
+    } catch (err) {
+        console.error("Error fetching flash deals:", err.message);
+        throw new Error("Unable to fetch flash deals. Please try again later.");
+    }
+}
+async function getLimitedTimeOffers() {
+    try {
+        const limiteddeal = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].get("/products/getLimitedTimeOffers");
+        return limiteddeal.data;
+    } catch (err) {
+        console.error("Error fetching flash deals:", err.message);
+        throw new Error("Unable to fetch flash deals. Please try again later.");
+    }
+}
+async function getClearanceSaleProducts() {
+    try {
+        const clearanceSale = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].get("/products/getClearanceSaleProducts");
+        return clearanceSale.data;
     } catch (err) {
         console.error("Error fetching flash deals:", err.message);
         throw new Error("Unable to fetch flash deals. Please try again later.");
@@ -691,6 +741,7 @@ function Products(props) {
     }["Products.useSelector"]);
     const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [currentPage, setCurrentPage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
     const [totalPages, setTotalPages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
     const itemsPerPage = 10;
@@ -698,6 +749,7 @@ function Products(props) {
         "Products.useEffect": ()=>{
             const fetchFilteredProducts = {
                 "Products.useEffect.fetchFilteredProducts": async ()=>{
+                    setLoading(true);
                     try {
                         let response;
                         if (search) {
@@ -711,6 +763,8 @@ function Products(props) {
                         setTotalPages(response.totalPages);
                     } catch (err) {
                         setError(err);
+                    } finally{
+                        setLoading(false); // End loading
                     }
                 }
             }["Products.useEffect.fetchFilteredProducts"];
@@ -726,28 +780,34 @@ function Products(props) {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "w-min-full grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4",
-                children: error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    children: "Loading products..."
+                }, void 0, false, {
+                    fileName: "[project]/src/app/products/Products.js",
+                    lineNumber: 101,
+                    columnNumber: 11
+                }, this) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     children: "Failed to load products. Please try again later."
                 }, void 0, false, {
                     fileName: "[project]/src/app/products/Products.js",
-                    lineNumber: 98,
+                    lineNumber: 103,
                     columnNumber: 11
                 }, this) : products?.length > 0 ? products?.map((product)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_components$2f$ProductCard$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         product: product
                     }, product.id, false, {
                         fileName: "[project]/src/app/products/Products.js",
-                        lineNumber: 101,
+                        lineNumber: 106,
                         columnNumber: 13
                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     children: "No products available"
                 }, void 0, false, {
                     fileName: "[project]/src/app/products/Products.js",
-                    lineNumber: 104,
+                    lineNumber: 109,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/products/Products.js",
-                lineNumber: 96,
+                lineNumber: 99,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -758,18 +818,18 @@ function Products(props) {
                     onPageChange: (page)=>setCurrentPage(page)
                 }, void 0, false, {
                     fileName: "[project]/src/app/products/Products.js",
-                    lineNumber: 108,
+                    lineNumber: 113,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/products/Products.js",
-                lineNumber: 107,
+                lineNumber: 112,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/products/Products.js",
-        lineNumber: 95,
+        lineNumber: 98,
         columnNumber: 5
     }, this);
 } // export async function getSearchedProduct(query, page) {
@@ -796,7 +856,7 @@ function Products(props) {
  //     throw err;
  //   }
  // };
-_s(Products, "bvVNPUVQkOPSDgGm1JKJZnIBOH4=", false, function() {
+_s(Products, "bthHZGySnS/GHkkVnJYTo1tOCVk=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"]
     ];

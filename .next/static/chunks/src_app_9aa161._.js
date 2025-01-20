@@ -278,9 +278,9 @@ function UserMenu() {
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                             className: "px-4 py-2",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/wishlist",
+                                href: "/cart",
                                 className: "block hover:text-orange-500 hover:underline",
-                                children: "My Wishlist"
+                                children: "My Cart"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
                                 lineNumber: 107,
@@ -289,6 +289,22 @@ function UserMenu() {
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
                             lineNumber: 106,
+                            columnNumber: 15
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                            className: "px-4 py-2",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                href: "/wishlist",
+                                className: "block hover:text-orange-500 hover:underline",
+                                children: "My Wishlist"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/_components/header/UserMenu.js",
+                                lineNumber: 112,
+                                columnNumber: 17
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/_components/header/UserMenu.js",
+                            lineNumber: 111,
                             columnNumber: 15
                         }, this)
                     ]
@@ -304,12 +320,12 @@ function UserMenu() {
                         children: "Sign in or New Customer start here.."
                     }, void 0, false, {
                         fileName: "[project]/src/app/_components/header/UserMenu.js",
-                        lineNumber: 115,
+                        lineNumber: 120,
                         columnNumber: 15
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/_components/header/UserMenu.js",
-                    lineNumber: 114,
+                    lineNumber: 119,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
@@ -358,7 +374,8 @@ const initialState = {
         filter: null,
         search: null,
         language: null,
-        country: null
+        country: null,
+        signature: null
     }
 };
 const genericReducer = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createSlice"])({
@@ -728,157 +745,114 @@ const Navbar = ({ menuData = [] })=>{
         className: "bg-gray-900 text-white relative h-10",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "flex items-center justify-between w-3/5 sm:px-3 lg:px-6  py-4",
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "relative",
-                    onMouseEnter: ()=>setDropdownVisible(true),
-                    onMouseLeave: ()=>setDropdownVisible(false),
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            className: "flex items-center space-x-2 bg-gray-800 rounded-t-md px-1",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-sm font-semibold uppercase",
-                                    children: "Categories"
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "relative",
+                onMouseEnter: ()=>setDropdownVisible(true),
+                onMouseLeave: ()=>setDropdownVisible(false),
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        className: "flex items-center space-x-2 bg-gray-800 rounded-t-md px-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-sm font-semibold uppercase",
+                                children: "Categories"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/_components/header/MenuBar.js",
+                                lineNumber: 16,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                className: "h-5 w-5",
+                                fill: "none",
+                                viewBox: "0 0 24 24",
+                                stroke: "currentColor",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                    strokeLinecap: "round",
+                                    strokeLinejoin: "round",
+                                    strokeWidth: 2,
+                                    d: "M19 9l-7 7-7-7"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/_components/header/MenuBar.js",
-                                    lineNumber: 16,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                    xmlns: "http://www.w3.org/2000/svg",
-                                    className: "h-5 w-5",
-                                    fill: "none",
-                                    viewBox: "0 0 24 24",
-                                    stroke: "currentColor",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                        strokeLinecap: "round",
-                                        strokeLinejoin: "round",
-                                        strokeWidth: 2,
-                                        d: "M19 9l-7 7-7-7"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/_components/header/MenuBar.js",
-                                        lineNumber: 24,
-                                        columnNumber: 15
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/_components/header/MenuBar.js",
-                                    lineNumber: 17,
-                                    columnNumber: 13
+                                    lineNumber: 24,
+                                    columnNumber: 15
                                 }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/app/_components/header/MenuBar.js",
-                            lineNumber: 15,
-                            columnNumber: 11
-                        }, this),
-                        isDropdownVisible && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "absolute top-full left-0 bg-white text-black shadow-lg w-80 z-50",
-                            children: menuData?.map((category, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    onMouseEnter: ()=>setActiveCategory(index),
-                                    onMouseLeave: ()=>setActiveCategory(null),
-                                    className: "relative group",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "p-2 cursor-pointer text-sm font-semibold hover:text-gray-600",
-                                            children: [
-                                                category.name,
-                                                " "
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/app/_components/header/MenuBar.js",
-                                            lineNumber: 42,
-                                            columnNumber: 19
-                                        }, this),
-                                        activeCategory === index && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "absolute top-0 left-full bg-white text-black shadow-lg w-72 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                                                className: "p-4 space-y-2",
-                                                children: category.subCategories?.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                        href: `/products/subcategory/${item.id}`,
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                                            className: "text-sm hover:text-gray-600 cursor-pointer",
-                                                            children: item.name
-                                                        }, item.id, false, {
-                                                            fileName: "[project]/src/app/_components/header/MenuBar.js",
-                                                            lineNumber: 54,
-                                                            columnNumber: 29
-                                                        }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/_components/header/MenuBar.js",
+                                lineNumber: 17,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/_components/header/MenuBar.js",
+                        lineNumber: 15,
+                        columnNumber: 11
+                    }, this),
+                    isDropdownVisible && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute top-full left-0 bg-white text-black shadow-lg w-80 z-50",
+                        children: menuData?.map((category, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                onMouseEnter: ()=>setActiveCategory(index),
+                                onMouseLeave: ()=>setActiveCategory(null),
+                                className: "relative group",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "p-2 cursor-pointer text-sm font-semibold hover:text-gray-600",
+                                        children: [
+                                            category.name,
+                                            " "
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/_components/header/MenuBar.js",
+                                        lineNumber: 42,
+                                        columnNumber: 19
+                                    }, this),
+                                    activeCategory === index && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "absolute top-0 left-full bg-white text-black shadow-lg w-72 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                                            className: "p-4 space-y-2",
+                                            children: category.subCategories?.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                    href: `/products/subcategory/${item.id}`,
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                                        className: "text-sm hover:text-gray-600 cursor-pointer",
+                                                        children: item.name
                                                     }, item.id, false, {
                                                         fileName: "[project]/src/app/_components/header/MenuBar.js",
-                                                        lineNumber: 53,
-                                                        columnNumber: 27
-                                                    }, this))
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/_components/header/MenuBar.js",
-                                                lineNumber: 50,
-                                                columnNumber: 23
-                                            }, this)
+                                                        lineNumber: 54,
+                                                        columnNumber: 29
+                                                    }, this)
+                                                }, item.id, false, {
+                                                    fileName: "[project]/src/app/_components/header/MenuBar.js",
+                                                    lineNumber: 53,
+                                                    columnNumber: 27
+                                                }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/header/MenuBar.js",
-                                            lineNumber: 47,
-                                            columnNumber: 21
+                                            lineNumber: 50,
+                                            columnNumber: 23
                                         }, this)
-                                    ]
-                                }, category.id, true, {
-                                    fileName: "[project]/src/app/_components/header/MenuBar.js",
-                                    lineNumber: 36,
-                                    columnNumber: 17
-                                }, this))
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/_components/header/MenuBar.js",
-                            lineNumber: 34,
-                            columnNumber: 13
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/src/app/_components/header/MenuBar.js",
-                    lineNumber: 10,
-                    columnNumber: 9
-                }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex items-center space-x-4  text-sm",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            className: "hover:text-yellow-500",
-                            children: "Flash Deals"
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/_components/header/MenuBar.js",
-                            lineNumber: 72,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            className: "hover:text-yellow-500",
-                            children: "Discover New"
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/_components/header/MenuBar.js",
-                            lineNumber: 73,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            className: "hover:text-yellow-500",
-                            children: "Clearance Sale"
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/_components/header/MenuBar.js",
-                            lineNumber: 74,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            className: "hover:text-yellow-500",
-                            children: "Top Sellers"
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/_components/header/MenuBar.js",
-                            lineNumber: 75,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/src/app/_components/header/MenuBar.js",
-                    lineNumber: 71,
-                    columnNumber: 9
-                }, this)
-            ]
-        }, void 0, true, {
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/_components/header/MenuBar.js",
+                                        lineNumber: 47,
+                                        columnNumber: 21
+                                    }, this)
+                                ]
+                            }, category.id, true, {
+                                fileName: "[project]/src/app/_components/header/MenuBar.js",
+                                lineNumber: 36,
+                                columnNumber: 17
+                            }, this))
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/_components/header/MenuBar.js",
+                        lineNumber: 34,
+                        columnNumber: 13
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/app/_components/header/MenuBar.js",
+                lineNumber: 10,
+                columnNumber: 9
+            }, this)
+        }, void 0, false, {
             fileName: "[project]/src/app/_components/header/MenuBar.js",
             lineNumber: 9,
             columnNumber: 7
@@ -911,7 +885,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib
 const axiosInstance = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].create({
     // baseURL:"http://192.168.0.114:5000"
     // baseURL:"http://localhost:5000"
-    baseURL: "https://shopflow.onrender.com/"
+    baseURL: "https://shopflow-1.onrender.com/"
 });
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
@@ -979,26 +953,44 @@ __turbopack_esm__({
     "default": (()=>SearchTag)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$genericReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/_lib/genericReducer.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)");
+;
+var _s = __turbopack_refresh__.signature();
+"use client";
+;
 ;
 function SearchTag({ content = [
-    "rc car",
-    "mobile "
+    "Mobile",
+    "Laptop",
+    "Headphones",
+    "Smartwatch",
+    "Gaming",
+    "Camera"
 ] }) {
+    _s();
+    const dispatch = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"])();
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "flex space-x-2 mt-1 text-sm text-gray-400",
+        className: "flex space-x-2 mt-1 text-xs text-gray-400 cursor-pointer",
         children: content.map((item, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                onClick: ()=>dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$genericReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateSearch"])(item)),
                 children: item
             }, index, false, {
                 fileName: "[project]/src/app/_components/header/SearchTag.js",
-                lineNumber: 5,
+                lineNumber: 9,
                 columnNumber: 11
             }, this))
     }, void 0, false, {
         fileName: "[project]/src/app/_components/header/SearchTag.js",
-        lineNumber: 3,
+        lineNumber: 7,
         columnNumber: 7
     }, this);
 }
+_s(SearchTag, "rgTLoBID190wEKCp9+G8W6F7A5M=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"]
+    ];
+});
 _c = SearchTag;
 var _c;
 __turbopack_refresh__.register(_c, "SearchTag");
@@ -1018,11 +1010,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_components$2f$header$2f$SearchTag$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/_components/header/SearchTag.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$genericReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/_lib/genericReducer.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/router.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/react-icons/fa/index.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
+;
 ;
 ;
 ;
@@ -1035,14 +1028,22 @@ function SearchBar() {
         "SearchBar.useSelector[state]": (state)=>state.generic.data.search
     }["SearchBar.useSelector[state]"]);
     const dispatch = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"])();
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const ref = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const handleSearch = ()=>{
-        console.log();
-        dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$genericReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateSearch"])(ref.current.value));
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].reload("/products");
+        const searchQuery = ref.current.value;
+        dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$genericReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateSearch"])(searchQuery));
+        router.push(`/products`);
     };
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "SearchBar.useEffect": ()=>{
+            ref.current.value = state;
+        }
+    }["SearchBar.useEffect"], [
+        state
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "flex-grow mx-3 p-1",
+        className: "flex-grow mx-3 px-10 ",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "relative",
@@ -1054,15 +1055,11 @@ function SearchBar() {
                         className: "w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-orange-500"
                     }, void 0, false, {
                         fileName: "[project]/src/app/_components/header/SearchBar.js",
-                        lineNumber: 22,
+                        lineNumber: 26,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        onClick: ()=>{
-                            dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$genericReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateSearch"])(ref.current.value));
-                            console.log(state);
-                        // handleSearch
-                        },
+                        onClick: handleSearch,
                         type: "submit",
                         className: "absolute right-0 top-0 h-full px-4 bg-orange-500 text-white rounded-r-lg hover:bg-orange-600",
                         children: [
@@ -1071,42 +1068,43 @@ function SearchBar() {
                                 children: "Search"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/SearchBar.js",
-                                lineNumber: 36,
+                                lineNumber: 37,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaSearch"], {}, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/SearchBar.js",
-                                lineNumber: 37,
+                                lineNumber: 38,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/_components/header/SearchBar.js",
-                        lineNumber: 28,
+                        lineNumber: 32,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/_components/header/SearchBar.js",
-                lineNumber: 21,
+                lineNumber: 25,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_components$2f$header$2f$SearchTag$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/_components/header/SearchBar.js",
-                lineNumber: 40,
+                lineNumber: 41,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/_components/header/SearchBar.js",
-        lineNumber: 20,
+        lineNumber: 24,
         columnNumber: 5
     }, this);
 }
-_s(SearchBar, "OrOtkB6rQBo9Eo9L0aXnSJ60CbA=", false, function() {
+_s(SearchBar, "3dD3i5UWc0Q8GxurrvvkmRuBX3s=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
 });
 _c = SearchBar;

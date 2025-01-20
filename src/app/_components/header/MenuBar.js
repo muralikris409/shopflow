@@ -68,12 +68,12 @@ const Navbar = ({ menuData=[] }) => {
           )}
         </div>
 
-        <div className="flex items-center space-x-4  text-sm">
+        {/* <div className="flex items-center space-x-4  text-sm">
           <button className="hover:text-yellow-500">Flash Deals</button>
           <button className="hover:text-yellow-500">Discover New</button>
           <button className="hover:text-yellow-500">Clearance Sale</button>
           <button className="hover:text-yellow-500">Top Sellers</button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

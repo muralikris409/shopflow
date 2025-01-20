@@ -10,8 +10,11 @@ export const createOrder = async (userId, items) => {
   }
 };
 
-export const verifyPaymentAndUpdateOrder = async (razorpayId, paymentId, paymentSignature,orderId) => {
-    console.log(orderId);
+export const verifyPaymentAndUpdateOrder = async (orderId,razorpayId, paymentId, paymentSignature) => {
+    console.log("order_id:",orderId);
+    console.log("razorpayId:",razorpayId);
+    console.log("paymentId:",paymentId);
+    console.log("siign:",paymentSignature);
   try {
     const response = await axiosInstance.post('/user/order/verify', {}
     ,
@@ -34,7 +37,7 @@ export const verifyPaymentAndUpdateOrder = async (razorpayId, paymentId, payment
 
 export const checkOutOrder = async (orderId) => {
     console.log("orderid:",orderId)
-  try {
+  try { 
     const response = await axiosInstance.post(`/user/order/checkoutOrder?orderId=${orderId}`);
     return response.data;
   } catch (error) {
@@ -57,7 +60,7 @@ export const getOrderByUserId = async (userId) => {
 export const cancelOrder = async (orderId) => {
     console.log(orderId);
   try {
-    const response = await axiosInstance.put(`/user/order/${orderId}/cancel?orderId=${orderId}`);
+    const response = await axiosInstance.put(`/user/order/cancelOrder?orderId=${orderId}`);
     return response.data;
   } catch (error) {
     console.error('Error cancelling order:', error);
