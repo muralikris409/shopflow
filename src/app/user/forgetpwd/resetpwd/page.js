@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 const ResetPassword = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <ResetPassword />
+      <ResetPasswordComponent />
     </Suspense>
   );
 };
