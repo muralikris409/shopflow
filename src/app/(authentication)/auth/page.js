@@ -15,7 +15,6 @@ const AuthForm = () => {
   const { data: session, status } = useSession();
   const dispatch = useDispatch();
   const router = useRouter();
-//test
   const toggleForm = () => {
     setIsLogin(!isLogin);
     setFormData({});
