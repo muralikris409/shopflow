@@ -774,7 +774,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib
 const axiosInstance = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].create({
     // baseURL:"http://192.168.0.114:5000"
     // baseURL:"http://localhost:5000"
-    baseURL: "https://shopflow-1.onrender.com/"
+    //  baseURL:"https://shopflow-1.onrender.com"
+    baseURL: "https://shopflow-1-ugli.onrender.com"
 });
 }}),
 "[project]/src/app/_lib/categoryReducer.js [app-rsc] (ecmascript)": ((__turbopack_context__) => {

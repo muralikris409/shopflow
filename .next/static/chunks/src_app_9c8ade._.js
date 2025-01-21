@@ -235,16 +235,45 @@ function Filter() {
         setIsModalOpen((prevState)=>!prevState);
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "relative overflow-y-scroll",
+        className: "relative overflow-y-scroll scrollbar-hide",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: toggleModal,
-                className: "bg-orange-500 text-white py-2 px-4 rounded mb-4 w-full sm:hidden",
-                children: "Filters"
-            }, void 0, false, {
+                className: "bg-orange-600 text-white py-2 px-4  mb-4 w-full  sm:flex items-center justify-center space-x-2 hover:bg-orange-700 transition-colors",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        className: "w-5 h-5",
+                        fill: "none",
+                        viewBox: "0 0 24 24",
+                        stroke: "currentColor",
+                        strokeWidth: 2,
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            d: "M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 12.414V20a1 1 0 01-.553.894l-4 2A1 1 0 017 22V12.414L3.293 6.707A1 1 0 013 6V4z"
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/_components/ProductFilter.js",
+                            lineNumber: 89,
+                            columnNumber: 9
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/_components/ProductFilter.js",
+                        lineNumber: 81,
+                        columnNumber: 7
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        children: "Filter"
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/_components/ProductFilter.js",
+                        lineNumber: 95,
+                        columnNumber: 7
+                    }, this)
+                ]
+            }, void 0, true, {
                 fileName: "[project]/src/app/_components/ProductFilter.js",
-                lineNumber: 76,
-                columnNumber: 7
+                lineNumber: 77,
+                columnNumber: 5
             }, this),
             isModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden",
@@ -256,7 +285,7 @@ function Filter() {
                             children: "Filters"
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                            lineNumber: 88,
+                            lineNumber: 102,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -267,12 +296,12 @@ function Filter() {
                                 size: 30
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/ProductFilter.js",
-                                lineNumber: 93,
+                                lineNumber: 107,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                            lineNumber: 89,
+                            lineNumber: 103,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -280,7 +309,7 @@ function Filter() {
                             children: "Categories"
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                            lineNumber: 95,
+                            lineNumber: 109,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -298,7 +327,7 @@ function Filter() {
                                                 onChange: ()=>handleCategoryChange(category.name)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                lineNumber: 101,
+                                                lineNumber: 115,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -306,23 +335,23 @@ function Filter() {
                                                 children: category.name
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                lineNumber: 108,
+                                                lineNumber: 122,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/_components/ProductFilter.js",
-                                        lineNumber: 100,
+                                        lineNumber: 114,
                                         columnNumber: 19
                                     }, this)
                                 }, category.id, false, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 99,
+                                    lineNumber: 113,
                                     columnNumber: 17
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                            lineNumber: 97,
+                            lineNumber: 111,
                             columnNumber: 13
                         }, this),
                         filters.selectedCategory && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -332,7 +361,7 @@ function Filter() {
                                     children: "Subcategories"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 116,
+                                    lineNumber: 130,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -349,7 +378,7 @@ function Filter() {
                                                         onChange: ()=>handleSubcategoryToggle(subcategory.name)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                        lineNumber: 123,
+                                                        lineNumber: 137,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -357,23 +386,23 @@ function Filter() {
                                                         children: subcategory.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                        lineNumber: 129,
+                                                        lineNumber: 143,
                                                         columnNumber: 25
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                lineNumber: 122,
+                                                lineNumber: 136,
                                                 columnNumber: 23
                                             }, this)
                                         }, subcategory.id, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 121,
+                                            lineNumber: 135,
                                             columnNumber: 21
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 117,
+                                    lineNumber: 131,
                                     columnNumber: 15
                                 }, this)
                             ]
@@ -389,7 +418,7 @@ function Filter() {
                                             children: "Min Price"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 139,
+                                            lineNumber: 153,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -401,13 +430,13 @@ function Filter() {
                                             placeholder: "Min"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 140,
+                                            lineNumber: 154,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 138,
+                                    lineNumber: 152,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -418,7 +447,7 @@ function Filter() {
                                             children: "Max Price"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 151,
+                                            lineNumber: 165,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -430,19 +459,19 @@ function Filter() {
                                             placeholder: "Max"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 152,
+                                            lineNumber: 166,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 150,
+                                    lineNumber: 164,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                            lineNumber: 137,
+                            lineNumber: 151,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -453,7 +482,7 @@ function Filter() {
                                     children: "Sort By"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 164,
+                                    lineNumber: 178,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -466,7 +495,7 @@ function Filter() {
                                             children: "Select Sort Option"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 170,
+                                            lineNumber: 184,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -474,7 +503,7 @@ function Filter() {
                                             children: "Price Low to High"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 171,
+                                            lineNumber: 185,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -482,19 +511,19 @@ function Filter() {
                                             children: "Price High to Low"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 172,
+                                            lineNumber: 186,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 165,
+                                    lineNumber: 179,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                            lineNumber: 163,
+                            lineNumber: 177,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -506,7 +535,7 @@ function Filter() {
                                     children: "Apply Filters"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 177,
+                                    lineNumber: 191,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -525,27 +554,27 @@ function Filter() {
                                     children: "Reset"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 183,
+                                    lineNumber: 197,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                            lineNumber: 176,
+                            lineNumber: 190,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                    lineNumber: 85,
+                    lineNumber: 99,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/_components/ProductFilter.js",
-                lineNumber: 84,
+                lineNumber: 98,
                 columnNumber: 9
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            isModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "hidden sm:block ",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "p-6 m-6 border rounded-lg shadow-md bg-white w-full max-w-7xl text-gray-800",
@@ -555,7 +584,7 @@ function Filter() {
                             children: "Filters"
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                            lineNumber: 206,
+                            lineNumber: 221,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -569,7 +598,7 @@ function Filter() {
                                             children: "Categories"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 209,
+                                            lineNumber: 224,
                                             columnNumber: 15
                                         }, this),
                                         data?.map((category)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -585,7 +614,7 @@ function Filter() {
                                                             onChange: ()=>handleCategoryChange(category.name)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                            lineNumber: 213,
+                                                            lineNumber: 228,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -593,24 +622,24 @@ function Filter() {
                                                             children: category.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                            lineNumber: 220,
+                                                            lineNumber: 235,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                    lineNumber: 212,
+                                                    lineNumber: 227,
                                                     columnNumber: 19
                                                 }, this)
                                             }, category.id, false, {
                                                 fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                lineNumber: 211,
+                                                lineNumber: 226,
                                                 columnNumber: 17
                                             }, this))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 208,
+                                    lineNumber: 223,
                                     columnNumber: 13
                                 }, this),
                                 filters.selectedCategory && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -621,7 +650,7 @@ function Filter() {
                                             children: "Subcategories"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 228,
+                                            lineNumber: 243,
                                             columnNumber: 17
                                         }, this),
                                         data.find((cat)=>cat.name === filters.selectedCategory)?.subCategories?.map((subcategory)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -636,7 +665,7 @@ function Filter() {
                                                             onChange: ()=>handleSubcategoryToggle(subcategory.name)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                            lineNumber: 234,
+                                                            lineNumber: 249,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -644,24 +673,24 @@ function Filter() {
                                                             children: subcategory.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                            lineNumber: 240,
+                                                            lineNumber: 255,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                    lineNumber: 233,
+                                                    lineNumber: 248,
                                                     columnNumber: 23
                                                 }, this)
                                             }, subcategory.id, false, {
                                                 fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                lineNumber: 232,
+                                                lineNumber: 247,
                                                 columnNumber: 21
                                             }, this))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 227,
+                                    lineNumber: 242,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -675,7 +704,7 @@ function Filter() {
                                                     children: "Min Price"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                    lineNumber: 249,
+                                                    lineNumber: 264,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -687,13 +716,13 @@ function Filter() {
                                                     placeholder: "Min"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                    lineNumber: 250,
+                                                    lineNumber: 265,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 248,
+                                            lineNumber: 263,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -704,7 +733,7 @@ function Filter() {
                                                     children: "Max Price"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                    lineNumber: 261,
+                                                    lineNumber: 276,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -716,25 +745,25 @@ function Filter() {
                                                     placeholder: "Max"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                                    lineNumber: 262,
+                                                    lineNumber: 277,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 260,
+                                            lineNumber: 275,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 247,
+                                    lineNumber: 262,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                            lineNumber: 207,
+                            lineNumber: 222,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -745,7 +774,7 @@ function Filter() {
                                     children: "Sort By"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 275,
+                                    lineNumber: 290,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -758,7 +787,7 @@ function Filter() {
                                             children: "Select Sort Option"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 281,
+                                            lineNumber: 296,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -766,7 +795,7 @@ function Filter() {
                                             children: "Price Low to High"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 282,
+                                            lineNumber: 297,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -774,19 +803,19 @@ function Filter() {
                                             children: "Price High to Low"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                                            lineNumber: 283,
+                                            lineNumber: 298,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 276,
+                                    lineNumber: 291,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                            lineNumber: 274,
+                            lineNumber: 289,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -798,7 +827,7 @@ function Filter() {
                                     children: "Apply Filters"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 288,
+                                    lineNumber: 303,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -816,24 +845,24 @@ function Filter() {
                                     children: "Reset"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                                    lineNumber: 294,
+                                    lineNumber: 309,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/_components/ProductFilter.js",
-                            lineNumber: 287,
+                            lineNumber: 302,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/_components/ProductFilter.js",
-                    lineNumber: 205,
+                    lineNumber: 220,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/_components/ProductFilter.js",
-                lineNumber: 204,
+                lineNumber: 219,
                 columnNumber: 7
             }, this)
         ]

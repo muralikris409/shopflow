@@ -25,7 +25,7 @@ export default function Header() {
   const categories=useSelector(state=>state.api);
   return (
     <header>
-      
+
       <nav className="bg-gray-900 px-4 lg:px-6 py-2 ">
         <div className="flex justify-between items-center mx-auto max-w-screen-xl text-white">
         <Link href="/" className="flex">
@@ -36,10 +36,8 @@ export default function Header() {
     <span className="block text-xs font-light">Global leading online shop</span>
   </span>
 </Link>
-
-
+    
          <SearchBar/>
-
           <div className="hidden lg:flex items-center space-x-6">
             <Link href="#" className="text-sm text-gray-300">
               Download the <br/><span className="text-white hover:text-orange-500">ShopFlow App</span>

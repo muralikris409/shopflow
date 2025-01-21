@@ -43,7 +43,7 @@ const ForgotPasswordEmail = () => {
       </div>
       <button
         onClick={handleSubmit}
-        className="w-full mt-4 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
+        className="w-full mt-4 bg-orange-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
       >
         Submit
       </button>

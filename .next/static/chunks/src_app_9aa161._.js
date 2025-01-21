@@ -266,7 +266,7 @@ function UserMenu() {
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const { data: session } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSession"])();
     const user = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"])({
-        "UserMenu.useSelector[user]": (state)=>state.session.user
+        "UserMenu.useSelector[user]": (state)=>state?.session?.user
     }["UserMenu.useSelector[user]"]);
     const syncUser = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "UserMenu.useCallback[syncUser]": ()=>{
@@ -301,8 +301,8 @@ function UserMenu() {
                 });
             }
             localStorage.removeItem("shopflow_session");
-            dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$sessionReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["setSession"])(null));
-            router.push('/');
+            dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$sessionReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["setSession"])({}));
+            router.reload('/');
         } catch (error) {
             console.error('Sign-out error:', error);
         }
@@ -341,19 +341,27 @@ function UserMenu() {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "w-8 h-8 rounded-full overflow-hidden bg-gray-500 flex justify-center items-center mr-2",
-                            children: session ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                src: session?.user?.image || '/default-profile.png',
+                            children: user ? user?.googleId ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                src: session?.user?.image || '/_assets/user.png',
                                 alt: "User Profile",
                                 className: "w-full h-full object-cover"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 208,
-                                columnNumber: 15
+                                lineNumber: 209,
+                                columnNumber: 5
+                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                src: user?.profile_pic || '/_assets/user.png',
+                                alt: "User Profile",
+                                className: "w-full h-full object-cover"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/_components/header/UserMenu.js",
+                                lineNumber: 215,
+                                columnNumber: 5
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaUserCircle"], {
                                 className: "text-white text-3xl"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 214,
+                                lineNumber: 223,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
@@ -366,7 +374,7 @@ function UserMenu() {
                             children: user?.name || 'Sign in'
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 217,
+                            lineNumber: 226,
                             columnNumber: 11
                         }, this)
                     ]
@@ -394,28 +402,28 @@ function UserMenu() {
                                 children: "Sign out"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 231,
+                                lineNumber: 240,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 230,
+                            lineNumber: 239,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                             className: "px-4 py-2",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/account",
+                                href: "/user/profile",
                                 className: "block hover:text-orange-500 hover:underline",
                                 children: "My Account"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 239,
+                                lineNumber: 248,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 238,
+                            lineNumber: 247,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -426,12 +434,12 @@ function UserMenu() {
                                 children: "My Orders"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 244,
+                                lineNumber: 253,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 243,
+                            lineNumber: 252,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -442,12 +450,12 @@ function UserMenu() {
                                 children: "My Cart"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 249,
+                                lineNumber: 258,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 248,
+                            lineNumber: 257,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -458,18 +466,18 @@ function UserMenu() {
                                 children: "My Wishlist"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 254,
+                                lineNumber: 263,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 253,
+                            lineNumber: 262,
                             columnNumber: 15
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/_components/header/UserMenu.js",
-                    lineNumber: 229,
+                    lineNumber: 238,
                     columnNumber: 13
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "p-4 text-center",
@@ -479,17 +487,17 @@ function UserMenu() {
                         children: "Sign in or New Customer start here.."
                     }, void 0, false, {
                         fileName: "[project]/src/app/_components/header/UserMenu.js",
-                        lineNumber: 261,
+                        lineNumber: 270,
                         columnNumber: 15
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/_components/header/UserMenu.js",
-                    lineNumber: 260,
+                    lineNumber: 269,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                lineNumber: 224,
+                lineNumber: 233,
                 columnNumber: 9
             }, this)
         ]
@@ -1045,7 +1053,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib
 const axiosInstance = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].create({
     // baseURL:"http://192.168.0.114:5000"
     // baseURL:"http://localhost:5000"
-    baseURL: "https://shopflow-1.onrender.com/"
+    //  baseURL:"https://shopflow-1.onrender.com"
+    baseURL: "https://shopflow-1-ugli.onrender.com"
 });
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
@@ -1202,7 +1211,7 @@ function SearchBar() {
         state
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "w-2/4 px-4 py-2 md:px-10",
+        className: "w-2/4 px-4 py-2 md:px-10 ",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "relative flex items-center",
@@ -1384,7 +1393,7 @@ function Header() {
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_components$2f$header$2f$SearchBar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/Header.js",
-                                lineNumber: 41,
+                                lineNumber: 40,
                                 columnNumber: 10
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1397,7 +1406,7 @@ function Header() {
                                             "Download the ",
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                 fileName: "[project]/src/app/_components/header/Header.js",
-                                                lineNumber: 45,
+                                                lineNumber: 43,
                                                 columnNumber: 28
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1405,18 +1414,18 @@ function Header() {
                                                 children: "ShopFlow App"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/_components/header/Header.js",
-                                                lineNumber: 45,
+                                                lineNumber: 43,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/_components/header/Header.js",
-                                        lineNumber: 44,
+                                        lineNumber: 42,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_components$2f$header$2f$UserMenu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                         fileName: "[project]/src/app/_components/header/Header.js",
-                                        lineNumber: 47,
+                                        lineNumber: 45,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1429,24 +1438,24 @@ function Header() {
                                                     className: "absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 text-xs font-bold leading-none text-white bg-orange-500 rounded-full transform translate-x-2 -translate-y-2"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/_components/header/Header.js",
-                                                    lineNumber: 51,
+                                                    lineNumber: 49,
                                                     columnNumber: 30
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/_components/header/Header.js",
-                                            lineNumber: 49,
+                                            lineNumber: 47,
                                             columnNumber: 13
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/_components/header/Header.js",
-                                        lineNumber: 48,
+                                        lineNumber: 46,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/_components/header/Header.js",
-                                lineNumber: 43,
+                                lineNumber: 41,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1458,14 +1467,14 @@ function Header() {
                                         children: "Toggle navigation"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/_components/header/Header.js",
-                                        lineNumber: 62,
+                                        lineNumber: 60,
                                         columnNumber: 13
                                     }, this),
                                     "☰"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/_components/header/Header.js",
-                                lineNumber: 58,
+                                lineNumber: 56,
                                 columnNumber: 11
                             }, this)
                         ]
@@ -1478,12 +1487,12 @@ function Header() {
                         className: "lg:hidden bg-gray-800 px-4 py-2 space-y-4",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_components$2f$header$2f$UserMenu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                             fileName: "[project]/src/app/_components/header/Header.js",
-                            lineNumber: 70,
+                            lineNumber: 68,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/_components/header/Header.js",
-                        lineNumber: 68,
+                        lineNumber: 66,
                         columnNumber: 11
                     }, this)
                 ]
@@ -1496,7 +1505,7 @@ function Header() {
                 menuData: categories?.data?.data
             }, void 0, false, {
                 fileName: "[project]/src/app/_components/header/Header.js",
-                lineNumber: 74,
+                lineNumber: 72,
                 columnNumber: 7
             }, this)
         ]

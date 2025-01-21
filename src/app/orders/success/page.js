@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import React from 'react';
 import { Suspense } from 'react';
 
+import withAuth from "@/app/_routeprotector/WithAuth";
 
 const OrderCard = () => {
   return (
@@ -12,7 +13,7 @@ const OrderCard = () => {
     </Suspense>
   );
 };
-export default OrderCard;
+export default withAuth(OrderCard);
 
 const OrderCardComponent = () => {
   const searchParams = useSearchParams();

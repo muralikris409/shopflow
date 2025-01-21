@@ -141,7 +141,7 @@ export default function UserMenu() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { data: session } = useSession();
-  const user = useSelector(state => state.session.user);
+  const user = useSelector(state => state?.session?.user);
 
   const syncUser = useCallback(() => {
     const userData = localStorage.getItem("shopflow_session");
@@ -169,8 +169,8 @@ export default function UserMenu() {
         await signOut({ callbackUrl: '/' });
       }
       localStorage.removeItem("shopflow_session");
-      dispatch(setSession(null));
-      router.push('/');
+      dispatch(setSession({}));
+      router.reload('/');
     } catch (error) {
       console.error('Sign-out error:', error);
     }
@@ -204,13 +204,22 @@ export default function UserMenu() {
         <div className="flex items-center">
           {/* Show user icon if logged in or a dummy icon if profile is missing */}
           <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-500 flex justify-center items-center mr-2">
-            {session ? (
-              <img
-                src={session?.user?.image || '/default-profile.png'}
-                alt="User Profile"
-                className="w-full h-full object-cover"
-              />
-            ) : (
+          {user ? (
+  user?.googleId ? (
+    <img
+      src={session?.user?.image || '/_assets/user.png'}
+      alt="User Profile"
+      className="w-full h-full object-cover"
+    />
+  ) : (
+    <img
+      src={user?.profile_pic||'/_assets/user.png'}
+      alt="User Profile"
+      className="w-full h-full object-cover"
+    />
+  )
+) 
+: (
               <FaUserCircle className="text-white text-3xl" />
             )}
           </div>
@@ -236,7 +245,7 @@ export default function UserMenu() {
                 </button>
               </li>
               <li className="px-4 py-2">
-                <Link href="/account" className="block hover:text-orange-500 hover:underline">
+                <Link href="/user/profile" className="block hover:text-orange-500 hover:underline">
                   My Account
                 </Link>
               </li>

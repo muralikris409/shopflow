@@ -36,7 +36,7 @@ const ResetPasswordComponent = () => {
       setError("");
       try {
         const response = await resetPassword(token, password);
-        if (response.status==200) {
+        if (response.status === 200) {
           setSuccess("Your password has been reset successfully!");
           setError("");
         } else {
@@ -51,18 +51,18 @@ const ResetPasswordComponent = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-gray-800 text-center">Reset Password</h2>
-      <p className="text-sm text-gray-600 text-center mt-2">
-        Enter and confirm your new password.
+    <div className="w-full max-w-md mx-auto p-8 bg-white rounded-lg shadow-lg">
+      <h2 className="text-3xl font-semibold text-gray-800 text-center">Reset Password</h2>
+      <p className="text-sm text-gray-500 text-center mt-2">
+        Please enter your new password below.
       </p>
-      <div className="mt-4">
+      <div className="mt-6">
         <input
           type="password"
-          className={`w-full px-4 py-2 border ${
+          className={`w-full px-4 py-3 border ${
             error ? "border-red-500" : "border-gray-300"
-          } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500`}
-          placeholder="Enter new password"
+          } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200`}
+          placeholder="New Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -70,10 +70,10 @@ const ResetPasswordComponent = () => {
       <div className="mt-4">
         <input
           type="password"
-          className={`w-full px-4 py-2 border ${
+          className={`w-full px-4 py-3 border ${
             error ? "border-red-500" : "border-gray-300"
-          } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500`}
-          placeholder="Confirm new password"
+          } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200`}
+          placeholder="Confirm Password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
@@ -82,11 +82,10 @@ const ResetPasswordComponent = () => {
       {success && <p className="text-green-500 text-sm mt-2">{success}</p>}
       <button
         onClick={handleSubmit}
-        className="w-full mt-4 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
+        className="w-full mt-6 bg-orange-500 text-white py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200 shadow-md"
       >
         Reset Password
       </button>
     </div>
   );
 };
-

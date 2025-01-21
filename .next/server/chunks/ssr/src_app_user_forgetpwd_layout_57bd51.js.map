@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///home/murali/Documents/Cloning%20task/shopflow/src/app/user/forgetpwd/layout.js"],"sourcesContent":["import React from 'react'\n\n\nexport default function layout({children}) {\n  return (\n    <>\n    \n    {children}\n    </>\n  )\n}\n"],"names":[],"mappings":";;;;AAAA;;;AAGe,SAAS,OAAO,EAAC,QAAQ,EAAC;IACvC,qBACE;kBAEC;;AAGL"}},
+    {"offset": {"line": 19, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

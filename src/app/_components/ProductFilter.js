@@ -72,14 +72,28 @@ function Filter() {
   };
 
   return (
-    <div className="relative overflow-y-scroll">
-      <button
-        onClick={toggleModal}
-        className="bg-orange-500 text-white py-2 px-4 rounded mb-4 w-full sm:hidden"
+    <div className="relative overflow-y-scroll scrollbar-hide">
+    
+    < button
+      onClick={toggleModal}
+      className="bg-orange-600 text-white py-2 px-4  mb-4 w-full  sm:flex items-center justify-center space-x-2 hover:bg-orange-700 transition-colors"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-5 h-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
       >
-        Filters
-      </button>
-
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 12.414V20a1 1 0 01-.553.894l-4 2A1 1 0 017 22V12.414L3.293 6.707A1 1 0 013 6V4z"
+        />
+      </svg>
+      <span>Filter</span>
+    </button>
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 sm:hidden">
           <div className="bg-white p-6 rounded-lg w-full max-w-md">
@@ -200,7 +214,8 @@ function Filter() {
           </div>
         </div>
       )}
-      
+ 
+      {isModalOpen &&
       <div className="hidden sm:block ">
         <div className="p-6 m-6 border rounded-lg shadow-md bg-white w-full max-w-7xl text-gray-800">
           <h2 className="text-xl font-semibold mb-4">Filters</h2>
@@ -308,7 +323,7 @@ function Filter() {
             </button>
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   );
 }
