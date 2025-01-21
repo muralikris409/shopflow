@@ -2,8 +2,19 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import React from 'react';
- 
+import { Suspense } from 'react';
+
+
 const OrderCard = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OrderCardComponent />
+    </Suspense>
+  );
+};
+export default OrderCard;
+
+const OrderCardComponent = () => {
   const searchParams = useSearchParams();
   let order = null;
 
@@ -42,6 +53,7 @@ const OrderCard = () => {
   }
 
   return (
+  
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
       <div className="mx-auto max-w-2xl px-4 2xl:px-0">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-2">
@@ -117,4 +129,3 @@ const OrderCard = () => {
   );
 };
 
-export default OrderCard;

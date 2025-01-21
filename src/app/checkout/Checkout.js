@@ -283,7 +283,7 @@ const OrderSummary = ({
       return response;
     } catch (err) {
       setError('Payment verification failed. Please try again.');
-      console.error(err);
+      console.error(JSON.stringify(err));
     }
   };
   const handlePayment = async () => {

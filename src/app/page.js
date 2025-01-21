@@ -6,9 +6,11 @@ import { fetchData } from "./_lib/categoryReducer";
 // import { getProducts } from "./data/ProductService";
 import Products from "./products/Products";
 import ProductCarousel from "./_components/ProductCarousel";
-import {getFlashDeals, getProducts, getTrendingProducts } from "./service/ProductService";
+import {getClearanceSaleProducts, getFlashDeals, getLimitedTimeOffers, getProducts, getTrendingProducts } from "./service/ProductService";
 import FlashDeal from "./_components/Deals"; 
 import Deals from "./_components/Deals";
+import NewArrivals from "./_components/NewArrivals";
+import ViewAllProductsButton from "./_components/ViewAllProducts";
 
 export default async function Home()  {
   let products = [];
@@ -28,6 +30,9 @@ export default async function Home()  {
     
         
 </div>
+<div>
+<NewArrivals/>
+</div>
 <div className="flex flex-col lg:flex-row">
 <Deals title={"Flash Deals"} fetchData={getFlashDeals}/>
 <Deals title={"Trending Products"} fetchData={getTrendingProducts}/>
@@ -46,7 +51,12 @@ export default async function Home()  {
     <p className="text-gray-500">No products available.</p>
   )}
 </ProductCarousel>
-
+<div className="flex flex-col lg:flex-row">
+<Deals title={"Limited Time Offers"} fetchData={getLimitedTimeOffers}/>
+<Deals title={"Clearance Sale"} fetchData={getClearanceSaleProducts}/>
+        
+</div>
+<ViewAllProductsButton/>
     </>
   );
 }

@@ -2,8 +2,19 @@
 import { resetPassword } from "@/app/service/UserService";
 import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import { Suspense } from 'react';
 
 const ResetPassword = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResetPassword />
+    </Suspense>
+  );
+};
+
+export default ResetPassword;
+
+const ResetPasswordComponent = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -25,7 +36,7 @@ const ResetPassword = () => {
       setError("");
       try {
         const response = await resetPassword(token, password);
-        if (response.success) {
+        if (response.status==200) {
           setSuccess("Your password has been reset successfully!");
           setError("");
         } else {
@@ -79,4 +90,3 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;

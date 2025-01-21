@@ -5,24 +5,29 @@ import Link from 'next/link';
 export const Carousel = ({ 
     items = [
         {
-            src: 'https://img.freepik.com/free-photo/beautiful-shot-sunny-meadow-covered-by-green-grass-with-trees-mountain-background_181624-2835.jpg',
-            alt: 'Sunny Meadow',
-            link: '/sunny-meadow'
+            src: '/_assets/flashdeal.png',
+            alt: 'Flash Deals',
+            link: '/flash-deals'
         },
         {
-            src: 'https://img.freepik.com/free-photo/beautiful-shot-northern-lights-sky-during-nighttime_181624-10745.jpg',
-            alt: 'Northern Lights',
-            link: '/northern-lights'
+            src: '/_assets/clearancesale.png',
+            alt: 'Trending Products',
+            link: '/trending-products'
         },
         {
-            src: 'https://img.freepik.com/free-photo/tropical-beach-sea-with-umbrella-chairs-blue-sky_74190-7432.jpg',
-            alt: 'Tropical Beach',
-            link: '/tropical-beach'
+            src: '/_assets/newarrivals.png',
+            alt: 'Limited Deals',
+            link: '/limited-deals'
         },
         {
-            src: 'https://img.freepik.com/free-photo/beautiful-shot-rocky-mountain-surrounded-by-sea_181624-2603.jpg',
-            alt: 'Rocky Mountain by Sea',
-            link: '/rocky-mountain'
+            src: '/_assets/limiteddeals.png',
+            alt: 'Clearance Sale',
+            link: '/clearance-sale'
+        },
+        {
+            src: '/_assets/seasonalsale.jpg',
+            alt: 'Limited Deals',
+            link: '/limited-deals'
         }
     ]
 }) => {
@@ -48,7 +53,7 @@ export const Carousel = ({
     };
 
     return (
-        <div className="relative w-full h-96 m-0 bg-gray-900  overflow-hidden" data-carousel="slide">
+        <div className="relative w-full h-96 m-0 bg-gray-900 overflow-hidden" data-carousel="slide">
             <div className="relative h-full overflow-hidden">
                 {items.map((item, index) => (
                     <div
@@ -56,14 +61,13 @@ export const Carousel = ({
                         className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
                         data-carousel-item
                     >
-                        <Link href={item.link}>
+                        {/* <Link href={item.link}> */}
                             <img
                                 src={item.src}
-                                className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
+                                className="object-fit w-full h-full transition-transform duration-300 transform hover:scale-105"
                                 alt={item.alt || 'Carousel Image'}
                             />
-                            <div className="absolute inset-0 bg-white/30 backdrop-blur-md rounded-lg"></div>
-                        </Link>
+                        {/* </Link> */}
                     </div>
                 ))}
             </div>
@@ -94,7 +98,7 @@ export const Carousel = ({
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
-                        viewBox="0 0  6 10"
+                        viewBox="0 0 6 10"
                     >
                         <path
                             stroke="currentColor"
