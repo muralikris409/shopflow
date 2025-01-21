@@ -29,7 +29,7 @@ const NewArrivals = () => {
 <h2 className="text-3xl text-white-50 font-bold mb-6 text-shadow-glow">
   New Arrivals
 </h2>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto overflow-y-hidden scrollbar-hide">
                 <div className="grid grid-flow-col auto-cols-max gap-4">
                     {products?.map((product, index) => (
                         <div

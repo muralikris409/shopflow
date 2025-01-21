@@ -44,7 +44,6 @@ export default function Header() {
             <Link href="#" className="text-sm text-gray-300">
               Download the <br/><span className="text-white hover:text-orange-500">ShopFlow App</span>
             </Link>
-            {/* <OptionsMenu /> */}
             <UserMenu />
             <div>
             <Link href="/cart" className="relative flex items-center justify-center text-gray-300 hover:text-white">

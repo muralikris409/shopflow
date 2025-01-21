@@ -12,8 +12,8 @@ async function Deals({ fetchData, title }) {
   products = products.data;
 
   return (
-    <section className="mt-5 flex justify-center w-2/4 bg-blue-100
- py-10">
+    <section className="mt-5 flex justify-center w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-2/3 bg-blue-100 py-10">
+
       <div className="w-full max-w-screen-md px-4 py-4">
       <h1 className="text-center text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-gray-800 to-black md:text-3xl">
   {title}

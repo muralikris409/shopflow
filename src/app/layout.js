@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
         <SessionWrapper>
         <StoreProvider>
         <Header/>
-        <VerticalNavBar/>
+        {/* <VerticalNavBar/> */}
         {children}
         <Footer/>
         </StoreProvider>

@@ -11,7 +11,7 @@ const ProductCarousel = ({ title, children,href }) => {
         </Link>
       </div>
 
-      <div className="flex overflow-x-auto  scrollbar-thin scrollbar-thumb-orange-500 scrollbar-track-gray-200">
+      <div className="flex overflow-x-auto  scrollbar-hide scrollbar-thumb-orange-500 scrollbar-track-gray-200">
         {React.Children.map(children, (child, index) => (
           <div key={index} className="mx-1 flex-shrink-0 w-64">
             {child}
