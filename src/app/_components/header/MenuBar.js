@@ -31,7 +31,7 @@ const Navbar = ({ menuData=[] }) => {
           </button>
           {isDropdownVisible && (
             
-            <div className="absolute top-full left-0 bg-white text-black shadow-lg w-80 z-50">
+            <div className="absolute top-full left-0 bg-white text-black shadow-lg w-40 z-50">
               {menuData?.map((category, index) => (
                 <div
                   key={category.id}
@@ -45,7 +45,7 @@ const Navbar = ({ menuData=[] }) => {
 
                   {activeCategory === index && (
                     <div
-                      className="absolute top-0 left-full bg-white text-black shadow-lg w-72 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                      className="absolute top-0 left-full bg-white text-black shadow-lg w-40 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
                     >
                       <ul className="p-4 space-y-2">
                         {category.subCategories?.map((item) => (  

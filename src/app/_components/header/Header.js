@@ -25,18 +25,18 @@ export default function Header() {
   const categories=useSelector(state=>state.api);
   return (
     <header>
+      
       <nav className="bg-gray-900 px-4 lg:px-6 py-2 ">
         <div className="flex justify-between items-center mx-auto max-w-screen-xl text-white">
-          <Link href="/" className="flex">
-            <span className="text-2xl font-bold">
-              <span className="text-white">Shop</span>
-              <span className="text-orange-500">Flow</span>
-              <br/>
-              <span className="  block text-xs font-light">Global leading online shop</span>
+        <Link href="/" className="flex">
+  <span className="text-md sm:text-md md:text-3xl font-bold">
+    <span className="text-white">Shop</span>
+    <span className="text-orange-500">Flow</span>
+    <br />
+    <span className="block text-xs font-light">Global leading online shop</span>
+  </span>
+</Link>
 
-            </span>
-            
-          </Link>
 
          <SearchBar/>
 
