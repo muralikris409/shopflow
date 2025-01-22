@@ -24,7 +24,7 @@ const ForgotPasswordEmail = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-md m-10">
       <h2 className="text-2xl font-bold text-gray-800 text-center">Forgot Password</h2>
       <p className="text-sm text-gray-600 text-center mt-2">
         Enter your email address to receive a reset link.

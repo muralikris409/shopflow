@@ -48,7 +48,7 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md m-10">
       <div className="flex items-center mb-6">
         <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
           {user.profile_pic ? (
@@ -75,15 +75,12 @@ const UserProfile = () => {
           <p className="text-gray-600">Check your saved items</p>
           <Link href="/wishlist" className="mt-2 text-blue-500 hover:underline">View Wishlist</Link>
         </div>
-        <div className="bg-gray-100 p-4 rounded-lg shadow">
+        <div className="bg-gray-100 p-4 rounded-lg shadow col-span-2">
           <h3 className="text-lg font-semibold text-gray-800">Edit Profile</h3>
           <p className="text-gray-600">Update your information</p>
           <Link href="/user/profile/manage" className="mt-2 text-blue-500 hover:underline">Edit Profile</Link>
         </div>
-        <div className="bg-gray-100 p-4 rounded-lg shadow">
-          <h3 className="text-lg font-semibold text-gray-800">Address</h3>
-          <p className="text-gray-600">Manage your addresses</p>
-        </div>
+        
       </div>
     </div>
   );

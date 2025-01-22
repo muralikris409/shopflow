@@ -145,7 +145,62 @@ async function updateProfileInfo(token, userId, data) {
     } catch (err) {
         console.log(err);
     }
-}
+} // export async function fetchUserAddresses (token,userId){
+ //   try {
+ //     const response = await axiosInstance.post(`user/getAllAddress?userId=${userId}`,{}, {
+ //       headers:{
+ //         Authorization:`Bearer ${token}`
+ //     }
+ //     });
+ //     console.log(response)
+ //     return response.data; 
+ //   } catch (error) {
+ //     console.error("Error fetching addresses:", error);
+ //     return { error: error.message || "Something went wrong!" };
+ //   }
+ // };
+ // export const makeAddressPrimary = async (token,userId,addressId) => {
+ //     try {
+ //       const response = await axiosInstance.post(`user/makePrimaryAddress`,{}, {
+ //         params: { userId,addressId },
+ //         headers:{
+ //           Authorization:`Bearer ${token}`
+ //       }
+ //       });
+ //       console.log(response)
+ //       return response.data.data; 
+ //     } catch (error) {
+ //       console.error("Error fetching addresses:", error);
+ //       return { error: error.message || "Something went wrong!" };
+ //     }
+ //   };
+ // export const addAddress = async (token, userId, addressData) => {
+ //   try {
+ //     const { street, city, state, country, zip, isPrimary } = addressData;
+ //     const response = await axiosInstance.post(
+ //       'user/addAddress',
+ //       {},
+ //       {
+ //         params: {
+ //           userId,
+ //           street,
+ //           city,
+ //           state,
+ //           country,
+ //           zip,
+ //           isPrimary,
+ //         },
+ //         headers: {
+ //           Authorization: `Bearer ${token}`,
+ //         },
+ //       }
+ //     );userProfileInfo
+ //     return response.data.data; 
+ //   } catch (error) {
+ //     console.error("Error adding address:", error);
+ //     return { error: error.response?.data?.message || "Something went wrong!" };
+ //   }
+ // };
 }}),
 "[project]/src/app/_routeprotector/WithAuth.js [app-ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
@@ -307,7 +362,7 @@ const EditProfile = ()=>{
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md",
+        className: "max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md m-10",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                 className: "text-2xl font-semibold text-gray-800 mb-6",

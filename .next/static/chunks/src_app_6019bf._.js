@@ -6,13 +6,10 @@
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: __turbopack_require_stub__ } = __turbopack_context__;
 {
 __turbopack_esm__({
-    "addAddress": (()=>addAddress),
-    "fetchUserAddresses": (()=>fetchUserAddresses),
     "forgotPassword": (()=>forgotPassword),
     "getProfileInfo": (()=>getProfileInfo),
     "googleOAuth": (()=>googleOAuth),
     "login": (()=>login),
-    "makeAddressPrimary": (()=>makeAddressPrimary),
     "resetPassword": (()=>resetPassword),
     "signUp": (()=>signUp),
     "updateProfileInfo": (()=>updateProfileInfo)
@@ -148,70 +145,62 @@ async function updateProfileInfo(token, userId, data) {
     } catch (err) {
         console.log(err);
     }
-}
-async function fetchUserAddresses(token, userId) {
-    try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post(`user/getAllAddress?userId=${userId}`, {}, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        console.log(response);
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching addresses:", error);
-        return {
-            error: error.message || "Something went wrong!"
-        };
-    }
-}
-;
-const makeAddressPrimary = async (token, userId, addressId)=>{
-    try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post(`user/makePrimaryAddress`, {}, {
-            params: {
-                userId,
-                addressId
-            },
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        console.log(response);
-        return response.data.data;
-    } catch (error) {
-        console.error("Error fetching addresses:", error);
-        return {
-            error: error.message || "Something went wrong!"
-        };
-    }
-};
-const addAddress = async (token, userId, addressData)=>{
-    try {
-        const { street, city, state, country, zip, isPrimary } = addressData;
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post('user/addAddress', {}, {
-            params: {
-                userId,
-                street,
-                city,
-                state,
-                country,
-                zip,
-                isPrimary
-            },
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        userProfileInfo;
-        return response.data.data;
-    } catch (error) {
-        console.error("Error adding address:", error);
-        return {
-            error: error.response?.data?.message || "Something went wrong!"
-        };
-    }
-};
+} // export async function fetchUserAddresses (token,userId){
+ //   try {
+ //     const response = await axiosInstance.post(`user/getAllAddress?userId=${userId}`,{}, {
+ //       headers:{
+ //         Authorization:`Bearer ${token}`
+ //     }
+ //     });
+ //     console.log(response)
+ //     return response.data; 
+ //   } catch (error) {
+ //     console.error("Error fetching addresses:", error);
+ //     return { error: error.message || "Something went wrong!" };
+ //   }
+ // };
+ // export const makeAddressPrimary = async (token,userId,addressId) => {
+ //     try {
+ //       const response = await axiosInstance.post(`user/makePrimaryAddress`,{}, {
+ //         params: { userId,addressId },
+ //         headers:{
+ //           Authorization:`Bearer ${token}`
+ //       }
+ //       });
+ //       console.log(response)
+ //       return response.data.data; 
+ //     } catch (error) {
+ //       console.error("Error fetching addresses:", error);
+ //       return { error: error.message || "Something went wrong!" };
+ //     }
+ //   };
+ // export const addAddress = async (token, userId, addressData) => {
+ //   try {
+ //     const { street, city, state, country, zip, isPrimary } = addressData;
+ //     const response = await axiosInstance.post(
+ //       'user/addAddress',
+ //       {},
+ //       {
+ //         params: {
+ //           userId,
+ //           street,
+ //           city,
+ //           state,
+ //           country,
+ //           zip,
+ //           isPrimary,
+ //         },
+ //         headers: {
+ //           Authorization: `Bearer ${token}`,
+ //         },
+ //       }
+ //     );userProfileInfo
+ //     return response.data.data; 
+ //   } catch (error) {
+ //     console.error("Error adding address:", error);
+ //     return { error: error.response?.data?.message || "Something went wrong!" };
+ //   }
+ // };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }
@@ -373,7 +362,7 @@ const UserProfile = ()=>{
         }, this); // Display error message
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md",
+        className: "max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md m-10",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex items-center mb-6",
@@ -512,7 +501,7 @@ const UserProfile = ()=>{
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-gray-100 p-4 rounded-lg shadow",
+                        className: "bg-gray-100 p-4 rounded-lg shadow col-span-2",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                 className: "text-lg font-semibold text-gray-800",
@@ -543,31 +532,6 @@ const UserProfile = ()=>{
                     }, void 0, true, {
                         fileName: "[project]/src/app/user/profile/page.js",
                         lineNumber: 78,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-gray-100 p-4 rounded-lg shadow",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "text-lg font-semibold text-gray-800",
-                                children: "Address"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/user/profile/page.js",
-                                lineNumber: 84,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-gray-600",
-                                children: "Manage your addresses"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/user/profile/page.js",
-                                lineNumber: 85,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/app/user/profile/page.js",
-                        lineNumber: 83,
                         columnNumber: 9
                     }, this)
                 ]

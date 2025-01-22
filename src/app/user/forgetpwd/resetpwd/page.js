@@ -51,7 +51,7 @@ const ResetPasswordComponent = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-8 bg-white rounded-lg shadow-lg">
+    <div className="w-full max-w-md mx-auto p-8 bg-white rounded-lg shadow-lg m-10">
       <h2 className="text-3xl font-semibold text-gray-800 text-center">Reset Password</h2>
       <p className="text-sm text-gray-500 text-center mt-2">
         Please enter your new password below.
