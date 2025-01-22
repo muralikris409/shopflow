@@ -147,7 +147,7 @@ function Filter() {
               </div>
               </>
             )}
-
+{/* 
             <div className="mb-6 flex space-x-4">
               <div className="w-28">
                 <label className="text-lg font-medium mb-2 block">Min Price</label>
@@ -172,7 +172,7 @@ function Filter() {
                   placeholder="Max"
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="mb-6">
               <h3 className="text-lg font-medium mb-2">Sort By</h3>
@@ -259,7 +259,7 @@ function Filter() {
               </div>
             )}
 
-            <div className="mb-6 flex space-x-4">
+            {/* <div className="mb-6 flex space-x-4">
               <div className="w-28">
                 <label className="text-lg font-medium mb-2 block">Min Price</label>
                 <input
@@ -283,7 +283,7 @@ function Filter() {
                   placeholder="Max"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="mb-6">
