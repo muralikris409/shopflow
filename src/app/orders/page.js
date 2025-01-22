@@ -53,7 +53,7 @@ const OrderTile = ({ order, onCancel }) => {
                   </div>
                   <p className="text-sm font-semibold text-center mt-2">{item.product.name}</p>
                   <p className="text-sm text-center">
-                    Rp {item.price.toLocaleString()} x {item.quantity}
+                    $ {item.price.toLocaleString()} x {item.quantity}
                   </p>
                 </div>
               ))}
