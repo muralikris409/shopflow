@@ -46,7 +46,7 @@ const OrderTile = ({ order, onCancel }) => {
                 <div key={item.id} className="flex flex-col items-center min-w-[200px]">
                   <div className="aspect-square w-full overflow-hidden">
                     <img
-                      src={item.product.imageUrl || "/_assets/image.png"}
+                      src={item.product.image || "/_assets/image.png"}
                       alt={item.product.name}
                       className="group-hover:scale-110 h-full w-full object-cover transition-all duration-300 rounded-md"
                     />
