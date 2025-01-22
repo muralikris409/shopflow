@@ -102,10 +102,12 @@ function UserCartService() {
     };
     this.migrateCart = async function(userId) {
         const guestCart = this.loadCart();
+        console.log(guestCart, userId);
         if (guestCart.length > 0) {
             for (const item of guestCart){
                 try {
-                    await this.addItemToCart(userId, item.productId, item.quantity);
+                    const res = await this.addItemToCart(userId, item.id, item.quantity);
+                    console.log("migrated", res);
                 } catch (error) {
                     console.error('Error migrating cart item:', error);
                 }
@@ -128,6 +130,7 @@ function UserCartService() {
             });
             return response.data;
         } catch (error) {
+            console.log(error);
             console.error('Error adding item to cart:', error);
             throw error.response ? error.response.data : new Error('Network or server error');
         }

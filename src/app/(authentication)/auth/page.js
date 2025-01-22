@@ -7,10 +7,12 @@ import { setSession } from "../../_lib/sessionReducer";
 import { useRouter } from "next/navigation";
 import { googleOAuth, login, signUp } from "@/app/service/UserService";
 import Link from "next/link";
+import UserCartService from "@/app/service/UserCartService";
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
+  const userCartService=new UserCartService();
   const [success, setSuccess] = useState(null);
   const [loading,setLoading]=useState(false);
   const { data: session, status } = useSession();
@@ -81,12 +83,14 @@ const AuthForm = () => {
       } else {
         setLoading(true);
         const response = await signUp(formData);
+        // await userCartService.migrateCart(response?.data?.id);
         setSuccess(response?.message || "Registration successful! Please sign in.");
       }
       setLoading(false);
     } catch (error) {
+       setLoading(false);
       setErrors({ form: error.message || "An unexpected error occurred. Please try again." });
-      setSuccess(null); // Clear success message if login or signup fails
+      setSuccess(null); 
     }
   };
 
@@ -94,11 +98,12 @@ const AuthForm = () => {
     try {
       await signIn("google");
       await googleOAuth(session.user);
+      
       syncUser();
       router.push("/");
     } catch (error) {
       console.error("Google login error:", error);
-      setErrors({ form: error.message || "An unexpected error occurred. Please try again." });
+      setErrors({form: "An unexpected error occurred. Please try again." });
       setSuccess(null); // Clear success message if Google login fails
     }
   };
