@@ -59,7 +59,7 @@ const OrderTile = ({ order, onCancel }) => {
               ))}
             </div>
 
-            <p className="mt-4 font-bold text-lg">Total: Rp {order.totalAmount.toLocaleString()}</p>
+            <p className="mt-4 font-bold text-lg">Total: $ {order.totalAmount.toLocaleString()}</p>
             {order.orderStatus === 'Cancelled' && (
               <p className="mt-2 text-red-500 font-semibold">Order Cancelled</p>
             )}
