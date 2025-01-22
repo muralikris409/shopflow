@@ -2,7 +2,5 @@
   "/page": "app/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/icon.png/route": "app/icon.png/route.js",
-  "/product/[name]/page": "app/product/[name]/page.js",
-  "/checkout/page": "app/checkout/page.js",
-  "/orders/success/page": "app/orders/success/page.js"
+  "/(authentication)/auth/page": "app/(authentication)/auth/page.js"
 }

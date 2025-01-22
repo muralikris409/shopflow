@@ -12,6 +12,7 @@ const AuthForm = () => {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(null);
+  const [loading,setLoading]=useState(false);
   const { data: session, status } = useSession();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -66,20 +67,23 @@ const AuthForm = () => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      setSuccess(null); // Clear success message if validation fails
+      setSuccess(null); 
       return;
     }
 
     try {
-      setErrors({}); // Clear previous errors
+      setErrors({}); 
       if (isLogin) {
+        setLoading(true);
         await login(formData);
         syncUser();
         router.push("/");
       } else {
+        setLoading(true);
         const response = await signUp(formData);
         setSuccess(response?.message || "Registration successful! Please sign in.");
       }
+      setLoading(false);
     } catch (error) {
       setErrors({ form: error.message || "An unexpected error occurred. Please try again." });
       setSuccess(null); // Clear success message if login or signup fails
@@ -206,7 +210,8 @@ const AuthForm = () => {
             type="submit"
             className="w-full mb-1 bg-gradient-to-r from-orange-500 to-red-500 text-white py-2 rounded-lg hover:from-orange-600 hover:to-red-600"
           >
-            {isLogin ? "Sign in" : "Register"}
+           {loading ? "loading" : (isLogin ? "Sign in" : "Register")}
+
           </button>
         </form>
 
