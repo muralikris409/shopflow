@@ -134,8 +134,7 @@ async function getProfileInfo(token, userId) {
 async function updateProfileInfo(token, userId, data) {
     try {
         console.log("test");
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post(`user/updateUserProfile?userId=${userId}
-        &data=${data}`, {}, {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post(`user/updateUserProfile?userId=${userId}`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data'
@@ -146,7 +145,62 @@ async function updateProfileInfo(token, userId, data) {
     } catch (err) {
         console.log(err);
     }
-}
+} // export async function fetchUserAddresses (token,userId){
+ //   try {
+ //     const response = await axiosInstance.post(`user/getAllAddress?userId=${userId}`,{}, {
+ //       headers:{
+ //         Authorization:`Bearer ${token}`
+ //     }
+ //     });
+ //     console.log(response)
+ //     return response.data; 
+ //   } catch (error) {
+ //     console.error("Error fetching addresses:", error);
+ //     return { error: error.message || "Something went wrong!" };
+ //   }
+ // };
+ // export const makeAddressPrimary = async (token,userId,addressId) => {
+ //     try {
+ //       const response = await axiosInstance.post(`user/makePrimaryAddress`,{}, {
+ //         params: { userId,addressId },
+ //         headers:{
+ //           Authorization:`Bearer ${token}`
+ //       }
+ //       });
+ //       console.log(response)
+ //       return response.data.data; 
+ //     } catch (error) {
+ //       console.error("Error fetching addresses:", error);
+ //       return { error: error.message || "Something went wrong!" };
+ //     }
+ //   };
+ // export const addAddress = async (token, userId, addressData) => {
+ //   try {
+ //     const { street, city, state, country, zip, isPrimary } = addressData;
+ //     const response = await axiosInstance.post(
+ //       'user/addAddress',
+ //       {},
+ //       {
+ //         params: {
+ //           userId,
+ //           street,
+ //           city,
+ //           state,
+ //           country,
+ //           zip,
+ //           isPrimary,
+ //         },
+ //         headers: {
+ //           Authorization: `Bearer ${token}`,
+ //         },
+ //       }
+ //     );userProfileInfo
+ //     return response.data.data; 
+ //   } catch (error) {
+ //     console.error("Error adding address:", error);
+ //     return { error: error.response?.data?.message || "Something went wrong!" };
+ //   }
+ // };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }
@@ -187,7 +241,7 @@ const ForgotPasswordEmail = ()=>{
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-md",
+        className: "w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-md m-10",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                 className: "text-2xl font-bold text-gray-800 text-center",
