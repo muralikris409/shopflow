@@ -1,18 +1,19 @@
   "use client";
   import { addProduct } from '@/app/service/GuestCartService';
   import React, { useState } from 'react';
-  import { useSelector } from 'react-redux';
+  import { useDispatch, useSelector } from 'react-redux';
   import UserCartService from "../../service/UserCartService";
   import { addOrRemoveProductFromWishlist } from '@/app/service/WishListService';
   import { useRouter } from 'next/navigation';
   import { createOrder } from '@/app/service/OrderService';
 import SimilarProducts from '@/app/_components/SimilarProducts';
+import { setProductData } from '@/app/_lib/utilReducer';
 
   const ProductView = ({ product = {} }) => {
     const isLoggedIn = useSelector((state) => state.session.user);
     const token = useSelector((state) => state.session.token);
     const router = useRouter();
-
+    const dispatch=useDispatch();
     const {
       id,
       name = "Unknown Product",
@@ -32,20 +33,19 @@ import SimilarProducts from '@/app/_components/SimilarProducts';
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
     const [loading, setLoading] = useState({ buy: false, cart: false, wishlist: false });
-
     const showMessage = (msg, type) => {
       setMessage(msg);
       setMessageType(type);
       setTimeout(() => {
         setMessage('');
         setMessageType('');
-      }, 3000); // Clear message after 3 seconds
+      }, 3000); 
     };
 
     const handleNavigation = (order) => {
       const data = { orders: order };
-      const encodedData = encodeURIComponent(JSON.stringify(data));
-      router.push(`/checkout?data=${encodedData}`);
+      dispatch(setProductData({orders:{...data}}))
+      router.push(`/checkout`);
     };
 
     const handleBuy = async () => {

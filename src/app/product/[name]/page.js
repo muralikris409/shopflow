@@ -1,12 +1,13 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { getProductByID } from '@/app/service/ProductService';
 import ProductView from './ProductView';
+import { useSelector } from 'react-redux';
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+ 
+  const id = useSelector(state=>state?.utils?.product?.id);
+  console.log(id);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 

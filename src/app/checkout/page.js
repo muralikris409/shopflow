@@ -6,34 +6,7 @@ import { useSelector } from 'react-redux';
 import { useSearchParams } from 'next/navigation';
 import withAuth from '../_routeprotector/WithAuth';
 
-const fieldData = {
-  title: "Order Summary",
-  steps: [
-    { number: 1, label: "Cart", active: true, href: "#", icon: null, iconPath: "" },
-    { number: 2, label: "Shipping", active: false, href: "#", icon: null, iconPath: "" },
-    { number: 3, label: "Payment", active: false, href: "#", icon: null, iconPath: "" }
-  ],
-  shippingMethods: [
-    {
-      name: "Standard Shipping",
-      description: "5-7 business days",
-      image: "https://via.placeholder.com/50",
-      defaultChecked: true
-    },
-    {
-      name: "Express Shipping",
-      description: "2-3 business days",
-      image: "https://via.placeholder.com/50",
-      defaultChecked: false
-    }
-  ],
-  billingAddress: {
-    placeholder: "Enter your address",
-    flag: "https://via.placeholder.com/20",
-    states: ["California", "Texas", "New York"],
-    countries: ["USA", "Canada", "UK"]
-  }
-};
+
 
 function Page() {
   const [products, setProducts] = useState([]);
@@ -41,8 +14,8 @@ function Page() {
   const userCartService = new UserCartService();
   const userId = useSelector((state) => state.session.user?.id);
   const searchParams = useSearchParams();
-  const orders = JSON.parse(searchParams.get('data'))||[];
-
+  const orders = useSelector(state=>state?.utils?.product?.orders);
+console.log(orders);
   const fetchProducts = async () => {
     if (!userId) return;  
     try {
@@ -70,14 +43,11 @@ function Page() {
 
   return (
     <OrderSummary 
-      title={fieldData.title} 
-      steps={fieldData.steps} 
       data={products.items} 
       userId={userId}
       orders={orders}
       totalBill={products.totalAmount}
-      shippingMethods={fieldData.shippingMethods} 
-      billingAddress={fieldData.billingAddress}
+    
     />
   );
 }

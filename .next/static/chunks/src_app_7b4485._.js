@@ -160,7 +160,7 @@ var _s = __turbopack_refresh__.signature();
 ;
 ;
 ;
-const OrderSummary = ({ title, steps, userId, orders, shippingMethods, billingAddress, totalBill })=>{
+const OrderSummary = ({ title, userId, orders, totalBill })=>{
     _s();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -174,14 +174,11 @@ const OrderSummary = ({ title, steps, userId, orders, shippingMethods, billingAd
         zip: '',
         country: ''
     });
-    const [isFormValid, setIsFormValid] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [formErrors, setFormErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({});
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "OrderSummary.useEffect": ()=>{
             const script = document.createElement('script');
             script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-            script.onload = ({
-                "OrderSummary.useEffect": ()=>{}
-            })["OrderSummary.useEffect"];
             document.body.appendChild(script);
             return ({
                 "OrderSummary.useEffect": ()=>{
@@ -192,10 +189,43 @@ const OrderSummary = ({ title, steps, userId, orders, shippingMethods, billingAd
     }["OrderSummary.useEffect"], [
         userId
     ]);
+    const validateField = (name, value)=>{
+        let error = '';
+        if (!value.trim()) {
+            error = `${name.replace(/([A-Z])/g, ' $1')} is required.`;
+        } else {
+            switch(name){
+                case 'zip':
+                    if (!/^[0-9]{5,6}$/.test(value)) {
+                        error = 'ZIP code must be 5-6 digits.';
+                    }
+                    break;
+                case 'fullName':
+                    if (value.length < 3) {
+                        error = 'Full Name must be at least 3 characters long.';
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        setFormErrors((prevErrors)=>({
+                ...prevErrors,
+                [name]: error
+            }));
+        return !error;
+    };
     const validateForm = ()=>{
-        const { fullName, streetAddress, city, state, zip, country } = formData;
-        const isValid = fullName && streetAddress && city && state && zip && country;
-        setIsFormValid(isValid);
+        const fields = Object.keys(formData);
+        let isValid = true;
+        fields.forEach((field)=>{
+            const valid = validateField(field, formData[field]);
+            if (!valid) isValid = false;
+        });
+        return isValid;
+    };
+    const handleSuccess = ()=>{
+        router.push(`/orders/success`);
     };
     const handleInputChange = (e)=>{
         const { name, value } = e.target;
@@ -203,20 +233,11 @@ const OrderSummary = ({ title, steps, userId, orders, shippingMethods, billingAd
                 ...prevData,
                 [name]: value
             }));
-    };
-    const handleVerify = async (orderId, razorpay_order_id, razorpay_payment_id, razorpay_signature)=>{
-        console.log(razorpay_order_id, razorpay_payment_id, razorpay_signature);
-        try {
-            const response = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$OrderService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["verifyPaymentAndUpdateOrder"])(orderId, razorpay_order_id, razorpay_payment_id, razorpay_signature);
-            return response;
-        } catch (err) {
-            setError('Payment verification failed. Please try again.');
-            console.error(JSON.stringify(err));
-        }
+        validateField(name, value);
     };
     const handlePayment = async ()=>{
-        if (!isFormValid) {
-            setError('Please fill all the required fields.');
+        if (!validateForm()) {
+            setError('Please fix the highlighted errors before proceeding.');
             return;
         }
         setLoading(true);
@@ -232,14 +253,16 @@ const OrderSummary = ({ title, steps, userId, orders, shippingMethods, billingAd
                 order_id: razorpayOrder?.id,
                 handler: async function(response) {
                     const { razorpay_payment_id, razorpay_signature, razorpay_order_id } = response;
-                    //   const verificationResult = await verifyPayment(orders?.orders?.order?.id || orders?.orders.id, razorpay_order_id, razorpay_payment_id, razorpay_signature);
-                    const verificationResult = await handleVerify(orders?.orders?.order?.id || orders?.orders.id, razorpay_order_id, razorpay_payment_id, razorpay_signature);
-                    if (verificationResult.success) {
-                        router.push(`/orders/success?dtrcpt=${encodeURIComponent(JSON.stringify(verificationResult?.order))}`);
-                    } else {
-                        console.log("failed");
-                        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$PaymentService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["failedVerify"])(orders?.orders?.order?.id || orders?.orders.id);
-                        setError('Payment verification failed. Please try again.');
+                    try {
+                        const verificationResult = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$OrderService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["verifyPaymentAndUpdateOrder"])(orders?.orders?.order?.id || orders?.orders.id, razorpay_order_id, razorpay_payment_id, razorpay_signature);
+                        if (verificationResult.success) {
+                            handleSuccess();
+                        } else {
+                            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$PaymentService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["failedVerify"])(orders?.orders?.order?.id || orders?.orders.id);
+                            setError('Payment verification failed. Please try again.');
+                        }
+                    } catch (error) {
+                        setError('An unexpected error occurred during verification. Please try again.');
                     }
                 },
                 prefill: {
@@ -249,502 +272,233 @@ const OrderSummary = ({ title, steps, userId, orders, shippingMethods, billingAd
                 },
                 theme: {
                     color: '#F37254'
+                },
+                modal: {
+                    ondismiss: async ()=>{
+                        try {
+                            // await failedVerify(orders?.orders?.order?.id || orders?.orders.id);
+                            setError('Payment was cancelled by the user. Please try again.');
+                        } catch (error) {
+                            setError('An error occurred while handling payment cancellation. Please contact support.');
+                        }
+                    }
                 }
             };
             const rzp = new window.Razorpay(options);
             rzp.open();
         } catch (err) {
             setError('Payment process failed. Please try again.');
-            console.error('Payment process failed:', err);
         } finally{
             setLoading(false);
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "bg-gray-100",
         children: [
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "bg-red-500 text-white p-4 rounded mb-4",
                 children: error
             }, void 0, false, {
                 fileName: "[project]/src/app/checkout/Checkout.js",
-                lineNumber: 116,
+                lineNumber: 154,
                 columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32",
+                className: "p-6 shadow-md bg-white",
                 children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                        href: "#",
-                        className: "text-2xl font-bold text-gray-800",
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                        className: "text-xl font-semibold",
                         children: title
                     }, void 0, false, {
                         fileName: "[project]/src/app/checkout/Checkout.js",
-                        lineNumber: 119,
+                        lineNumber: 157,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "mt-4 py-2 text-xs sm:mt-0 sm:ml-auto sm:text-base",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "relative",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                                className: "relative flex w-full items-center justify-between space-x-2 sm:space-x-4",
-                                children: steps.map((step, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                        className: "flex items-center space-x-3 text-left sm:space-x-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                                className: `flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold ${step.active ? 'bg-emerald-200 text-emerald-700' : 'bg-gray-600 text-white'}`,
-                                                href: step.href,
-                                                children: step.icon ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                                    xmlns: "http://www.w3.org/2000/svg",
-                                                    className: "h-4 w-4",
-                                                    fill: "none",
-                                                    viewBox: "0 0 24 24",
-                                                    stroke: "currentColor",
-                                                    strokeWidth: "2",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                                        strokeLinecap: "round",
-                                                        strokeLinejoin: "round",
-                                                        d: step.iconPath
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                                        lineNumber: 128,
-                                                        columnNumber: 25
-                                                    }, this)
+                        className: "mt-4 grid lg:grid-cols-12 gap-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "lg:col-span-7 bg-white p-4 shadow-sm rounded",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "text-lg font-medium mb-4",
+                                        children: "Delivery Address"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/checkout/Checkout.js",
+                                        lineNumber: 161,
+                                        columnNumber: 13
+                                    }, this),
+                                    Object.keys(formData)?.map((key)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "mb-3",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "block text-sm font-medium capitalize",
+                                                    htmlFor: key,
+                                                    children: key.replace(/([A-Z])/g, ' $1')
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/checkout/Checkout.js",
-                                                    lineNumber: 127,
-                                                    columnNumber: 23
-                                                }, this) : step.number
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                                lineNumber: 125,
-                                                columnNumber: 19
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: `font-semibold ${step.active ? 'text-gray-900' : 'text-gray-500'}`,
-                                                children: step.label
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                                lineNumber: 132,
-                                                columnNumber: 19
-                                            }, this)
-                                        ]
-                                    }, index, true, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 124,
-                                        columnNumber: 17
-                                    }, this))
-                            }, void 0, false, {
+                                                    lineNumber: 164,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                    type: "text",
+                                                    id: key,
+                                                    name: key,
+                                                    className: `w-full rounded border p-2 text-sm ${formErrors[key] ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-400`,
+                                                    placeholder: `Enter ${key}`,
+                                                    value: formData[key],
+                                                    onChange: handleInputChange
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/checkout/Checkout.js",
+                                                    lineNumber: 165,
+                                                    columnNumber: 17
+                                                }, this),
+                                                formErrors[key] && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                    className: "text-sm text-red-500 mt-1",
+                                                    children: formErrors[key]
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/checkout/Checkout.js",
+                                                    lineNumber: 174,
+                                                    columnNumber: 37
+                                                }, this)
+                                            ]
+                                        }, key, true, {
+                                            fileName: "[project]/src/app/checkout/Checkout.js",
+                                            lineNumber: 163,
+                                            columnNumber: 15
+                                        }, this))
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/checkout/Checkout.js",
-                                lineNumber: 122,
-                                columnNumber: 13
-                            }, this)
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/checkout/Checkout.js",
-                            lineNumber: 121,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/src/app/checkout/Checkout.js",
-                        lineNumber: 120,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/app/checkout/Checkout.js",
-                lineNumber: 118,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32 m-10",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "px-4 pt-8",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-xl font-medium",
-                                children: "Order Summary"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                lineNumber: 143,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-gray-400",
-                                children: "Check your items. And select a suitable shipping method."
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                lineNumber: 144,
+                                lineNumber: 160,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mt-8 space-y-2 max-h-96 overflow-y-scroll rounded-lg border bg-white px-2 py-4 sm:px-6",
-                                children: orderData?.map((orderItem, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex flex-col rounded-lg bg-white sm:flex-row",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                className: "m-2 h-24 w-28 rounded-md border object-cover object-center",
-                                                src: orderItem.product?.image || "/_assets/image.png",
-                                                alt: orderItem.product?.name || "Product Image"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                                lineNumber: 148,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex w-full flex-col px-4 py-4",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "font-semibold",
-                                                        children: orderItem?.product.name || "Product Name"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                                        lineNumber: 150,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "float-right text-gray-400",
-                                                        children: orderItem.product?.description || "No description available."
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                                        lineNumber: 151,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "float-right text-gray-400",
-                                                        children: "Quantity: " + (orderItem.quantity || 1)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                                        lineNumber: 152,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "text-lg font-bold",
-                                                        children: "$" + (orderItem.product?.offerPrice || "0.00")
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                                        lineNumber: 153,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                                lineNumber: 149,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, index, true, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 147,
-                                        columnNumber: 15
-                                    }, this))
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                lineNumber: 145,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-lg p-2",
-                                children: "Total Bill: $" + totalBill
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                lineNumber: 159,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "mt-8 text-lg font-medium",
-                                children: "Shipping Methods"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                lineNumber: 162,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
-                                className: "mt-5 grid gap-6",
-                                children: shippingMethods.map((method, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "relative",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                className: "peer hidden",
-                                                id: `radio_${index}`,
-                                                type: "radio",
-                                                name: "radio",
-                                                defaultChecked: method.defaultChecked
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                                lineNumber: 166,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                                lineNumber: 167,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4",
-                                                htmlFor: `radio_${index}`,
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                        className: "w-14 object-contain",
-                                                        src: method.image,
-                                                        alt: method.name
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                                        lineNumber: 169,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "ml-5",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "mt-2 font-semibold",
-                                                                children: method.name
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                                                lineNumber: 171,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-slate-500 text-sm leading-6",
-                                                                children: method.description
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                                                lineNumber: 172,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                                        lineNumber: 170,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                                lineNumber: 168,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, index, true, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 165,
-                                        columnNumber: 15
-                                    }, this))
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                lineNumber: 163,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/app/checkout/Checkout.js",
-                        lineNumber: 142,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "mt-10 bg-gray-50 px-4 pt-8 lg:mt-0",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-xl font-medium",
-                                children: "Address Details"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                lineNumber: 182,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-gray-400",
-                                children: "Complete your order by providing your delivery address."
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/checkout/Checkout.js",
-                                lineNumber: 183,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "lg:col-span-5 bg-white p-4 shadow-sm rounded",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        htmlFor: "full-name",
-                                        className: "mt-4 mb-2 block text-sm font-medium",
-                                        children: "Full Name"
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "text-lg font-medium mb-4",
+                                        children: "Order Summary"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 185,
+                                        lineNumber: 180,
                                         columnNumber: 13
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        id: "full-name",
-                                        name: "fullName",
-                                        className: "w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500",
-                                        placeholder: "John Doe",
-                                        value: formData.fullName,
-                                        onChange: handleInputChange,
-                                        onBlur: validateForm
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 186,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        htmlFor: "street-address",
-                                        className: "mt-4 mb-2 block text-sm font-medium",
-                                        children: "Street Address"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 187,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        id: "street-address",
-                                        name: "streetAddress",
-                                        className: "w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500",
-                                        placeholder: "123 Main St",
-                                        value: formData.streetAddress,
-                                        onChange: handleInputChange,
-                                        onBlur: validateForm
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 188,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        htmlFor: "city",
-                                        className: "mt-4 mb-2 block text-sm font-medium",
-                                        children: "City"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 189,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        id: "city",
-                                        name: "city",
-                                        className: "w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500",
-                                        placeholder: "Los Angeles",
-                                        value: formData.city,
-                                        onChange: handleInputChange,
-                                        onBlur: validateForm
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 190,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        htmlFor: "state",
-                                        className: "mt-4 mb-2 block text-sm font-medium",
-                                        children: "State/Province"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 191,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        id: "state",
-                                        name: "state",
-                                        className: "w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500",
-                                        placeholder: "California",
-                                        value: formData.state,
-                                        onChange: handleInputChange,
-                                        onBlur: validateForm
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 192,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        htmlFor: "zip",
-                                        className: "mt-4 mb-2 block text-sm font-medium",
-                                        children: "ZIP/Postal Code"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 193,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        id: "zip",
-                                        name: "zip",
-                                        className: "w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500",
-                                        placeholder: "90001",
-                                        value: formData.zip,
-                                        onChange: handleInputChange,
-                                        onBlur: validateForm
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 194,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        htmlFor: "country",
-                                        className: "mt-4 mb-2 block text-sm font-medium",
-                                        children: "Country"
+                                    orderData?.map((item, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex items-center mb-4",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                    className: "w-20 h-20 object-cover rounded border",
+                                                    src: item.product?.image || '/_assets/image.png',
+                                                    alt: item.product?.name
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/checkout/Checkout.js",
+                                                    lineNumber: 183,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "ml-4",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                            className: "text-sm font-medium",
+                                                            children: item.product?.name
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/checkout/Checkout.js",
+                                                            lineNumber: 189,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-sm text-gray-500",
+                                                            children: item.product?.description
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/checkout/Checkout.js",
+                                                            lineNumber: 190,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-sm font-bold",
+                                                            children: [
+                                                                "$",
+                                                                item.product?.offerPrice
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/app/checkout/Checkout.js",
+                                                            lineNumber: 191,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/checkout/Checkout.js",
+                                                    lineNumber: 188,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, index, true, {
+                                            fileName: "[project]/src/app/checkout/Checkout.js",
+                                            lineNumber: 182,
+                                            columnNumber: 15
+                                        }, this)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "border-t pt-4",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "font-medium text-lg",
+                                            children: [
+                                                "Total: $",
+                                                totalBill
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/app/checkout/Checkout.js",
+                                            lineNumber: 196,
+                                            columnNumber: 15
+                                        }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/checkout/Checkout.js",
                                         lineNumber: 195,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        id: "country",
-                                        name: "country",
-                                        className: "w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500",
-                                        placeholder: "United States",
-                                        value: formData.country,
-                                        onChange: handleInputChange,
-                                        onBlur: validateForm
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/checkout/Checkout.js",
-                                        lineNumber: 196,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/checkout/Checkout.js",
-                                lineNumber: 184,
+                                lineNumber: 179,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/checkout/Checkout.js",
-                        lineNumber: 181,
+                        lineNumber: 158,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mt-6 text-center",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            className: `w-full p-3 rounded text-white ${loading ? 'bg-gray-500' : 'bg-gray-900'} hover:bg-gray-800`,
+                            disabled: loading,
+                            onClick: handlePayment,
+                            children: loading ? 'Processing...' : 'Proceed to Payment'
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/checkout/Checkout.js",
+                            lineNumber: 203,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/checkout/Checkout.js",
+                        lineNumber: 202,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/checkout/Checkout.js",
-                lineNumber: 141,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mt-10 text-center",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                    className: `w-3/4 rounded-lg ${loading ? 'bg-gray-500' : 'bg-gray-900'} p-4 text-sm font-medium text-white`,
-                    disabled: loading,
-                    onClick: handlePayment,
-                    children: loading ? 'Processing...' : 'Proceed to Payment'
-                }, void 0, false, {
-                    fileName: "[project]/src/app/checkout/Checkout.js",
-                    lineNumber: 203,
-                    columnNumber: 9
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/src/app/checkout/Checkout.js",
-                lineNumber: 202,
+                lineNumber: 156,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/checkout/Checkout.js",
-        lineNumber: 115,
+        lineNumber: 153,
         columnNumber: 5
     }, this);
 };
-_s(OrderSummary, "FnnCMaZwFbOwsB8yQV9wv5VpB9U=", false, function() {
+_s(OrderSummary, "Qv3gHhrEoATP85lWlz3aQzIUMYk=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
@@ -756,289 +510,6 @@ __turbopack_refresh__.register(_c, "OrderSummary");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }
- // import React, { useState, useEffect } from 'react';
- // import { createOrder, failedVerify, verifyPayment } from '../service/PaymentService';  
- // import { checkOutOrder, getOrderById, verifyPaymentAndUpdateOrder } from '../service/OrderService';
- // import { useRouter } from 'next/navigation';
- // const OrderSummary = ({ 
- //   title, 
- //   steps, 
- //   userId,
- //   orders,
- //   shippingMethods, 
- //   billingAddress,
- //   totalBill,
- //   existingAddresses = [
- //     {
- //       id: '1',
- //       fullName: 'John Doe',
- //       streetAddress: '123 Main St',
- //       city: 'Los Angeles',
- //       state: 'California',
- //       zip: '90001',
- //       country: 'United States',
- //     },
- //     {
- //       id: '2',
- //       fullName: 'Jane Smith',
- //       streetAddress: '456 Elm St',
- //       city: 'San Francisco',
- //       state: 'California',
- //       zip: '94101',
- //       country: 'United States',
- //     },
- //     {
- //       id: '3',
- //       fullName: 'Alice Johnson',
- //       streetAddress: '789 Oak St',
- //       city: 'New York',
- //       state: 'New York',
- //       zip: '10001',
- //       country: 'United States',
- //     },
- //     {
- //       id: '4',
- //       fullName: 'Bob Brown',
- //       streetAddress: '321 Pine St',
- //       city: 'Chicago',
- //       state: 'Illinois',
- //       zip: '60601',
- //       country: 'United States',
- //     },
- //   ]
- // }) => {
- //   const router = useRouter();
- //   const [loading, setLoading] = useState(false);
- //   const [error, setError] = useState(null);
- //   const [orderData, setOrderData] = useState(orders?.orders?.order?.items || orders?.orders?.items);
- //   const [formData, setFormData] = useState({
- //     fullName: '',
- //     streetAddress: '',
- //     city: '',
- //     state: '',
- //     zip: '',
- //     country: '',
- //   });
- //   const [isFormValid, setIsFormValid] = useState(false);
- //   const [useExistingAddress, setUseExistingAddress] = useState(false);
- //   const [selectedAddress, setSelectedAddress] = useState(null);
- //   useEffect(() => {
- //     const script = document.createElement('script');
- //     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
- //     script.onload = () => {};
- //     document.body.appendChild(script);
- //     return () => {
- //       document.body.removeChild(script);
- //     };
- //   }, [userId]);
- //   const validateForm = () => {
- //     if (useExistingAddress && selectedAddress) {
- //       setIsFormValid(true);
- //     } else {
- //       const { fullName, streetAddress, city, state, zip, country } = formData;
- //       const isValid = fullName && streetAddress && city && state && zip && country;
- //       setIsFormValid(isValid);
- //     }
- //   };
- //   const handleInputChange = (e) => {
- //     const { name, value } = e.target;
- //     setFormData((prevData) => ({
- //       ...prevData,
- //       [name]: value,
- //     }));
- //   };
- //   const handleAddressToggle = () => {
- //     setUseExistingAddress(!useExistingAddress);
- //     if (useExistingAddress) {
- //       setFormData({
- //         fullName: '',
- //         streetAddress: '',
- //         city: '',
- //         state: '',
- //         zip: '',
- //         country: '',
- //       });
- //     } else if (selectedAddress) {
- //       setFormData(selectedAddress);
- //       console.log("address",selectedAddress);
- //     }
- //     validateForm(); 
- //   };
- //   const handleAddressSelect = (e) => {
- //     const addressId = e.target.value;
- //     const address = existingAddresses.find(addr => addr.id === addressId);
- //     setSelectedAddress(address);
- //     setFormData(address);
- //     validateForm(); 
- //   };
- //   const handleVerify = async (orderId,razorpay_order_id, razorpay_payment_id, razorpay_signature) => {
- //     try {
- //       const response = await verifyPaymentAndUpdateOrder(orderId,razorpay_order_id, razorpay_payment_id, razorpay_signature);
- //       return response;
- //     } catch (err) {
- //       setError('Payment verification failed. Please try again.');
- //       console.error(JSON.stringify(err));
- //     }
- //   };
- //   const handlePayment = async () => {
- //     if (!isFormValid) {
- //       setError('Please fill all the required fields.');
- //       return;
- //     }
- //     setLoading(true);
- //     setError(null);
- //     try {
- //       const { razorpayOrder, ...data } = await checkOutOrder(orders?.orders?.order?.id || orders?.orders.id);
- //       const options = {
- //         key: 'rzp_test_nTbKdtgjeOQLhc',
- //         amount: Math.ceil(totalBill * 100),
- //         currency: razorpayOrder?.currency,
- //         name: 'Your Shop',
- //         description: 'Payment for your order',
- //         order_id: razorpayOrder?.id,
- //         handler: async function (response) {
- //           const { razorpay_payment_id, razorpay_signature, razorpay_order_id } = response;
- //           const verificationResult = await handleVerify(orders?.orders?.order?.id || orders?.orders.id, razorpay_order_id, razorpay_payment_id, razorpay_signature);
- //           if (verificationResult.success) {
- //             router.push(`/orders/success?dtrcpt=${encodeURIComponent(JSON.stringify(verificationResult?.order))}`);
- //           } else {
- //             await failedVerify(orders?.orders?.order?.id || orders?.orders.id);
- //             setError('Payment verification failed. Please try again.');
- //           }
- //         },
- //         prefill: {
- //           name: formData.fullName,
- //           email: 'customer@example.com',
- //           contact: '1234567890',
- //         },
- //         theme: {
- //           color: '#F37254',
- //         },
- //       };
- //       const rzp = new window.Razorpay(options);
- //       rzp.open();
- //     } catch (err) {
- //       setError('Payment process failed. Please try again.');
- //       console.error('Payment process failed:', err);
- //     } finally {
- //       setLoading(false);
- //     }
- //   };
- //   return (
- //     <div>
- //       {error && <div className="bg-red-500 text-white p-4 rounded mb-4">{error}</div>}
- //       <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
- //         <a href="#" className="text-2xl font-bold text-gray-800">{title}</a>
- //         <div className="mt-4 py-2 text-xs sm:mt-0 sm:ml-auto sm:text-base">
- //           <div className="relative">
- //             <ul className="relative flex w-full items-center justify-between space-x-2 sm:space-x-4">
- //               {steps.map((step, index) => (
- //                 <li key={index} className="flex items-center space-x-3 text-left sm:space-x-4">
- //                   <a className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold ${step.active ? 'bg-emerald-200 text-emerald-700' : 'bg-gray-600 text-white'}`} href={step.href}>
- //                     {step.icon ? (
- //                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
- //                         <path strokeLinecap="round" strokeLinejoin="round" d={step.iconPath} />
- //                       </svg>
- //                     ) : step.number}
- //                   </a>
- //                   <span className={`font-semibold ${step.active ? 'text-gray-900' : 'text-gray-500'}`}>{step.label}</span>
- //                 </li>
- //               ))}
- //             </ul>
- //           </div>
- //         </div>
- //       </div>
- //       <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32 m-10">
- //         <div className="px-4 pt-8">
- //           <p className="text-xl font-medium">Order Summary</p>
- //           <p className="text-gray-400">Check your items. And select a suitable shipping method.</p>
- //           <div className="mt-8 space-y-2 max-h-96 overflow-y-scroll rounded-lg border bg-white px-2 py-4 sm:px-6">
- //             {orderData?.map((orderItem, index) => (
- //               <div key={index} className="flex flex-col rounded-lg bg-white sm:flex-row">
- //                 <img className="m-2 h-24 w-28 rounded-md border object-cover object-center" src={orderItem.product?.image || "/_assets/image.png"} alt={orderItem.product?.name || "Product Image"} />
- //                 <div className="flex w-full flex-col px-4 py-4">
- //                   <span className="font-semibold">{orderItem?.product.name || "Product Name"}</span>
- //                   <span className="float-right text-gray-400">{orderItem.product?.description || "No description available."}</span>
- //                   <span className="float-right text-gray-400">{"Quantity: " + (orderItem.quantity || 1)}</span>
- //                   <p className="text-lg font-bold">{"$" + (orderItem.product?.offerPrice || "0.00")}</p>
- //                 </div>
- //               </div>
- //             ))}
- //           </div>
- //           <p className="text-lg p-2">{"Total Bill: $" + totalBill}</p>
- //           <p className="mt-8 text-lg font-medium">Shipping Methods</p>
- //           <form className="mt-5 grid gap-6">
- //             {shippingMethods.map((method, index) => (
- //               <div key={index} className="relative">
- //                 <input className="peer hidden" id={`radio_${index}`} type="radio" name="radio" defaultChecked={method.defaultChecked} />
- //                 <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
- //                 <label className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" htmlFor={`radio_${index}`}>
- //                   <img className="w-14 object-contain" src={method.image} alt={method.name} />
- //                   <div className="ml-5">
- //                     <span className="mt-2 font-semibold">{method.name}</span>
- //                     <p className="text-slate-500 text-sm leading-6">{method.description}</p>
- //                   </div>
- //                 </label>
- //               </div>
- //             ))}
- //           </form>
- //         </div>
- //         {/* Billing Address */}
- //         <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
- //           <p className="text-xl font-medium">Address Details</p>
- //           <p className="text-gray-400">Complete your order by providing your delivery address.</p>
- //           {/* Toggle for existing address */}
- //           {existingAddresses?.length > 0 && (
- //             <div className="flex items-center mb-4">
- //               <input 
- //                 type="checkbox" 
- //                 id="useExistingAddress" 
- //                 checked={useExistingAddress} 
- //                 onChange={handleAddressToggle} 
- //                 className="mr-2" 
- //               />
- //               <label htmlFor="useExistingAddress" className="text-sm">Use existing address</label>
- //             </div>
- //           )}
- //           {/* Address selection */}
- //           {useExistingAddress && (
- //             <select 
- //               onChange={handleAddressSelect} 
- //               className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
- //             >
- //               <option value="">Select an address</option>
- //               {existingAddresses.map((address) => (
- //                 <option key={address.id} value={address.id}>{`${address.fullName}, ${address.streetAddress}, ${address.city}, ${address.state}, ${address.zip}, ${address.country}`}</option>
- //               ))}
- //             </select>
- //           )}
- //           {/* Always show the form fields */}
- //           <div className="mt-4">
- //             <label htmlFor="full-name" className="mt-4 mb-2 block text-sm font-medium">Full Name</label>
- //             <input type="text" id="full-name" name="fullName" className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="John Doe" value={formData.fullName} onChange={handleInputChange} onBlur={validateForm} disabled={useExistingAddress} />
- //             <label htmlFor="street-address" className="mt-4 mb-2 block text-sm font-medium">Street Address</label>
- //             <input type="text" id="street-address" name="streetAddress" className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="123 Main St" value={formData.streetAddress} onChange={handleInputChange} onBlur={validateForm} disabled={useExistingAddress} />
- //             <label htmlFor="city" className="mt-4 mb-2 block text-sm font-medium">City</label>
- //             <input type="text" id="city" name="city" className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="Los Angeles" value={formData.city} onChange={handleInputChange} onBlur={validateForm} disabled={useExistingAddress} />
- //             <label htmlFor="state" className="mt-4 mb-2 block text-sm font-medium">State/Province</label>
- //             <input type="text" id="state" name="state" className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="California" value={formData.state} onChange={handleInputChange} onBlur={validateForm} disabled={useExistingAddress} />
- //             <label htmlFor="zip" className="mt-4 mb-2 block text-sm font-medium">ZIP/Postal Code</label>
- //             <input type="text" id="zip" name="zip" className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="90001" value={formData.zip} onChange={handleInputChange} onBlur={validateForm} disabled={useExistingAddress} />
- //             <label htmlFor="country" className="mt-4 mb-2 block text-sm font-medium">Country</label>
- //             <input type="text" id="country" name="country" className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="United States" value={formData.country} onChange={handleInputChange} onBlur={validateForm} disabled={useExistingAddress} />
- //           </div>
- //         </div>
- //       </div>
- //       {/* Payment Button */}
- //       <div className="mt-10 text-center">
- //         <button className={`w-3/4 rounded-lg ${loading ? 'bg-gray-500' : 'bg-gray-900'} p-4 text-sm font-medium text-white`} disabled={loading} onClick={handlePayment}>
- //           {loading ? 'Processing...' : 'Proceed to Payment'}
- //         </button>
- //       </div>
- //     </div>
- //   );
- // };
- // export default OrderSummary;
 }}),
 "[project]/src/app/service/UserCartService.js [app-client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
@@ -1073,10 +544,12 @@ function UserCartService() {
     };
     this.migrateCart = async function(userId) {
         const guestCart = this.loadCart();
+        console.log(guestCart, userId);
         if (guestCart.length > 0) {
             for (const item of guestCart){
                 try {
-                    await this.addItemToCart(userId, item.productId, item.quantity);
+                    const res = await this.addItemToCart(userId, item.id, item.quantity);
+                    console.log("migrated", res);
                 } catch (error) {
                     console.error('Error migrating cart item:', error);
                 }
@@ -1099,6 +572,7 @@ function UserCartService() {
             });
             return response.data;
         } catch (error) {
+            console.log(error);
             console.error('Error adding item to cart:', error);
             throw error.response ? error.response.data : new Error('Network or server error');
         }
@@ -1275,63 +749,6 @@ var _s = __turbopack_refresh__.signature();
 ;
 ;
 ;
-const fieldData = {
-    title: "Order Summary",
-    steps: [
-        {
-            number: 1,
-            label: "Cart",
-            active: true,
-            href: "#",
-            icon: null,
-            iconPath: ""
-        },
-        {
-            number: 2,
-            label: "Shipping",
-            active: false,
-            href: "#",
-            icon: null,
-            iconPath: ""
-        },
-        {
-            number: 3,
-            label: "Payment",
-            active: false,
-            href: "#",
-            icon: null,
-            iconPath: ""
-        }
-    ],
-    shippingMethods: [
-        {
-            name: "Standard Shipping",
-            description: "5-7 business days",
-            image: "https://via.placeholder.com/50",
-            defaultChecked: true
-        },
-        {
-            name: "Express Shipping",
-            description: "2-3 business days",
-            image: "https://via.placeholder.com/50",
-            defaultChecked: false
-        }
-    ],
-    billingAddress: {
-        placeholder: "Enter your address",
-        flag: "https://via.placeholder.com/20",
-        states: [
-            "California",
-            "Texas",
-            "New York"
-        ],
-        countries: [
-            "USA",
-            "Canada",
-            "UK"
-        ]
-    }
-};
 function Page() {
     _s();
     const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
@@ -1341,7 +758,10 @@ function Page() {
         "Page.useSelector[userId]": (state)=>state.session.user?.id
     }["Page.useSelector[userId]"]);
     const searchParams = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSearchParams"])();
-    const orders = JSON.parse(searchParams.get('data')) || [];
+    const orders = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"])({
+        "Page.useSelector[orders]": (state)=>state?.utils?.product?.orders
+    }["Page.useSelector[orders]"]);
+    console.log(orders);
     const fetchProducts = async ()=>{
         if (!userId) return;
         try {
@@ -1369,29 +789,26 @@ function Page() {
             children: "Loading..."
         }, void 0, false, {
             fileName: "[project]/src/app/checkout/page.js",
-            lineNumber: 68,
+            lineNumber: 41,
             columnNumber: 12
         }, this);
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$checkout$2f$Checkout$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-        title: fieldData.title,
-        steps: fieldData.steps,
         data: products.items,
         userId: userId,
         orders: orders,
-        totalBill: products.totalAmount,
-        shippingMethods: fieldData.shippingMethods,
-        billingAddress: fieldData.billingAddress
+        totalBill: products.totalAmount
     }, void 0, false, {
         fileName: "[project]/src/app/checkout/page.js",
-        lineNumber: 72,
+        lineNumber: 45,
         columnNumber: 5
     }, this);
 }
-_s(Page, "mX95gUcTn8V5OpyzMcXXpSVUJig=", false, function() {
+_s(Page, "ssuat0jZXwSQ7sOtZccLX30VY3M=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSearchParams"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSearchParams"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"]
     ];
 });
 _c = Page;

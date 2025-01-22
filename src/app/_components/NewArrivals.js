@@ -2,10 +2,18 @@
 import React, { useEffect, useState } from 'react';
 import { getNewArrivals } from '../service/ProductService';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { setProductData } from '../_lib/utilReducer';
 const NewArrivals = () => {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
     const router=useRouter();
+    const dispatch=useDispatch();
+     const handleNavigation=(product)=>{
+        
+      dispatch(setProductData({id:product.id}));
+      router.push(`product/${product.name}`);
+      }
     useEffect(() => {
         async function fetchNewArrivals() {
             try {
@@ -23,6 +31,7 @@ const NewArrivals = () => {
     if (error) {
         return <div className="text-red-500 text-center mt-4">{error}</div>;
     }
+    
 
     return (
         <div className="p-8 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white">
@@ -33,7 +42,7 @@ const NewArrivals = () => {
                 <div className="grid grid-flow-col auto-cols-max gap-4">
                     {products?.map((product, index) => (
                         <div
-                        onClick={()=>router.push(`product/${product.name}?id=${product.id }`)}
+                        onClick={()=>handleNavigation(product)}
                             key={index}
                             className="w-64 p-4 bg-white rounded-lg shadow-lg text-gray-800 transform hover:scale-105 transition-transform"
                         >

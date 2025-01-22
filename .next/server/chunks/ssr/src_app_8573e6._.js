@@ -139,6 +139,127 @@ const __TURBOPACK__default__export__ = withAuth;
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: __turbopack_require_stub__ } = __turbopack_context__;
 {
+// "use client";
+// import React, { useState, useEffect } from 'react';
+// import { getOrderByUserId, cancelOrder } from '../service/OrderService';
+// import { useSelector } from 'react-redux';
+// import withAuth from '../_routeprotector/WithAuth';
+// const OrderTile = ({ order, onCancel }) => {
+//   const handleCancel = () => {
+//     onCancel(order.id);
+//   };
+//  console.log(order);
+//   return (
+//     <section className="bg-white py-5 text-gray-700 sm:py-5 lg:py-5  overflow-y-hidden">
+//       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-4">
+//         <div className="mx-auto max-w-md text-center mb-4">
+//           <h2 className="font-serif text-2xl font-bold sm:text-3xl">
+//             Order ID <span className="text-gray-500"># {order.id}</span>
+//           </h2>
+//         </div>
+//         <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-1 lg:gap-4">
+//           <article className="relative p-4 border rounded-lg shadow-md bg-white">
+//             <div className="flex justify-between items-center mb-4">
+//               <h3 className="text-lg font-bold">Order Status</h3>
+//               <div className="flex items-center space-x-2">
+//                 <p className={`text-sm ${order.orderStatus === 'OnDeliver' ? 'text-green-500' : 'text-red-500'}`}>
+//                   {order.orderStatus}
+//                 </p>
+//               </div>
+//             </div>
+//             <div className="flex justify-between items-center mb-2">
+//             {order.orderStatus !== 'CANCELLED' && (
+//                   <button
+//                     className="px-4 py-1 bg-red-500 text-white rounded hover:bg-red-700 transition-colors duration-200"
+//                     onClick={handleCancel}
+//                   >
+//                     Cancel
+//                   </button>
+//                 )}
+//               {/* <p className="text-sm text-gray-500">Estimated arrival: {order.estimatedArrival}</p> */}
+//             </div>
+//             <div className="flex items-center space-x-4 mt-4 overflow-x-auto scroll-smooth">
+//               {order.items.map((item) => (
+//                 <div key={item.id} className="flex flex-col items-center min-w-[200px]">
+//                   <div className="aspect-square w-full overflow-hidden">
+//                     <img
+//                       src={item.product.image || "/_assets/image.png"}
+//                       alt={item.product.name}
+//                       className="group-hover:scale-110 h-full w-full object-cover transition-all duration-300 rounded-md"
+//                     />
+//                   </div>
+//                   <p className="text-sm font-semibold text-center mt-2">{item.product.name}</p>
+//                   <p className="text-sm text-center">
+//                     $ {item.price.toLocaleString()} x {item.quantity}
+//                   </p>
+//                 </div>
+//               ))}
+//             </div>
+//             <p className="mt-4 font-bold text-lg">Total: $ {order.totalAmount.toLocaleString()}</p>
+//             {order.orderStatus === 'Cancelled' && (
+//               <p className="mt-2 text-red-500 font-semibold">Order Cancelled</p>
+//             )}
+//           </article>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+// const OrderPage = () => {
+//   const [orders, setOrders] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+//   const userId = useSelector((state) => state.session.user?.id);
+//   useEffect(() => {
+//     const fetchOrders = async () => {
+//       if (!userId) return; 
+//       try {
+//         setLoading(true);
+//         const data = await getOrderByUserId(userId);
+//         setOrders(data.orders || []); 
+//       } catch (err) {
+//         setError(err?.message || "An error occurred");
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+//     fetchOrders();
+//   }, [userId]);
+//   const handleCancelOrder = async (orderId) => {
+//     try {
+//     //   setLoading(true);
+//       await cancelOrder(orderId);
+//       setOrders((prevOrders) =>
+//         prevOrders.map((order) =>
+//           order.id === orderId ? { ...order, orderStatus: 'Cancelled' } : order
+//         )
+//       );
+//     } catch (err) {
+//       setError(err?.message || "Failed to cancel order");
+//     } finally {
+//     //   setLoading(false);
+//     }
+//   };
+//   if (loading) {
+//     return <div className="text-center text-lg">Loading...</div>;
+//   }
+//   if (error) {
+//     return <div className="text-red-500 text-center text-lg">Error: {error}</div>;
+//   }
+//   return (
+//     <>
+//     <h1 className="text-3xl font-bold mb-6 text-center">My Orders</h1>
+//     <div className="container mx-auto p-4 max-h-lvh overflow-y-scroll my-10">
+//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+//         {orders.map((order) => (
+//           <OrderTile key={order.id} order={order} onCancel={handleCancelOrder} />
+//         ))}
+//       </div>
+//     </div>
+//     </>
+//   );
+// };
+// export default withAuth(OrderPage);
 __turbopack_esm__({
     "default": (()=>__TURBOPACK__default__export__)
 });
@@ -148,201 +269,168 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$Ord
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_routeprotector$2f$WithAuth$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/_routeprotector/WithAuth.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/react-redux/dist/react-redux.mjs [app-ssr] (ecmascript)");
 "use client";
+"use client";
 ;
 ;
 ;
 ;
 ;
-const OrderTile = ({ order, onCancel })=>{
+const ProductTile = ({ product, onCancel, cancelLoading })=>{
     const handleCancel = ()=>{
-        onCancel(order.id);
+        onCancel(product.orderId);
     };
-    console.log(order);
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: "bg-white py-5 text-gray-700 sm:py-5 lg:py-5  overflow-y-hidden",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-4",
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "mx-auto max-w-md text-center mb-4",
-                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                        className: "font-serif text-2xl font-bold sm:text-3xl",
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "product-card p-5 bg-white rounded-lg shadow-lg mb-4",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex justify-between items-center mb-3",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: [
-                            "Order ID ",
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "text-gray-500",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                className: "text-xl font-semibold text-gray-800",
                                 children: [
-                                    "# ",
-                                    order.id
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/app/orders/page.js",
-                                lineNumber: 16,
-                                columnNumber: 22
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/app/orders/page.js",
-                        lineNumber: 15,
-                        columnNumber: 11
-                    }, this)
-                }, void 0, false, {
-                    fileName: "[project]/src/app/orders/page.js",
-                    lineNumber: 14,
-                    columnNumber: 9
-                }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "mt-10 grid grid-cols-1 gap-6 lg:grid-cols-1 lg:gap-4",
-                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
-                        className: "relative p-4 border rounded-lg shadow-md bg-white",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex justify-between items-center mb-4",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-lg font-bold",
-                                        children: "Order Status"
-                                    }, void 0, false, {
+                                    "Order ID: ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-gray-500",
+                                        children: [
+                                            "#",
+                                            product.orderId
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/src/app/orders/page.js",
-                                        lineNumber: 23,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex items-center space-x-2",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                            className: `text-sm ${order.orderStatus === 'OnDeliver' ? 'text-green-500' : 'text-red-500'}`,
-                                            children: order.orderStatus
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/app/orders/page.js",
-                                            lineNumber: 25,
-                                            columnNumber: 17
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/orders/page.js",
-                                        lineNumber: 24,
-                                        columnNumber: 15
+                                        lineNumber: 154,
+                                        columnNumber: 23
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/orders/page.js",
-                                lineNumber: 22,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex justify-between items-center mb-2",
-                                children: order.orderStatus !== 'CANCELLED' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    className: "px-4 py-1 bg-red-500 text-white rounded hover:bg-red-700 transition-colors duration-200",
-                                    onClick: handleCancel,
-                                    children: "Cancel"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/orders/page.js",
-                                    lineNumber: 35,
-                                    columnNumber: 19
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/orders/page.js",
-                                lineNumber: 33,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-center space-x-4 mt-4 overflow-x-auto scroll-smooth",
-                                children: order.items.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex flex-col items-center min-w-[200px]",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "aspect-square w-full overflow-hidden",
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                    src: item.product.imageUrl || "/_assets/image.png",
-                                                    alt: item.product.name,
-                                                    className: "group-hover:scale-110 h-full w-full object-cover transition-all duration-300 rounded-md"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/orders/page.js",
-                                                    lineNumber: 48,
-                                                    columnNumber: 21
-                                                }, this)
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/orders/page.js",
-                                                lineNumber: 47,
-                                                columnNumber: 19
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-sm font-semibold text-center mt-2",
-                                                children: item.product.name
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/orders/page.js",
-                                                lineNumber: 54,
-                                                columnNumber: 19
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-sm text-center",
-                                                children: [
-                                                    "Rp ",
-                                                    item.price.toLocaleString(),
-                                                    " x ",
-                                                    item.quantity
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/orders/page.js",
-                                                lineNumber: 55,
-                                                columnNumber: 19
-                                            }, this)
-                                        ]
-                                    }, item.id, true, {
-                                        fileName: "[project]/src/app/orders/page.js",
-                                        lineNumber: 46,
-                                        columnNumber: 17
-                                    }, this))
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/orders/page.js",
-                                lineNumber: 44,
-                                columnNumber: 13
+                                lineNumber: 153,
+                                columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "mt-4 font-bold text-lg",
+                                className: "text-sm text-gray-500",
                                 children: [
-                                    "Total: Rp ",
-                                    order.totalAmount.toLocaleString()
+                                    "Placed on: ",
+                                    new Date(product.createdAt).toLocaleDateString()
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/orders/page.js",
-                                lineNumber: 62,
-                                columnNumber: 13
-                            }, this),
-                            order.orderStatus === 'Cancelled' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "mt-2 text-red-500 font-semibold",
-                                children: "Order Cancelled"
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/orders/page.js",
-                                lineNumber: 64,
-                                columnNumber: 15
+                                lineNumber: 156,
+                                columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/orders/page.js",
-                        lineNumber: 21,
+                        lineNumber: 152,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: `font-semibold ${product.orderStatus === "OnDeliver" ? "text-green-600" : product.orderStatus === "CANCELLED" ? "text-red-600" : "text-gray-600"}`,
+                        children: product.orderStatus
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/orders/page.js",
+                        lineNumber: 160,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/app/orders/page.js",
+                lineNumber: 151,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-start space-x-4 mb-4",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                        src: product.image || "/_assets/image.png",
+                        alt: product.name,
+                        className: "w-16 h-16 object-cover rounded-md border"
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/orders/page.js",
+                        lineNumber: 175,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-sm font-semibold",
+                                children: product.name
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/orders/page.js",
+                                lineNumber: 181,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-sm text-gray-500",
+                                children: [
+                                    "$ ",
+                                    product.price.toLocaleString(),
+                                    " x ",
+                                    product.quantity
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/orders/page.js",
+                                lineNumber: 182,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/orders/page.js",
+                        lineNumber: 180,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/app/orders/page.js",
+                lineNumber: 174,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex justify-between items-center",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "font-semibold text-lg",
+                        children: [
+                            "Total: $ ",
+                            product.totalAmount.toLocaleString()
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/orders/page.js",
+                        lineNumber: 190,
+                        columnNumber: 9
+                    }, this),
+                    product.orderStatus !== "CANCELLED" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        className: `px-4 py-2 text-white text-sm rounded ${cancelLoading === product.orderId ? "bg-gray-400 cursor-not-allowed" : "bg-red-500 hover:bg-red-600"}`,
+                        onClick: handleCancel,
+                        disabled: cancelLoading === product.orderId,
+                        children: cancelLoading === product.orderId ? "Cancelling..." : "Cancel Order"
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/orders/page.js",
+                        lineNumber: 192,
                         columnNumber: 11
                     }, this)
-                }, void 0, false, {
-                    fileName: "[project]/src/app/orders/page.js",
-                    lineNumber: 20,
-                    columnNumber: 9
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "[project]/src/app/orders/page.js",
-            lineNumber: 13,
-            columnNumber: 7
-        }, this)
-    }, void 0, false, {
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/app/orders/page.js",
+                lineNumber: 189,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "[project]/src/app/orders/page.js",
-        lineNumber: 12,
+        lineNumber: 149,
         columnNumber: 5
     }, this);
 };
 const OrderPage = ()=>{
-    const [orders, setOrders] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [filteredProducts, setFilteredProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [cancelLoading, setCancelLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const userId = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useSelector"])((state)=>state.session.user?.id);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const fetchOrders = async ()=>{
@@ -350,7 +438,19 @@ const OrderPage = ()=>{
             try {
                 setLoading(true);
                 const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$OrderService$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getOrderByUserId"])(userId);
-                setOrders(data.orders || []);
+                console.log(data);
+                // Flatten the items array
+                const flattenedProducts = data.orders.flatMap((order)=>order.items.map((item)=>({
+                            ...item.product,
+                            price: item.price,
+                            quantity: item.quantity,
+                            totalAmount: order.totalAmount,
+                            orderStatus: order.orderStatus,
+                            orderId: order.id,
+                            createdAt: order.createdAt
+                        })));
+                setProducts(flattenedProducts || []);
+                setFilteredProducts(flattenedProducts || []);
             } catch (err) {
                 setError(err?.message || "An error occurred");
             } finally{
@@ -363,17 +463,25 @@ const OrderPage = ()=>{
     ]);
     const handleCancelOrder = async (orderId)=>{
         try {
-            //   setLoading(true);
+            setCancelLoading(orderId);
             await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$OrderService$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cancelOrder"])(orderId);
-            setOrders((prevOrders)=>prevOrders.map((order)=>order.id === orderId ? {
-                        ...order,
-                        orderStatus: 'Cancelled'
-                    } : order));
+            const updatedProducts = products.map((product)=>product.orderId === orderId ? {
+                    ...product,
+                    orderStatus: "CANCELLED"
+                } : product);
+            setProducts(updatedProducts);
+            setFilteredProducts(updatedProducts.filter((product)=>product.name.toLowerCase().includes(searchQuery)));
         } catch (err) {
             setError(err?.message || "Failed to cancel order");
         } finally{
-        //   setLoading(false);
+            setCancelLoading(null);
         }
+    };
+    const handleSearch = (e)=>{
+        const query = e.target.value.toLowerCase();
+        setSearchQuery(query);
+        const filtered = products.filter((product)=>product.name.toLowerCase().includes(query));
+        setFilteredProducts(filtered);
     };
     if (loading) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -381,7 +489,7 @@ const OrderPage = ()=>{
             children: "Loading..."
         }, void 0, false, {
             fileName: "[project]/src/app/orders/page.js",
-            lineNumber: 113,
+            lineNumber: 282,
             columnNumber: 12
         }, this);
     }
@@ -394,44 +502,68 @@ const OrderPage = ()=>{
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/orders/page.js",
-            lineNumber: 117,
-            columnNumber: 12
+            lineNumber: 287,
+            columnNumber: 7
         }, this);
     }
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "container mx-auto p-6",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                className: "text-3xl font-bold mb-6 text-center",
+                className: "text-3xl font-bold text-center mb-8",
                 children: "My Orders"
             }, void 0, false, {
                 fileName: "[project]/src/app/orders/page.js",
-                lineNumber: 122,
-                columnNumber: 5
+                lineNumber: 295,
+                columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "container mx-auto p-4 max-h-lvh overflow-y-scroll my-10",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
-                    children: orders.map((order)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(OrderTile, {
-                            order: order,
-                            onCancel: handleCancelOrder
-                        }, order.id, false, {
-                            fileName: "[project]/src/app/orders/page.js",
-                            lineNumber: 127,
-                            columnNumber: 11
-                        }, this))
+                className: "mb-6 flex justify-center",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                    type: "text",
+                    placeholder: "Search for products in your orders",
+                    value: searchQuery,
+                    onChange: handleSearch,
+                    className: "w-96 p-3 rounded-md border border-gray-300"
                 }, void 0, false, {
                     fileName: "[project]/src/app/orders/page.js",
-                    lineNumber: 125,
-                    columnNumber: 7
+                    lineNumber: 299,
+                    columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/orders/page.js",
-                lineNumber: 124,
-                columnNumber: 5
+                lineNumber: 298,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3",
+                children: filteredProducts.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "col-span-full text-center text-xl font-semibold text-gray-500",
+                    children: "No orders found."
+                }, void 0, false, {
+                    fileName: "[project]/src/app/orders/page.js",
+                    lineNumber: 310,
+                    columnNumber: 11
+                }, this) : filteredProducts.map((product, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ProductTile, {
+                        product: product,
+                        onCancel: handleCancelOrder,
+                        cancelLoading: cancelLoading
+                    }, `${product.orderId}-${index}`, false, {
+                        fileName: "[project]/src/app/orders/page.js",
+                        lineNumber: 315,
+                        columnNumber: 13
+                    }, this))
+            }, void 0, false, {
+                fileName: "[project]/src/app/orders/page.js",
+                lineNumber: 308,
+                columnNumber: 7
             }, this)
         ]
-    }, void 0, true);
+    }, void 0, true, {
+        fileName: "[project]/src/app/orders/page.js",
+        lineNumber: 294,
+        columnNumber: 5
+    }, this);
 };
 const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_routeprotector$2f$WithAuth$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"])(OrderPage);
 }}),

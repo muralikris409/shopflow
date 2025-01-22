@@ -1541,7 +1541,13 @@ __turbopack_esm__({
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$categoryReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/_lib/categoryReducer.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$genericReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/_lib/genericReducer.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$sessionReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/_lib/sessionReducer.js [app-client] (ecmascript)");
+(()=>{
+    const e = new Error("Cannot find module '../_lib/'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_import__("[project]/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs [app-client] (ecmascript) <locals>");
+;
 ;
 ;
 ;
@@ -1551,7 +1557,8 @@ const makeStore = ()=>{
         reducer: {
             api: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$categoryReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
             generic: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$genericReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
-            session: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$sessionReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+            session: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$sessionReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
+            util: utilReducer
         }
     });
 };

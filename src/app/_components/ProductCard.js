@@ -2,9 +2,18 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { setProductData } from "../_lib/utilReducer";
 
 const ProductCard = ({ product}) => {
+  const dispatch=useDispatch();
   const router=useRouter();
+
+  const handleNavigation=()=>{
+    
+  dispatch(setProductData({id:product.id}));
+  router.push(`product/${product.name}`);
+  }
   return (
     // <Link
     //   href={{
@@ -14,7 +23,7 @@ const ProductCard = ({ product}) => {
     //   // as={`products/${product.name}`}
     //   passHref
     // >
-    <div onClick={()=>router.push(`product/${product.name}?id=${product.id }`)}>
+    <div onClick={handleNavigation}>
       <div className="relative max-h-30 m-5 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
         <div className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl">
           <img

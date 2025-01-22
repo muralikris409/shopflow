@@ -524,9 +524,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$ProductService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/service/ProductService.js [app-client] (ecmascript)"); // Adjust the import path as necessary
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$utilReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/_lib/utilReducer.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
 "use client";
+;
+;
 ;
 ;
 ;
@@ -536,6 +540,7 @@ const SimilarProducts = ({ subCategoryId })=>{
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    const dispatch = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"])();
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "SimilarProducts.useEffect": ()=>{
             const fetchProducts = {
@@ -555,13 +560,19 @@ const SimilarProducts = ({ subCategoryId })=>{
     }["SimilarProducts.useEffect"], [
         subCategoryId
     ]);
+    const handleNavigation = (product)=>{
+        dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$utilReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["setProductData"])({
+            id: product.id
+        }));
+        router.push(`/product/${product.name}`);
+    };
     if (loading) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "text-center",
             children: "Loading..."
         }, void 0, false, {
             fileName: "[project]/src/app/_components/SimilarProducts.js",
-            lineNumber: 28,
+            lineNumber: 33,
             columnNumber: 12
         }, this);
     }
@@ -571,7 +582,7 @@ const SimilarProducts = ({ subCategoryId })=>{
             children: error
         }, void 0, false, {
             fileName: "[project]/src/app/_components/SimilarProducts.js",
-            lineNumber: 32,
+            lineNumber: 37,
             columnNumber: 12
         }, this);
     }
@@ -583,7 +594,7 @@ const SimilarProducts = ({ subCategoryId })=>{
                 children: "Similar Products"
             }, void 0, false, {
                 fileName: "[project]/src/app/_components/SimilarProducts.js",
-                lineNumber: 37,
+                lineNumber: 42,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -597,7 +608,7 @@ const SimilarProducts = ({ subCategoryId })=>{
                                 className: "h-40 w-full object-cover rounded-md mb-2"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/SimilarProducts.js",
-                                lineNumber: 41,
+                                lineNumber: 46,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -605,7 +616,7 @@ const SimilarProducts = ({ subCategoryId })=>{
                                 children: product.name
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/SimilarProducts.js",
-                                lineNumber: 42,
+                                lineNumber: 47,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -616,39 +627,40 @@ const SimilarProducts = ({ subCategoryId })=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/_components/SimilarProducts.js",
-                                lineNumber: 43,
+                                lineNumber: 48,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: ()=>router.push(`${product.name}?id=${product.id}`),
+                                onClick: ()=>handleNavigation(product),
                                 className: "mt-3 w-full bg-gray-300 text-gray-800 py-2 rounded-md hover:bg-gray-400 transition duration-300",
                                 children: "View Product"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/SimilarProducts.js",
-                                lineNumber: 44,
+                                lineNumber: 49,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, product.id, true, {
                         fileName: "[project]/src/app/_components/SimilarProducts.js",
-                        lineNumber: 40,
+                        lineNumber: 45,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/_components/SimilarProducts.js",
-                lineNumber: 38,
+                lineNumber: 43,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/_components/SimilarProducts.js",
-        lineNumber: 36,
+        lineNumber: 41,
         columnNumber: 5
     }, this);
 };
-_s(SimilarProducts, "UJz9vjzn/3DHkRsusbHtqJ5cV1M=", false, function() {
+_s(SimilarProducts, "TnZ3PH7hkYfn68JrvQQnz85kNjY=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"]
     ];
 });
 _c = SimilarProducts;
@@ -675,10 +687,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$Wis
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$OrderService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/service/OrderService.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_components$2f$SimilarProducts$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/_components/SimilarProducts.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$utilReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/_lib/utilReducer.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -696,6 +710,7 @@ const ProductView = ({ product = {} })=>{
         "ProductView.useSelector[token]": (state)=>state.session.token
     }["ProductView.useSelector[token]"]);
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    const dispatch = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"])();
     const { id, name = "Unknown Product", description = "No description available.", actualPrice = 0, offerPrice = 0, discountPercentage = 0, rating = 0, stock = 0, image = "/_assets/image.png", subCategoryId } = product;
     console.log(subCategoryId);
     const reviewsCount = 1209;
@@ -713,14 +728,18 @@ const ProductView = ({ product = {} })=>{
         setTimeout(()=>{
             setMessage('');
             setMessageType('');
-        }, 3000); // Clear message after 3 seconds
+        }, 3000);
     };
     const handleNavigation = (order)=>{
         const data = {
             orders: order
         };
-        const encodedData = encodeURIComponent(JSON.stringify(data));
-        router.push(`/checkout?data=${encodedData}`);
+        dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$utilReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["setProductData"])({
+            orders: {
+                ...data
+            }
+        }));
+        router.push(`/checkout`);
     };
     const handleBuy = async ()=>{
         setLoading((prev)=>({
@@ -1279,11 +1298,12 @@ const ProductView = ({ product = {} })=>{
         ]
     }, void 0, true);
 };
-_s(ProductView, "Jfc6VUD4/uvmpDGLQUUAW3HFDK0=", false, function() {
+_s(ProductView, "TREAJxC6SnML0A674UW+Io0FcYc=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"]
     ];
 });
 _c = ProductView;
@@ -1304,9 +1324,9 @@ __turbopack_esm__({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$ProductService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/service/ProductService.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$product$2f5b$name$5d2f$ProductView$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/product/[name]/ProductView.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
 "use client";
@@ -1316,8 +1336,10 @@ var _s = __turbopack_refresh__.signature();
 ;
 function Page() {
     _s();
-    const searchParams = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSearchParams"])();
-    const id = searchParams.get("id");
+    const id = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"])({
+        "Page.useSelector[id]": (state)=>state?.utils?.product?.id
+    }["Page.useSelector[id]"]);
+    console.log(id);
     const [product, setProduct] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
@@ -1344,7 +1366,7 @@ function Page() {
             children: "Loading..."
         }, void 0, false, {
             fileName: "[project]/src/app/product/[name]/page.js",
-            lineNumber: 30,
+            lineNumber: 31,
             columnNumber: 12
         }, this);
     }
@@ -1353,7 +1375,7 @@ function Page() {
             children: "Product not found"
         }, void 0, false, {
             fileName: "[project]/src/app/product/[name]/page.js",
-            lineNumber: 34,
+            lineNumber: 35,
             columnNumber: 12
         }, this);
     }
@@ -1361,13 +1383,13 @@ function Page() {
         product: product
     }, void 0, false, {
         fileName: "[project]/src/app/product/[name]/page.js",
-        lineNumber: 38,
+        lineNumber: 39,
         columnNumber: 5
     }, this);
 }
-_s(Page, "AkZmKNCI8DdzqTbW2q79R7z2X2Y=", false, function() {
+_s(Page, "qh//DkCu7Jfsp9l8rvZT5eRW67o=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSearchParams"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"]
     ];
 });
 _c = Page;

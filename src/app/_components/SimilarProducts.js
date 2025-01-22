@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { subCategoryProducts } from '@/app/service/ProductService'; // Adjust the import path as necessary
 import { useRouter } from 'next/navigation';
-
+import { useDispatch } from 'react-redux';
+import { setProductData } from '../_lib/utilReducer';
 const SimilarProducts = ({ subCategoryId }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const router = useRouter();
-
+  const dispatch=useDispatch();
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -23,7 +24,11 @@ const SimilarProducts = ({ subCategoryId }) => {
 
     fetchProducts();
   }, [subCategoryId]);
-
+   const handleNavigation=(product)=>{
+        
+      dispatch(setProductData({id:product.id}));
+      router.push(`/product/${product.name}`);
+      }
   if (loading) {
     return <div className="text-center">Loading...</div>;
   }
@@ -42,7 +47,7 @@ const SimilarProducts = ({ subCategoryId }) => {
             <h3 className="text-lg font-semibold">{product.name}</h3>
             <p className="text-gray-700">${product.offerPrice.toFixed(2)}</p>
             <button 
-              onClick={() => router.push(`${product.name}?id=${product.id}`)} 
+              onClick={() => handleNavigation(product)} 
               className="mt-3 w-full bg-gray-300 text-gray-800 py-2 rounded-md hover:bg-gray-400 transition duration-300"
             >
               View Product

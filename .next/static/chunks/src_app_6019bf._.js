@@ -33,13 +33,7 @@ async function login(formdata) {
             token
         };
     } catch (error) {
-        if (error.response) {
-            throw new Error(error.response.data.message || "An error occurred during login.");
-        } else if (error.request) {
-            throw new Error("Network error: No response received.");
-        } else {
-            throw new Error(error.message || "An unknown error occurred during login.");
-        }
+        throw new Error(error.response.data.message || "An error occurred during login.");
     }
 }
 async function signUp(formdata) {
@@ -56,13 +50,7 @@ async function signUp(formdata) {
         });
         return response.data;
     } catch (error) {
-        if (error.response) {
-            throw new Error(error.response.data.message || "An error occurred during sign-up.");
-        } else if (error.request) {
-            throw new Error("Network error: No response received.");
-        } else {
-            throw new Error(error.message || "An unknown error occurred during sign-up.");
-        }
+        throw new Error(error.response.data.message || "An error occurred during sign-up.");
     }
 }
 async function googleOAuth(data) {
@@ -80,13 +68,7 @@ async function googleOAuth(data) {
         }));
         return response.data;
     } catch (error) {
-        if (error.response) {
-            throw new Error(error.response.data.message || "An error occurred during Google OAuth.");
-        } else if (error.request) {
-            throw new Error("Network error: No response received.");
-        } else {
-            throw new Error(error.message || "An unknown error occurred during Google OAuth.");
-        }
+        throw new Error(error.response.data.message || "An error occurred during Google OAuth.");
     }
 }
 async function forgotPassword(email) {

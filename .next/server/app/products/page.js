@@ -9,7 +9,7 @@ runtime.loadChunk("server/chunks/ssr/node_modules_react-icons_lib_b806b5._.js");
 runtime.loadChunk("server/chunks/ssr/node_modules_axios_lib_56feb8._.js");
 runtime.loadChunk("server/chunks/ssr/node_modules_mime-db_03ce87._.js");
 runtime.loadChunk("server/chunks/ssr/node_modules_4e8b19._.js");
-runtime.loadChunk("server/chunks/ssr/[root of the server]__17b4db._.js");
+runtime.loadChunk("server/chunks/ssr/[root of the server]__a698e6._.js");
 runtime.loadChunk("server/chunks/ssr/[root of the server]__a2f1cd._.css");
 runtime.loadChunk("server/chunks/ssr/src_app_loading_ece37e.js");
 runtime.loadChunk("server/chunks/ssr/src_app_not-found_867baf.js");
