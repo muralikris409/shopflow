@@ -146,63 +146,63 @@ catch(err){
 }
 
 
-export const fetchUserAddresses = async (token,userId) => {
-  try {
-    const response = await axiosInstance.post(`user/getAllAddress`,{}, {
-      params: { userId },
-      headers:{
-        Authorization:`Bearer ${token}`
-    }
-    });
-    console.log(response)
-    return response.data.data; 
-  } catch (error) {
-    console.error("Error fetching addresses:", error);
-    return { error: error.message || "Something went wrong!" };
-  }
-};
-export const makeAddressPrimary = async (token,userId,addressId) => {
-    try {
-      const response = await axiosInstance.post(`user/makePrimaryAddress`,{}, {
-        params: { userId,addressId },
-        headers:{
-          Authorization:`Bearer ${token}`
-      }
-      });
-      console.log(response)
-      return response.data.data; 
-    } catch (error) {
-      console.error("Error fetching addresses:", error);
-      return { error: error.message || "Something went wrong!" };
-    }
-  };
+// export async function fetchUserAddresses (token,userId){
+//   try {
+//     const response = await axiosInstance.post(`user/getAllAddress?userId=${userId}`,{}, {
+      
+//       headers:{
+//         Authorization:`Bearer ${token}`
+//     }
+//     });
+//     console.log(response)
+//     return response.data; 
+//   } catch (error) {
+//     console.error("Error fetching addresses:", error);
+//     return { error: error.message || "Something went wrong!" };
+//   }
+// };
+// export const makeAddressPrimary = async (token,userId,addressId) => {
+//     try {
+//       const response = await axiosInstance.post(`user/makePrimaryAddress`,{}, {
+//         params: { userId,addressId },
+//         headers:{
+//           Authorization:`Bearer ${token}`
+//       }
+//       });
+//       console.log(response)
+//       return response.data.data; 
+//     } catch (error) {
+//       console.error("Error fetching addresses:", error);
+//       return { error: error.message || "Something went wrong!" };
+//     }
+//   };
 
-export const addAddress = async (token, userId, addressData) => {
-  try {
-    const { street, city, state, country, zip, isPrimary } = addressData;
+// export const addAddress = async (token, userId, addressData) => {
+//   try {
+//     const { street, city, state, country, zip, isPrimary } = addressData;
 
-    const response = await axiosInstance.post(
-      'user/addAddress',
-      {},
-      {
-        params: {
-          userId,
-          street,
-          city,
-          state,
-          country,
-          zip,
-          isPrimary,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+//     const response = await axiosInstance.post(
+//       'user/addAddress',
+//       {},
+//       {
+//         params: {
+//           userId,
+//           street,
+//           city,
+//           state,
+//           country,
+//           zip,
+//           isPrimary,
+//         },
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       }
+//     );userProfileInfo
 
-    return response.data.data; 
-  } catch (error) {
-    console.error("Error adding address:", error);
-    return { error: error.response?.data?.message || "Something went wrong!" };
-  }
-};
+//     return response.data.data; 
+//   } catch (error) {
+//     console.error("Error adding address:", error);
+//     return { error: error.response?.data?.message || "Something went wrong!" };
+//   }
+// };
