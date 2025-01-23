@@ -339,7 +339,7 @@ const OrderSummary = ({ title, userId, orders, totalBill }) => {
     try {
       const { razorpayOrder, ...data } = await checkOutOrder(orders?.orders?.order?.id || orders?.orders.id);
       const options = {
-        key: 'rzp_test_HLBu4adubXpVrg',
+        key: 'rzp_test_nTbKdtgjeOQLhc',
         amount: Math.ceil(totalBill * 100),
         currency: razorpayOrder?.currency,
         name: 'Your Shop',
