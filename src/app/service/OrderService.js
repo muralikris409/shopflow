@@ -67,3 +67,16 @@ export const cancelOrder = async (orderId) => {
     throw new Error(error?.response?.data?.message || 'Error cancelling order.');
   }
 };
+export const getOrderById = async (orderId) => {
+  console.log("userId:", orderId);
+  try {
+    const response = await axiosInstance.get(`/user/order/getOrderById?orderId=${orderId}`
+     
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user orders:', error);
+    throw new Error(error?.response?.data?.message || 'Error fetching user orders.');
+  }
+};

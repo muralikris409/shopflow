@@ -6,12 +6,17 @@ module.exports = {
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: __turbopack_require_stub__ } = __turbopack_context__;
 {
 __turbopack_esm__({
+    "addAddress": (()=>addAddress),
+    "fetchUserAddresses": (()=>fetchUserAddresses),
     "forgotPassword": (()=>forgotPassword),
     "getProfileInfo": (()=>getProfileInfo),
     "googleOAuth": (()=>googleOAuth),
     "login": (()=>login),
+    "makeAddressPrimary": (()=>makeAddressPrimary),
+    "removeAddress": (()=>removeAddress),
     "resetPassword": (()=>resetPassword),
     "signUp": (()=>signUp),
+    "updateAddress": (()=>updateAddress),
     "updateProfileInfo": (()=>updateProfileInfo)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/api/axios.js [app-ssr] (ecmascript)");
@@ -127,62 +132,115 @@ async function updateProfileInfo(token, userId, data) {
     } catch (err) {
         console.log(err);
     }
-} // export async function fetchUserAddresses (token,userId){
- //   try {
- //     const response = await axiosInstance.post(`user/getAllAddress?userId=${userId}`,{}, {
- //       headers:{
- //         Authorization:`Bearer ${token}`
- //     }
- //     });
- //     console.log(response)
- //     return response.data; 
- //   } catch (error) {
- //     console.error("Error fetching addresses:", error);
- //     return { error: error.message || "Something went wrong!" };
- //   }
- // };
- // export const makeAddressPrimary = async (token,userId,addressId) => {
- //     try {
- //       const response = await axiosInstance.post(`user/makePrimaryAddress`,{}, {
- //         params: { userId,addressId },
- //         headers:{
- //           Authorization:`Bearer ${token}`
- //       }
- //       });
- //       console.log(response)
- //       return response.data.data; 
- //     } catch (error) {
- //       console.error("Error fetching addresses:", error);
- //       return { error: error.message || "Something went wrong!" };
- //     }
- //   };
- // export const addAddress = async (token, userId, addressData) => {
- //   try {
- //     const { street, city, state, country, zip, isPrimary } = addressData;
- //     const response = await axiosInstance.post(
- //       'user/addAddress',
- //       {},
- //       {
- //         params: {
- //           userId,
- //           street,
- //           city,
- //           state,
- //           country,
- //           zip,
- //           isPrimary,
- //         },
- //         headers: {
- //           Authorization: `Bearer ${token}`,
- //         },
- //       }
- //     );userProfileInfo
- //     return response.data.data; 
- //   } catch (error) {
- //     console.error("Error adding address:", error);
- //     return { error: error.response?.data?.message || "Something went wrong!" };
- //   }
- // };
+}
+async function fetchUserAddresses(token, userId) {
+    try {
+        console.log("token", token);
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].post(`user/getAllAddress?userId=${userId}`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log(response);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching addresses:", error);
+        return {
+            error: error.message || "Something went wrong!"
+        };
+    }
+}
+;
+const makeAddressPrimary = async (token, userId, addressId)=>{
+    try {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].post(`user/makePrimaryAddress`, {}, {
+            params: {
+                userId,
+                addressId
+            },
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log(response);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching addresses:", error);
+        return {
+            error: error.message || "Something went wrong!"
+        };
+    }
+};
+const addAddress = async (token, userId, addressData)=>{
+    try {
+        const { street, city, state, country, zip, isPrimary } = addressData;
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].post('user/addAddress', {}, {
+            params: {
+                userId,
+                street,
+                city,
+                state,
+                country,
+                zip,
+                isPrimary
+            },
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error adding address:", error);
+        return {
+            error: error.response?.data?.message || "Something went wrong!"
+        };
+    }
+};
+const updateAddress = async (token, userId, addressId, addressData)=>{
+    try {
+        const { street, city, state, country, zip, isPrimary } = addressData;
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].post('user/editAddress', {}, {
+            params: {
+                userId,
+                addressId,
+                street,
+                city,
+                state,
+                country,
+                zip,
+                isPrimary
+            },
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error adding address:", error);
+        return {
+            error: error.response?.data?.message || "Something went wrong!"
+        };
+    }
+};
+const removeAddress = async (token, userId, addressId)=>{
+    try {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].post('user/deleteAddress', {}, {
+            params: {
+                userId,
+                addressId
+            },
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error adding address:", error);
+        return {
+            error: error.response?.data?.message || "Something went wrong!"
+        };
+    }
+};
 }}),
 "[project]/src/app/service/UserCartService.js [app-ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";

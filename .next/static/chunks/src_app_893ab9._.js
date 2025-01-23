@@ -226,6 +226,7 @@ __turbopack_esm__({
     "cancelOrder": (()=>cancelOrder),
     "checkOutOrder": (()=>checkOutOrder),
     "createOrder": (()=>createOrder),
+    "getOrderById": (()=>getOrderById),
     "getOrderByUserId": (()=>getOrderByUserId),
     "verifyPaymentAndUpdateOrder": (()=>verifyPaymentAndUpdateOrder)
 });
@@ -291,6 +292,17 @@ const cancelOrder = async (orderId)=>{
     } catch (error) {
         console.error('Error cancelling order:', error);
         throw new Error(error?.response?.data?.message || 'Error cancelling order.');
+    }
+};
+const getOrderById = async (orderId)=>{
+    console.log("userId:", orderId);
+    try {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].get(`/user/order/getOrderById?orderId=${orderId}`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user orders:', error);
+        throw new Error(error?.response?.data?.message || 'Error fetching user orders.');
     }
 };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
@@ -592,7 +604,7 @@ const Cart = ()=>{
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: handleCheckout,
-                                    className: `w-full mt-4 py-2 rounded text-white ${loadingCheckout ? 'bg-gray-500' : 'bg-blue-600 hover:bg-blue-700'}`,
+                                    className: `w-full mt-4 py-2 rounded text-white ${loadingCheckout ? 'bg-gray-500' : 'bg-gray-800 hover:bg-gray-900'}`,
                                     disabled: products.length === 0 || loadingCheckout,
                                     children: loadingCheckout ? 'Processing...' : 'Checkout'
                                 }, void 0, false, {

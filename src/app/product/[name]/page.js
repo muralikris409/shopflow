@@ -5,9 +5,28 @@ import ProductView from './ProductView';
 import { useSelector } from 'react-redux';
 
 export default function Page() {
- 
-  const id = useSelector(state=>state?.utils?.product?.id);
-  console.log(id);
+  const pId = useSelector(state => state?.utils?.product?.id);
+
+  const [isClient, setIsClient] = useState(false);
+
+  // Set a flag indicating that the component has mounted on the client
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Only interact with localStorage on the client side
+  useEffect(() => {
+    if (isClient && pId) {
+      localStorage.setItem("persistedData", JSON.stringify({ product: { id: pId } }));
+    }
+  }, [isClient, pId]);
+
+  let id = null;
+  if (isClient) {
+    const persistedData = JSON.parse(localStorage.getItem("persistedData"));
+    id = persistedData?.product?.id;
+  }
+
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -24,6 +43,8 @@ export default function Page() {
         }
       }
       loadProduct();
+    } else {
+      setLoading(false); // If no product ID, stop loading
     }
   }, [id]);
 

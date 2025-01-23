@@ -30,7 +30,7 @@ const ProductCard = ({ product })=>{
         dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$utilReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["setProductData"])({
             id: product.id
         }));
-        router.push(`product/${product.name}`);
+        router.push(`/product/${product.name}`);
     };
     return(// <Link
     //   href={{
@@ -54,7 +54,7 @@ const ProductCard = ({ product })=>{
                             alt: product?.name || "Placeholder Image"
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/ProductCard.js",
-                            lineNumber: 29,
+                            lineNumber: 30,
                             columnNumber: 11
                         }, this),
                         product.discountPercentage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -65,13 +65,13 @@ const ProductCard = ({ product })=>{
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/_components/ProductCard.js",
-                            lineNumber: 35,
+                            lineNumber: 36,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/_components/ProductCard.js",
-                    lineNumber: 28,
+                    lineNumber: 29,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -82,7 +82,7 @@ const ProductCard = ({ product })=>{
                             children: product.name || "Unnamed Product"
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/ProductCard.js",
-                            lineNumber: 41,
+                            lineNumber: 42,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -98,7 +98,7 @@ const ProductCard = ({ product })=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/_components/ProductCard.js",
-                                            lineNumber: 48,
+                                            lineNumber: 49,
                                             columnNumber: 19
                                         }, this),
                                         product.actualPrice && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -109,7 +109,7 @@ const ProductCard = ({ product })=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/_components/ProductCard.js",
-                                            lineNumber: 52,
+                                            lineNumber: 53,
                                             columnNumber: 21
                                         }, this)
                                     ]
@@ -118,17 +118,17 @@ const ProductCard = ({ product })=>{
                                     children: "Price not available"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/_components/ProductCard.js",
-                                    lineNumber: 58,
+                                    lineNumber: 59,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/ProductCard.js",
-                                lineNumber: 45,
+                                lineNumber: 46,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/ProductCard.js",
-                            lineNumber: 44,
+                            lineNumber: 45,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -146,19 +146,19 @@ const ProductCard = ({ product })=>{
                                             d: "M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/_components/ProductCard.js",
-                                            lineNumber: 75,
+                                            lineNumber: 76,
                                             columnNumber: 19
                                         }, this)
                                     }, index, false, {
                                         fileName: "[project]/src/app/_components/ProductCard.js",
-                                        lineNumber: 65,
+                                        lineNumber: 66,
                                         columnNumber: 17
                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     className: "text-gray-500",
                                     children: "No ratings yet"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/_components/ProductCard.js",
-                                    lineNumber: 79,
+                                    lineNumber: 80,
                                     columnNumber: 15
                                 }, this),
                                 product.rating && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -166,30 +166,30 @@ const ProductCard = ({ product })=>{
                                     children: product.rating
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/_components/ProductCard.js",
-                                    lineNumber: 82,
+                                    lineNumber: 83,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/_components/ProductCard.js",
-                            lineNumber: 62,
+                            lineNumber: 63,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/_components/ProductCard.js",
-                    lineNumber: 40,
+                    lineNumber: 41,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/_components/ProductCard.js",
-            lineNumber: 27,
+            lineNumber: 28,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/_components/ProductCard.js",
-        lineNumber: 26,
+        lineNumber: 27,
         columnNumber: 5
     }, this));
 };

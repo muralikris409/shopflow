@@ -12,7 +12,8 @@ const ProductCard = ({ product}) => {
   const handleNavigation=()=>{
     
   dispatch(setProductData({id:product.id}));
-  router.push(`product/${product.name}`);
+  router.push(`/product/${product.name}`);
+
   }
   return (
     // <Link

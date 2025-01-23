@@ -1,35 +1,43 @@
-"use client"
-import React, { useEffect, useState } from 'react';
-import OrderSummary from './Checkout';  
-import UserCartService from '../service/UserCartService';
-import { useSelector } from 'react-redux';
-import { useSearchParams } from 'next/navigation';
-import withAuth from '../_routeprotector/WithAuth';
-
-
+"use client";
+import React, { useEffect, useState } from "react";
+import OrderSummary from "./Checkout";
+import UserCartService from "../service/UserCartService";
+import { useSelector } from "react-redux";
+import withAuth from "../_routeprotector/WithAuth";
 
 function Page() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [orders, setOrders] = useState([]);
   const userCartService = new UserCartService();
+
+  const reduxOrders = useSelector((state) => state?.utils?.product?.orders);
   const userId = useSelector((state) => state.session.user?.id);
-  const searchParams = useSearchParams();
-  const orders = useSelector(state=>state?.utils?.product?.orders);
-console.log(orders);
+
   const fetchProducts = async () => {
-    if (!userId) return;  
+    if (!userId) return;
     try {
       const response = await userCartService.viewCart(userId);
-      console.log(response)
-      const productData = response; 
-      setProducts(productData);
-      
+      console.log(response);
+      setProducts(response);
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (reduxOrders) {
+      localStorage.setItem("orders", JSON.stringify(reduxOrders));
+      setOrders(reduxOrders);
+    } else {
+      const storedOrders = localStorage.getItem("orders");
+      if (storedOrders) {
+        setOrders(JSON.parse(storedOrders));
+      }
+    }
+  }, [reduxOrders]);
 
   useEffect(() => {
     if (userId) {
@@ -42,13 +50,13 @@ console.log(orders);
   }
 
   return (
-    <OrderSummary 
-      data={products.items} 
+    <OrderSummary
+      data={products.items || []}
       userId={userId}
       orders={orders}
-      totalBill={products.totalAmount}
-    
+      totalBill={products.totalAmount || 0}
     />
   );
 }
+
 export default withAuth(Page);

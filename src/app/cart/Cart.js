@@ -167,7 +167,7 @@ const Cart = () => {
               <button
                 onClick={handleCheckout}
                 className={`w-full mt-4 py-2 rounded text-white ${
-                  loadingCheckout ? 'bg-gray-500' : 'bg-blue-600 hover:bg-blue-700'
+                  loadingCheckout ? 'bg-gray-500' : 'bg-gray-800 hover:bg-gray-900'
                 }`}
                 disabled={products.length === 0 || loadingCheckout}
               >

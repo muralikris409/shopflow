@@ -13,8 +13,10 @@ __turbopack_esm__({
     "googleOAuth": (()=>googleOAuth),
     "login": (()=>login),
     "makeAddressPrimary": (()=>makeAddressPrimary),
+    "removeAddress": (()=>removeAddress),
     "resetPassword": (()=>resetPassword),
     "signUp": (()=>signUp),
+    "updateAddress": (()=>updateAddress),
     "updateProfileInfo": (()=>updateProfileInfo)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/api/axios.js [app-client] (ecmascript)");
@@ -36,13 +38,7 @@ async function login(formdata) {
             token
         };
     } catch (error) {
-        if (error.response) {
-            throw new Error(error.response.data.message || "An error occurred during login.");
-        } else if (error.request) {
-            throw new Error("Network error: No response received.");
-        } else {
-            throw new Error(error.message || "An unknown error occurred during login.");
-        }
+        throw new Error(error.response.data.message || "An error occurred during login.");
     }
 }
 async function signUp(formdata) {
@@ -59,13 +55,7 @@ async function signUp(formdata) {
         });
         return response.data;
     } catch (error) {
-        if (error.response) {
-            throw new Error(error.response.data.message || "An error occurred during sign-up.");
-        } else if (error.request) {
-            throw new Error("Network error: No response received.");
-        } else {
-            throw new Error(error.message || "An unknown error occurred during sign-up.");
-        }
+        throw new Error(error.response.data.message || "An error occurred during sign-up.");
     }
 }
 async function googleOAuth(data) {
@@ -83,13 +73,7 @@ async function googleOAuth(data) {
         }));
         return response.data;
     } catch (error) {
-        if (error.response) {
-            throw new Error(error.response.data.message || "An error occurred during Google OAuth.");
-        } else if (error.request) {
-            throw new Error("Network error: No response received.");
-        } else {
-            throw new Error(error.message || "An unknown error occurred during Google OAuth.");
-        }
+        throw new Error(error.response.data.message || "An error occurred during Google OAuth.");
     }
 }
 async function forgotPassword(email) {
@@ -151,6 +135,7 @@ async function updateProfileInfo(token, userId, data) {
 }
 async function fetchUserAddresses(token, userId) {
     try {
+        console.log("token", token);
         const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post(`user/getAllAddress?userId=${userId}`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -178,7 +163,7 @@ const makeAddressPrimary = async (token, userId, addressId)=>{
             }
         });
         console.log(response);
-        return response.data.data;
+        return response.data;
     } catch (error) {
         console.error("Error fetching addresses:", error);
         return {
@@ -203,8 +188,52 @@ const addAddress = async (token, userId, addressData)=>{
                 Authorization: `Bearer ${token}`
             }
         });
-        userProfileInfo;
-        return response.data.data;
+        return response.data;
+    } catch (error) {
+        console.error("Error adding address:", error);
+        return {
+            error: error.response?.data?.message || "Something went wrong!"
+        };
+    }
+};
+const updateAddress = async (token, userId, addressId, addressData)=>{
+    try {
+        const { street, city, state, country, zip, isPrimary } = addressData;
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post('user/editAddress', {}, {
+            params: {
+                userId,
+                addressId,
+                street,
+                city,
+                state,
+                country,
+                zip,
+                isPrimary
+            },
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error adding address:", error);
+        return {
+            error: error.response?.data?.message || "Something went wrong!"
+        };
+    }
+};
+const removeAddress = async (token, userId, addressId)=>{
+    try {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosInstance"].post('user/deleteAddress', {}, {
+            params: {
+                userId,
+                addressId
+            },
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
     } catch (error) {
         console.error("Error adding address:", error);
         return {
@@ -227,58 +256,127 @@ __turbopack_esm__({
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$UserService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/service/UserService.js [app-client] (ecmascript)"); // Adjust the path as needed
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
 "use client";
 ;
 ;
-const AddressManagement = ({ userId, token })=>{
+;
+const AddressManagement = ()=>{
     _s();
     const [addresses, setAddresses] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [newAddress, setNewAddress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        street: '',
-        city: '',
-        state: '',
-        country: '',
-        zip: '',
+        street: "",
+        city: "",
+        state: "",
+        country: "",
+        zip: "",
         isPrimary: false
     });
+    const [errors, setErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({});
     const [showForm, setShowForm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [editAddressId, setEditAddressId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const userId = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"])({
+        "AddressManagement.useSelector[userId]": (state)=>state?.session?.user?.id
+    }["AddressManagement.useSelector[userId]"]);
+    const token = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"])({
+        "AddressManagement.useSelector[token]": (state)=>state?.session?.token
+    }["AddressManagement.useSelector[token]"]);
     const loadAddresses = async ()=>{
         setLoading(true);
         const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$UserService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["fetchUserAddresses"])(token, userId);
-        console.log(result);
-        if (!result.error) {
-            setAddresses(result);
+        if (result.status === "success") {
+            setAddresses(result.data);
         } else {
-            console.error(result.error);
+            console.error(result?.message || "Error retrieving addresses");
         }
         setLoading(false);
     };
+    const validateForm = ()=>{
+        const newErrors = {};
+        if (!newAddress.street.trim()) newErrors.street = "Street is required.";
+        if (!newAddress.city.trim()) newErrors.city = "City is required.";
+        if (!newAddress.state.trim()) newErrors.state = "State is required.";
+        if (!newAddress.country.trim()) newErrors.country = "Country is required.";
+        if (!newAddress.zip.trim() || !/^[0-9]{5,6}$/.test(newAddress.zip)) {
+            newErrors.zip = "ZIP Code must be 5-6 digits.";
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
     const handleAddAddress = async ()=>{
-        const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$UserService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["addAddress"])(token, userId, newAddress);
-        if (!result.error) {
-            loadAddresses();
-            setShowForm(false);
-            setNewAddress({
-                street: '',
-                city: '',
-                state: '',
-                country: '',
-                zip: '',
-                isPrimary: false
-            });
-        } else {
-            console.error(result.error);
+        if (!validateForm()) return;
+        try {
+            const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$UserService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["addAddress"])(token, userId, newAddress);
+            if (result?.status === "success") {
+                loadAddresses();
+                setShowForm(false);
+                resetForm();
+            } else {
+                console.error(result?.error || "Error adding address");
+            }
+        } catch (error) {
+            console.error(error);
         }
     };
     const handleMakePrimary = async (addressId)=>{
-        const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$UserService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["makeAddressPrimary"])(token, userId, addressId);
-        if (!result.error) {
-            loadAddresses();
+        try {
+            const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$UserService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["makeAddressPrimary"])(token, userId, addressId);
+            if (result?.status === "success") {
+                loadAddresses();
+            } else {
+                console.error(result?.error || "Error setting address as primary");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    const handleDeleteAddress = async (addressId)=>{
+        try {
+            const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$UserService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["removeAddress"])(token, userId, addressId);
+            if (result?.status === "success") {
+                loadAddresses();
+            } else {
+                console.error(result?.error || "Error deleting address");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    const handleSaveEditedAddress = async ()=>{
+        if (!validateForm()) return;
+        try {
+            const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$UserService$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateAddress"])(token, userId, editAddressId, newAddress);
+            if (result?.status === "success") {
+                loadAddresses();
+                setShowForm(false);
+                setEditAddressId(null);
+                resetForm();
+            } else {
+                console.error(result?.error || "Error updating address");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    const resetForm = ()=>{
+        setNewAddress({
+            street: "",
+            city: "",
+            state: "",
+            country: "",
+            zip: "",
+            isPrimary: false
+        });
+        setErrors({});
+    };
+    const handleSubmitAddress = ()=>{
+        if (editAddressId) {
+            handleSaveEditedAddress();
         } else {
-            console.error(result.error);
+            handleAddAddress();
         }
     };
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
@@ -291,106 +389,141 @@ const AddressManagement = ({ userId, token })=>{
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                 className: "text-3xl font-bold mb-6 text-indigo-600",
-                children: "Address Management"
+                children: "Manage Addresses"
             }, void 0, false, {
                 fileName: "[project]/src/app/user/profile/address/page.js",
-                lineNumber: 56,
+                lineNumber: 142,
                 columnNumber: 7
             }, this),
             loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 children: "Loading addresses..."
             }, void 0, false, {
                 fileName: "[project]/src/app/user/profile/address/page.js",
-                lineNumber: 58,
+                lineNumber: 144,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6",
                 children: [
-                    addresses.map((address)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "p-6 mb-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex justify-between items-center border-l-4 border-indigo-500",
+                    addresses?.map((address)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: `p-4 border rounded-md shadow ${address.isPrimary ? "border-indigo-500 bg-indigo-50" : "bg-white"}`,
                             children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                    className: "text-lg font-semibold text-gray-700 mb-2",
+                                    children: address.street
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/user/profile/address/page.js",
+                                    lineNumber: 154,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-gray-500",
                                     children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                            className: "text-lg font-semibold text-gray-700",
-                                            children: [
-                                                address.street,
-                                                ", ",
-                                                address.city
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/app/user/profile/address/page.js",
-                                            lineNumber: 67,
-                                            columnNumber: 17
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                            className: "text-gray-500",
-                                            children: [
-                                                address.state,
-                                                ", ",
-                                                address.country,
-                                                " - ",
-                                                address.zip
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/app/user/profile/address/page.js",
-                                            lineNumber: 70,
-                                            columnNumber: 17
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                            className: `text-sm font-medium ${address.isPrimary ? 'text-green-500' : 'text-gray-400'}`,
-                                            children: address.isPrimary ? "Primary Address" : ""
+                                        address.city,
+                                        ", ",
+                                        address.state
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/app/user/profile/address/page.js",
+                                    lineNumber: 155,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-gray-500",
+                                    children: [
+                                        address.country,
+                                        " - ",
+                                        address.zip
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/app/user/profile/address/page.js",
+                                    lineNumber: 158,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: `mt-2 text-sm font-medium ${address.isPrimary ? "text-green-600" : "text-gray-400"}`,
+                                    children: address.isPrimary ? "Primary Address" : ""
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/user/profile/address/page.js",
+                                    lineNumber: 161,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center mt-4 space-x-4",
+                                    children: [
+                                        !address.isPrimary && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>handleMakePrimary(address.id),
+                                            className: "px-3 py-1 bg-indigo-500 text-white text-sm rounded hover:bg-indigo-600",
+                                            children: "Set as Default"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/user/profile/address/page.js",
-                                            lineNumber: 71,
+                                            lineNumber: 170,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>{
+                                                setNewAddress({
+                                                    ...address
+                                                });
+                                                setEditAddressId(address.id);
+                                                setShowForm(true);
+                                            },
+                                            className: "px-3 py-1 bg-gray-200 text-sm rounded hover:bg-gray-300",
+                                            children: "Edit"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/user/profile/address/page.js",
+                                            lineNumber: 177,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>handleDeleteAddress(address.id),
+                                            className: "px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600",
+                                            children: "Delete"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/user/profile/address/page.js",
+                                            lineNumber: 187,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/user/profile/address/page.js",
-                                    lineNumber: 66,
+                                    lineNumber: 168,
                                     columnNumber: 15
-                                }, this),
-                                !address.isPrimary && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>handleMakePrimary(address.id),
-                                    className: "px-4 py-2 bg-green-500 text-white rounded-lg shadow transform hover:scale-105 transition duration-300",
-                                    children: "Make Primary"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/user/profile/address/page.js",
-                                    lineNumber: 76,
-                                    columnNumber: 17
                                 }, this)
                             ]
                         }, address.id, true, {
                             fileName: "[project]/src/app/user/profile/address/page.js",
-                            lineNumber: 62,
+                            lineNumber: 148,
                             columnNumber: 13
                         }, this)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        onClick: ()=>setShowForm(true),
-                        className: "mt-6 px-4 py-2 bg-indigo-500 text-white rounded-lg shadow transform hover:scale-105 transition duration-300",
-                        children: "Add New Address"
+                        onClick: ()=>{
+                            resetForm();
+                            setShowForm(true);
+                        },
+                        className: "p-4 border-dashed border-2 border-indigo-500 text-indigo-500 rounded-md flex justify-center items-center hover:bg-indigo-50",
+                        children: "+ Add New Address"
                     }, void 0, false, {
                         fileName: "[project]/src/app/user/profile/address/page.js",
-                        lineNumber: 85,
+                        lineNumber: 196,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/user/profile/address/page.js",
-                lineNumber: 60,
+                lineNumber: 146,
                 columnNumber: 9
             }, this),
             showForm && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center",
+                className: "fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "bg-white p-6 rounded-lg shadow-lg",
+                    className: "bg-white p-6 rounded-lg shadow-lg w-96",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                             className: "text-2xl font-bold mb-4 text-indigo-600",
-                            children: "Add New Address"
+                            children: editAddressId ? "Edit Address" : "Add New Address"
                         }, void 0, false, {
                             fileName: "[project]/src/app/user/profile/address/page.js",
-                            lineNumber: 97,
+                            lineNumber: 211,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -398,85 +531,119 @@ const AddressManagement = ({ userId, token })=>{
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                     type: "text",
-                                    name: "street",
                                     placeholder: "Street",
                                     value: newAddress.street,
                                     onChange: (e)=>setNewAddress({
                                             ...newAddress,
                                             street: e.target.value
                                         }),
-                                    className: "w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                                    className: `w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.street ? "border-red-500" : "focus:ring-indigo-400"}`
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/user/profile/address/page.js",
-                                    lineNumber: 99,
+                                    lineNumber: 215,
                                     columnNumber: 15
+                                }, this),
+                                errors.street && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-red-500 text-sm",
+                                    children: errors.street
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/user/profile/address/page.js",
+                                    lineNumber: 224,
+                                    columnNumber: 33
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                     type: "text",
-                                    name: "city",
                                     placeholder: "City",
                                     value: newAddress.city,
                                     onChange: (e)=>setNewAddress({
                                             ...newAddress,
                                             city: e.target.value
                                         }),
-                                    className: "w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                                    className: `w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.city ? "border-red-500" : "focus:ring-indigo-400"}`
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/user/profile/address/page.js",
-                                    lineNumber: 107,
+                                    lineNumber: 225,
                                     columnNumber: 15
+                                }, this),
+                                errors.city && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-red-500 text-sm",
+                                    children: errors.city
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/user/profile/address/page.js",
+                                    lineNumber: 234,
+                                    columnNumber: 31
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                     type: "text",
-                                    name: "state",
                                     placeholder: "State",
                                     value: newAddress.state,
                                     onChange: (e)=>setNewAddress({
                                             ...newAddress,
                                             state: e.target.value
                                         }),
-                                    className: "w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                                    className: `w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.state ? "border-red-500" : "focus:ring-indigo-400"}`
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/user/profile/address/page.js",
-                                    lineNumber: 115,
+                                    lineNumber: 235,
                                     columnNumber: 15
+                                }, this),
+                                errors.state && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-red-500 text-sm",
+                                    children: errors.state
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/user/profile/address/page.js",
+                                    lineNumber: 244,
+                                    columnNumber: 32
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                     type: "text",
-                                    name: "country",
                                     placeholder: "Country",
                                     value: newAddress.country,
                                     onChange: (e)=>setNewAddress({
                                             ...newAddress,
                                             country: e.target.value
                                         }),
-                                    className: "w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                                    className: `w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.country ? "border-red-500" : "focus:ring-indigo-400"}`
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/user/profile/address/page.js",
-                                    lineNumber: 123,
+                                    lineNumber: 245,
                                     columnNumber: 15
+                                }, this),
+                                errors.country && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-red-500 text-sm",
+                                    children: errors.country
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/user/profile/address/page.js",
+                                    lineNumber: 254,
+                                    columnNumber: 34
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                     type: "text",
-                                    name: "zip",
                                     placeholder: "ZIP Code",
                                     value: newAddress.zip,
                                     onChange: (e)=>setNewAddress({
                                             ...newAddress,
                                             zip: e.target.value
                                         }),
-                                    className: "w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                                    className: `w-full p-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.zip ? "border-red-500" : "focus:ring-indigo-400"}`
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/user/profile/address/page.js",
-                                    lineNumber: 131,
+                                    lineNumber: 255,
                                     columnNumber: 15
+                                }, this),
+                                errors.zip && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-red-500 text-sm",
+                                    children: errors.zip
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/user/profile/address/page.js",
+                                    lineNumber: 264,
+                                    columnNumber: 30
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                     className: "inline-flex items-center",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             type: "checkbox",
-                                            name: "isPrimary",
                                             checked: newAddress.isPrimary,
                                             onChange: (e)=>setNewAddress({
                                                     ...newAddress,
@@ -485,7 +652,7 @@ const AddressManagement = ({ userId, token })=>{
                                             className: "form-checkbox h-5 w-5 text-indigo-600"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/user/profile/address/page.js",
-                                            lineNumber: 140,
+                                            lineNumber: 266,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -493,69 +660,77 @@ const AddressManagement = ({ userId, token })=>{
                                             children: "Set as Primary"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/user/profile/address/page.js",
-                                            lineNumber: 147,
+                                            lineNumber: 272,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/user/profile/address/page.js",
-                                    lineNumber: 139,
+                                    lineNumber: 265,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex justify-end mt-6",
+                                    className: "flex justify-end mt-4 space-x-2",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "button",
-                                            onClick: handleAddAddress,
-                                            className: "px-4 py-2 bg-indigo-500 text-white rounded-lg shadow transform hover:scale-105 transition duration-300",
-                                            children: "Save"
+                                            onClick: handleSubmitAddress,
+                                            className: "px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600",
+                                            children: editAddressId ? "Update Address" : "Save"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/user/profile/address/page.js",
-                                            lineNumber: 150,
+                                            lineNumber: 275,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "button",
-                                            onClick: ()=>setShowForm(false),
-                                            className: "ml-4 px-4 py-2 bg-red-500 text-white rounded-lg shadow transform hover:scale-105 transition duration-300",
+                                            onClick: ()=>{
+                                                setShowForm(false);
+                                                resetForm();
+                                            },
+                                            className: "px-4 py-2 bg-gray-200 rounded hover:bg-gray-300",
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/user/profile/address/page.js",
-                                            lineNumber: 157,
+                                            lineNumber: 282,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/user/profile/address/page.js",
-                                    lineNumber: 149,
+                                    lineNumber: 274,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/user/profile/address/page.js",
-                            lineNumber: 98,
+                            lineNumber: 214,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/user/profile/address/page.js",
-                    lineNumber: 96,
+                    lineNumber: 210,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/user/profile/address/page.js",
-                lineNumber: 95,
+                lineNumber: 209,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/user/profile/address/page.js",
-        lineNumber: 55,
+        lineNumber: 141,
         columnNumber: 5
     }, this);
 };
-_s(AddressManagement, "V9m5OofGribfQbjBriBENU0P60I=");
+_s(AddressManagement, "HaMukF6o1KHB8KlIgmkCYkPWsNg=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"]
+    ];
+});
 _c = AddressManagement;
 const __TURBOPACK__default__export__ = AddressManagement;
 var _c;

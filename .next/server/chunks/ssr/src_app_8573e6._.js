@@ -9,15 +9,16 @@ __turbopack_esm__({
     "cancelOrder": (()=>cancelOrder),
     "checkOutOrder": (()=>checkOutOrder),
     "createOrder": (()=>createOrder),
+    "getOrderById": (()=>getOrderById),
     "getOrderByUserId": (()=>getOrderByUserId),
     "verifyPaymentAndUpdateOrder": (()=>verifyPaymentAndUpdateOrder)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/api/axios.js [app-ssr] (ecmascript)");
 ;
-const createOrder = async (userId, items)=>{
+const createOrder = async (userId1, items)=>{
     try {
         const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].post('/user/order/createOrder', {
-            userId,
+            userId: userId1,
             items
         });
         return response.data;
@@ -56,10 +57,10 @@ const checkOutOrder = async (orderId)=>{
         throw new Error(error?.response?.data?.message || 'Error fetching user orders.');
     }
 };
-const getOrderByUserId = async (userId)=>{
-    console.log("userId:", userId);
+const getOrderByUserId = async (userId1)=>{
+    console.log("userId:", userId1);
     try {
-        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].get(`/user/order/getUserOrder?userId=${userId}`);
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].get(`/user/order/getUserOrder?userId=${userId1}`);
         return response.data;
     } catch (error) {
         console.error('Error fetching user orders:', error);
@@ -74,6 +75,16 @@ const cancelOrder = async (orderId)=>{
     } catch (error) {
         console.error('Error cancelling order:', error);
         throw new Error(error?.response?.data?.message || 'Error cancelling order.');
+    }
+};
+const getOrderById = async (orderId)=>{
+    console.log("userId:", userId);
+    try {
+        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$api$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["axiosInstance"].get(`/user/order/getUserOrder?orderId=${orderId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user orders:', error);
+        throw new Error(error?.response?.data?.message || 'Error fetching user orders.');
     }
 };
 }}),

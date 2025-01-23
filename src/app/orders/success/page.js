@@ -1,11 +1,10 @@
 "use client"
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import React from 'react';
-import { Suspense } from 'react';
-
+import { Suspense, useEffect, useState } from 'react';
 import withAuth from "@/app/_routeprotector/WithAuth";
-
+import { getOrderById } from "../../service/OrderService"; // import your method to get order by ID
+import ProductCarousel from '@/app/_components/ProductCarousel';
+import ProductCard from '@/app/_components/ProductCard';
 const OrderCard = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -16,21 +15,44 @@ const OrderCard = () => {
 export default withAuth(OrderCard);
 
 const OrderCardComponent = () => {
-  const searchParams = useSearchParams();
-  let order = null;
-
-  try {
-    const orderData = searchParams.get("dtrcpt");
-    order = orderData ? JSON.parse(orderData) : null;
+  const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  let products=[];
+  const data=JSON.parse(localStorage.getItem("orders"));
+  const orderId=data?.orders?.id||data?.orders?.order?.id;
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const orderData = await getOrderById(orderId);
+        console.log(orderData)
+        setOrder(orderData.data);
+        products=[{...orderData.data.product}];
+      } catch (err) {
+        setError('Failed to fetch order details');
+      } finally {
+        setLoading(false);
+      }
+    };
     
-  } catch (error) {
-    console.error("Invalid order data:", error);
-  }
+    fetchOrder();
+  }, [orderId]);
 
   const orderDate = order?.orderDate ? new Date(order.orderDate).toLocaleDateString() : 'N/A';
   const formattedAmount = order?.totalAmount ? order.totalAmount.toLocaleString() : 'N/A';
+  if (loading) {
+    return (
+      <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+        <div className="mx-auto max-w-2xl px-4 2xl:px-0">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-2">
+            Loading order details...
+          </h2>
+        </div>
+      </section>
+    );
+  }
 
-  if (!order) {
+  if (error || !order) {
     return (
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
         <div className="mx-auto max-w-2xl px-4 2xl:px-0">
@@ -54,7 +76,6 @@ const OrderCardComponent = () => {
   }
 
   return (
-  
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
       <div className="mx-auto max-w-2xl px-4 2xl:px-0">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-2">
@@ -66,7 +87,7 @@ const OrderCardComponent = () => {
             href="#"
             className="font-medium text-gray-900 dark:text-white hover:underline"
           >
-            #{order.id || 'N/A'}
+            #{orderId || 'N/A'}
           </a>{' '}
           will be processed within 24 hours during working days. We will notify
           you by email once your order has been shipped.
@@ -113,11 +134,32 @@ const OrderCardComponent = () => {
               Total Amount
             </dt>
             <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
-              Rp {formattedAmount}
+              $ {formattedAmount}
             </dd>
           </dl>
         </div>
-        <div className="flex items-center space-x-4">
+      
+        <div className={`mt-4`}>
+      <h2 className="text-lg font-medium text-gray-700 mb-4 border-b pb-2">Order Summary</h2>
+      {order?.product?.map((item, index) => (
+        <div key={index} className="flex items-center mb-4">
+          <img
+            className="w-20 h-20 object-cover rounded border"
+            src={item.product?.image || '/_assets/image.png'}
+            alt={item.product?.name}
+          />
+          <div className="ml-4">
+            <h3 className="text-sm font-medium text-gray-800">{item.product?.name}</h3>
+            <p className="text-sm text-gray-500">{item.product?.description}</p>
+            <p className="text-sm font-bold text-gray-800">${item.product?.offerPrice}</p>
+          </div>
+        </div>
+      ))}
+      <div className="border-t pt-4">
+        <p className="font-medium text-lg text-gray-800">Total:  $ {formattedAmount}</p>
+      </div>
+    </div>
+    <div className="flex items-center mt-4">
           <Link
             href="/"
             className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -126,7 +168,15 @@ const OrderCardComponent = () => {
           </Link>
         </div>
       </div>
+      <ProductCarousel title={"Picks for you"} href={"/products"}>
+  {order?.similarProducts && order?.similarProducts?.length > 0 ? ( 
+    order?.similarProducts.map((product, i) => (
+      <ProductCard product={product} key={product.id || i} />
+    ))
+  ) : (
+    <p className="text-gray-500">No products available.</p>
+  )}
+</ProductCarousel>
     </section>
   );
 };
-

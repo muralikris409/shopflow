@@ -45,6 +45,7 @@ import { setProductData } from '@/app/_lib/utilReducer';
     const handleNavigation = (order) => {
       const data = { orders: order };
       dispatch(setProductData({orders:{...data}}))
+      
       router.push(`/checkout`);
     };
 
@@ -175,7 +176,7 @@ import { setProductData } from '@/app/_lib/utilReducer';
 
               {/* Action Buttons */}
               <div className="mt-10 grid grid-col md:grid-row lg:grid-row gap-5 items-center space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
-                <button onClick={handleBuy} className="inline-flex items-center justify-center rounded-md bg-gray-900 px-12 py-3 text-white hover:bg-gray-800" disabled={loading.buy}>
+                <button onClick={isLoggedIn?handleBuy:()=>router.push("/auth")} className="inline-flex items-center justify-center rounded-md bg-gray-900 px-12 py-3 text-white hover:bg-gray-800" disabled={loading.buy}>
                   {loading.buy ? (
                     <svg className="animate-spin h-5 w-5 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
