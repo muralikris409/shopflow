@@ -680,7 +680,7 @@ const OrderCardComponent = ()=>{
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("dd", {
-                                        className: `font-medium sm:text-end ${order.orderStatus === 'CONFORMED' ? 'text-green-500' : 'text-red-500'}`,
+                                        className: `font-medium sm:text-end ${order.orderStatus === 'CONFIRMED' ? 'text-green-500' : 'text-red-500'}`,
                                         children: order.orderStatus || 'N/A'
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/orders/success/page.js",

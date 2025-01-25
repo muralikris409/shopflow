@@ -801,10 +801,6 @@ img, video {
   max-height: 100lvh;
 }
 
-.max-h-3 {
-  max-height: .75rem;
-}
-
 .min-h-screen {
   min-height: 100vh;
 }

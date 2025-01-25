@@ -7,7 +7,7 @@
   import { useRouter } from 'next/navigation';
   import { createOrder } from '@/app/service/OrderService';
 import SimilarProducts from '@/app/_components/SimilarProducts';
-import { setProductData } from '@/app/_lib/utilReducer';
+import { setHistory, setProductData } from '@/app/_lib/utilReducer';
 
   const ProductView = ({ product = {} }) => {
     const isLoggedIn = useSelector((state) => state.session.user);
@@ -101,6 +101,11 @@ import { setProductData } from '@/app/_lib/utilReducer';
         setLoading(prev => ({ ...prev, wishlist: false }));
       }
     };
+    const handleGuest=()=>{
+      dispatch(setHistory({route:`/product/${product.name}`}))
+      dispatch(setProductData({id:product.id}));
+      router.push("/auth");
+    }
 
     return (
       <>
@@ -115,6 +120,10 @@ import { setProductData } from '@/app/_lib/utilReducer';
               <li className="text-left">
                 <span className="mx-2 text-gray-400">/</span>
                 <a href="#" className="rounded-md p-1 text-sm font-medium text-gray-600 hover:text-gray-800">Products</a>
+              </li>
+              <li className="text-left">
+                <span className="mx-2 text-gray-400">/</span>
+                <a href="#" className="rounded-md p-1 text-sm font-medium text-gray-600 hover:text-gray-800">{product.name}</a>
               </li>
             </ol>
           </nav>
@@ -176,7 +185,7 @@ import { setProductData } from '@/app/_lib/utilReducer';
 
               {/* Action Buttons */}
               <div className="mt-10 grid grid-col md:grid-row lg:grid-row gap-5 items-center space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
-                <button onClick={isLoggedIn?handleBuy:()=>router.push("/auth")} className="inline-flex items-center justify-center rounded-md bg-gray-900 px-12 py-3 text-white hover:bg-gray-800" disabled={loading.buy}>
+                <button onClick={isLoggedIn?handleBuy:handleGuest} className="inline-flex items-center justify-center rounded-md bg-gray-900 px-12 py-3 text-white hover:bg-gray-800" disabled={loading.buy}>
                   {loading.buy ? (
                     <svg className="animate-spin h-5 w-5 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

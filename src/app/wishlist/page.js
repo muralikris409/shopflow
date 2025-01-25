@@ -3,9 +3,12 @@
 import React from 'react';
 import { useEffect,useState } from 'react';
 import { loadWishlist, removeProductFromWishlist } from '../service/WishListService';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import WithAuth from '../_routeprotector/WithAuth';
 import { addOrRemoveProductFromWishlist } from '../service/WishListService';
+import Link from 'next/link';
+import { setProductData } from '../_lib/utilReducer';
+import { useRouter } from 'next/navigation';
 const Wishlist = () => {
   const [products, setProducts] = useState([]);
   
@@ -87,15 +90,24 @@ const Wishlist = () => {
 export default WithAuth(Wishlist);
 
 function WishlistTile({ product, onRemoveProduct }) {
+  const router=useRouter();
+
+  const dispatch=useDispatch();
+  const handleNavigation=()=>{
+    
+  dispatch(setProductData({id:product.id}));
+  router.push(`/product/${product.name}`);
+
+  }
   return (
-    <li className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
+    <li  className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
       <div className="shrink-0">
         <img className="h-24 w-24 max-w-full rounded-lg object-cover" src={product.image||"/_assets/image.png"} alt={product.name} />
       </div>
 
       <div className="relative flex flex-1 flex-col justify-between">
         <div className="sm:col-gap-5 sm:grid sm:grid-cols-2">
-          <div className="pr-8 sm:pr-5">
+          <div onClick={handleNavigation} className="pr-8 sm:pr-5">
             <p className="text-base font-semibold text-gray-900">{product.name}</p>
             <p className="text-sm text-gray-500">Brand: {product.brand}</p>
             <p className="text-sm text-gray-500">{product.description}</p>

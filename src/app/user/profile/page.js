@@ -80,6 +80,11 @@ const UserProfile = () => {
           <p className="text-gray-600">Update your information</p>
           <Link href="/user/profile/manage" className="mt-2 text-blue-500 hover:underline">Edit Profile</Link>
         </div>
+        <div className="bg-gray-100 p-4 rounded-lg shadow col-span-2">
+          <h3 className="text-lg font-semibold text-gray-800">Edit address</h3>
+          <p className="text-gray-600">Update your addresses</p>
+          <Link href="/user/profile/manage" className="mt-2 text-blue-500 hover:underline">Edit Profile</Link>
+        </div>
         
       </div>
     </div>

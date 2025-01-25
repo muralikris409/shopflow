@@ -7,6 +7,7 @@ import { setSession } from "../../_lib/sessionReducer";
 import { useRouter } from "next/navigation";
 import { googleOAuth, login, signUp } from "@/app/service/UserService";
 import Link from "next/link";
+import WithoutAuth from "../../_routeprotector/WithoutAuth";
 import UserCartService from "@/app/service/UserCartService";
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,6 +18,8 @@ const AuthForm = () => {
   const [loading,setLoading]=useState(false);
   const { data: session, status } = useSession();
   const dispatch = useDispatch();
+    const historyRoute = useSelector(state => state?.utils?.history?.route);
+    console.log("historyRoute",historyRoute);
   const router = useRouter();
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -79,7 +82,18 @@ const AuthForm = () => {
         setLoading(true);
         await login(formData);
         syncUser();
-        router.push("/");
+        console.log("check",historyRoute);
+       
+      
+        if(historyRoute){
+          historyRoute.includes("product")?router.push(`${historyRoute}`):router.push("/cart");
+          router.push(`${historyRoute}`)
+
+        }
+        else{
+                router.push("/");
+
+        }
       } else {
         setLoading(true);
         const response = await signUp(formData);
@@ -109,6 +123,7 @@ const AuthForm = () => {
   };
 
   useEffect(() => {
+    
     if (status === "authenticated") {
       syncUser();
     }
@@ -242,4 +257,4 @@ const AuthForm = () => {
   );
 };
 
-export default AuthForm;
+export default WithoutAuth(AuthForm);

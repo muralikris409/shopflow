@@ -313,6 +313,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$red
 ;
 ;
 ;
+;
 const Cart = ()=>{
     const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [totalBill, setTotalBill] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
@@ -407,6 +408,7 @@ const Cart = ()=>{
                     quantity: product.quantity
                 }));
             const { order } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$service$2f$OrderService$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["createOrder"])(isLoggedIn.id, items);
+            console.log(order);
             const data = {
                 orders: order
             };
@@ -423,6 +425,16 @@ const Cart = ()=>{
             setLoadingCheckout(false);
         }
     };
+    const handleNavigation = (productId, productName)=>{
+        dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$utilReducer$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["setProductData"])({
+            id: productId
+        }));
+        router.push(`/product/${productName}`);
+    };
+    const calculateBill = ()=>{
+        return products.reduce((a, c)=>a.offerPrice + c.offerPrice);
+    };
+    console.log(products);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "bg-gray-100 min-h-screen",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -433,7 +445,7 @@ const Cart = ()=>{
                     children: "Shopping Cart"
                 }, void 0, false, {
                     fileName: "[project]/src/app/cart/Cart.js",
-                    lineNumber: 130,
+                    lineNumber: 141,
                     columnNumber: 9
                 }, this),
                 loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -441,14 +453,14 @@ const Cart = ()=>{
                     children: "Loading..."
                 }, void 0, false, {
                     fileName: "[project]/src/app/cart/Cart.js",
-                    lineNumber: 132,
+                    lineNumber: 143,
                     columnNumber: 11
                 }, this) : products.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     className: "text-center text-gray-600",
                     children: "Your cart is empty"
                 }, void 0, false, {
                     fileName: "[project]/src/app/cart/Cart.js",
-                    lineNumber: 134,
+                    lineNumber: 145,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "grid grid-cols-1 lg:grid-cols-3 gap-6",
@@ -458,24 +470,25 @@ const Cart = ()=>{
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
                                 className: "divide-y divide-gray-200",
                                 children: products.map((product, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(CartTile, {
+                                        handleNavigation: handleNavigation,
                                         product: isLoggedIn ? product.product : product,
                                         onIncreaseQuantity: handleIncreaseQuantity,
                                         onDecreaseQuantity: handleDecreaseQuantity,
                                         onRemoveProduct: handleRemoveProduct,
-                                        quantity: isLoggedIn ? product.quantity : null
+                                        quantity: product?.quantity
                                     }, index, false, {
                                         fileName: "[project]/src/app/cart/Cart.js",
-                                        lineNumber: 140,
+                                        lineNumber: 151,
                                         columnNumber: 19
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/cart/Cart.js",
-                                lineNumber: 138,
+                                lineNumber: 149,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/cart/Cart.js",
-                            lineNumber: 137,
+                            lineNumber: 148,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -486,7 +499,7 @@ const Cart = ()=>{
                                     children: "Price Details"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/cart/Cart.js",
-                                    lineNumber: 152,
+                                    lineNumber: 164,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -499,7 +512,7 @@ const Cart = ()=>{
                                                     children: "Price"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/cart/Cart.js",
-                                                    lineNumber: 155,
+                                                    lineNumber: 167,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -509,13 +522,13 @@ const Cart = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/cart/Cart.js",
-                                                    lineNumber: 156,
+                                                    lineNumber: 168,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/cart/Cart.js",
-                                            lineNumber: 154,
+                                            lineNumber: 166,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -525,20 +538,20 @@ const Cart = ()=>{
                                                     children: "Discount"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/cart/Cart.js",
-                                                    lineNumber: 159,
+                                                    lineNumber: 171,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                     children: "- $0.00"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/cart/Cart.js",
-                                                    lineNumber: 160,
+                                                    lineNumber: 172,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/cart/Cart.js",
-                                            lineNumber: 158,
+                                            lineNumber: 170,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -548,7 +561,7 @@ const Cart = ()=>{
                                                     children: "Total Amount"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/cart/Cart.js",
-                                                    lineNumber: 163,
+                                                    lineNumber: 175,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -558,60 +571,65 @@ const Cart = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/cart/Cart.js",
-                                                    lineNumber: 164,
+                                                    lineNumber: 176,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/cart/Cart.js",
-                                            lineNumber: 162,
+                                            lineNumber: 174,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/cart/Cart.js",
-                                    lineNumber: 153,
+                                    lineNumber: 165,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: handleCheckout,
+                                    onClick: isLoggedIn ? handleCheckout : ()=>{
+                                        dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$utilReducer$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["setHistory"])({
+                                            route: `/cart`
+                                        }));
+                                        router.push("/auth");
+                                    },
                                     className: `w-full mt-4 py-2 rounded text-white ${loadingCheckout ? 'bg-gray-500' : 'bg-gray-800 hover:bg-gray-900'}`,
                                     disabled: products.length === 0 || loadingCheckout,
                                     children: loadingCheckout ? 'Processing...' : 'Checkout'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/cart/Cart.js",
-                                    lineNumber: 167,
+                                    lineNumber: 179,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/cart/Cart.js",
-                            lineNumber: 151,
+                            lineNumber: 163,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/cart/Cart.js",
-                    lineNumber: 136,
+                    lineNumber: 147,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/cart/Cart.js",
-            lineNumber: 129,
+            lineNumber: 140,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/cart/Cart.js",
-        lineNumber: 128,
+        lineNumber: 139,
         columnNumber: 5
     }, this);
 };
 const __TURBOPACK__default__export__ = Cart;
-function CartTile({ product, onIncreaseQuantity, onDecreaseQuantity, onRemoveProduct, quantity }) {
+function CartTile({ handleNavigation, product, onIncreaseQuantity, onDecreaseQuantity, onRemoveProduct, quantity }) {
     const [tileLoading, setTileLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-        className: `flex py-4 m-2 ${tileLoading ? 'border-2 border-double border-x-orange-500 animate-pulse' : ''}`,
+        className: `flex py-4 m-2 ${tileLoading ? 'border-2 border-double border-x-orange-500 animate-pulse ' : ''}`,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                 className: "w-16 h-16 rounded object-cover",
@@ -619,18 +637,19 @@ function CartTile({ product, onIncreaseQuantity, onDecreaseQuantity, onRemovePro
                 alt: product?.name
             }, void 0, false, {
                 fileName: "[project]/src/app/cart/Cart.js",
-                lineNumber: 191,
+                lineNumber: 208,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "ml-4 flex-1",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                        onClick: ()=>handleNavigation(product?.id, product?.name),
                         className: "text-gray-800 font-semibold",
                         children: product?.name
                     }, void 0, false, {
                         fileName: "[project]/src/app/cart/Cart.js",
-                        lineNumber: 193,
+                        lineNumber: 210,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -647,13 +666,13 @@ function CartTile({ product, onIncreaseQuantity, onDecreaseQuantity, onRemovePro
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/cart/Cart.js",
-                                lineNumber: 196,
+                                lineNumber: 213,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/cart/Cart.js",
-                        lineNumber: 194,
+                        lineNumber: 211,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -661,7 +680,7 @@ function CartTile({ product, onIncreaseQuantity, onDecreaseQuantity, onRemovePro
                         children: product?.description
                     }, void 0, false, {
                         fileName: "[project]/src/app/cart/Cart.js",
-                        lineNumber: 198,
+                        lineNumber: 215,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -674,7 +693,7 @@ function CartTile({ product, onIncreaseQuantity, onDecreaseQuantity, onRemovePro
                                 children: "-"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/cart/Cart.js",
-                                lineNumber: 200,
+                                lineNumber: 217,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -682,7 +701,7 @@ function CartTile({ product, onIncreaseQuantity, onDecreaseQuantity, onRemovePro
                                 children: quantity
                             }, void 0, false, {
                                 fileName: "[project]/src/app/cart/Cart.js",
-                                lineNumber: 207,
+                                lineNumber: 224,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -692,19 +711,19 @@ function CartTile({ product, onIncreaseQuantity, onDecreaseQuantity, onRemovePro
                                 children: "+"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/cart/Cart.js",
-                                lineNumber: 208,
+                                lineNumber: 225,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/cart/Cart.js",
-                        lineNumber: 199,
+                        lineNumber: 216,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/cart/Cart.js",
-                lineNumber: 192,
+                lineNumber: 209,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -714,13 +733,13 @@ function CartTile({ product, onIncreaseQuantity, onDecreaseQuantity, onRemovePro
                 children: "Remove"
             }, void 0, false, {
                 fileName: "[project]/src/app/cart/Cart.js",
-                lineNumber: 217,
+                lineNumber: 234,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/cart/Cart.js",
-        lineNumber: 190,
+        lineNumber: 207,
         columnNumber: 5
     }, this);
 }

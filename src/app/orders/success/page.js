@@ -107,7 +107,7 @@ const OrderCardComponent = () => {
             </dt>
             <dd
               className={`font-medium sm:text-end ${
-                order.orderStatus === 'CONFORMED'
+                order.orderStatus === 'CONFIRMED'
                   ? 'text-green-500'
                   : 'text-red-500'
               }`}

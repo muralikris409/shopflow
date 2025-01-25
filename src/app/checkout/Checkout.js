@@ -339,7 +339,7 @@ const OrderSummary = ({ title, userId, orders, totalBill }) => {
     try {
       const { razorpayOrder, ...data } = await checkOutOrder(orders?.orders?.order?.id || orders?.orders.id);
       const options = {
-        key: 'rzp_test_nTbKdtgjeOQLhc',
+        key: 'rzp_test_3dU6gjqwYc2lvI',
         amount: Math.ceil(totalBill * 100),
         currency: razorpayOrder?.currency,
         name: 'Your Shop',
@@ -349,15 +349,17 @@ const OrderSummary = ({ title, userId, orders, totalBill }) => {
           const { razorpay_payment_id, razorpay_signature, razorpay_order_id } = response;
 
           try {
+            setLoading(true);
             const verificationResult = await verifyPaymentAndUpdateOrder(
               orders?.orders?.order?.id || orders?.orders.id,
               razorpay_order_id,
               razorpay_payment_id,
               razorpay_signature
             );
+            setLoading(false);
 
             if (verificationResult.success) {
-              
+             
               router.push(`/orders/success`);
             } else {
               setError('Payment verification failed. Please try again.');
@@ -378,6 +380,7 @@ const OrderSummary = ({ title, userId, orders, totalBill }) => {
           ondismiss: async () => {
             setError('Payment was cancelled by the user. Please try again.');
           },
+          
         },
       };
 

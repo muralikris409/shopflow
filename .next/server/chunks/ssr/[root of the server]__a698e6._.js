@@ -916,12 +916,14 @@ var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_
 {
 __turbopack_esm__({
     "default": (()=>__TURBOPACK__default__export__),
+    "setHistory": (()=>setHistory),
     "setProductData": (()=>setProductData)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_import__("[project]/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs [app-rsc] (ecmascript) <locals>");
 ;
 const initialState = {
-    product: null
+    product: null,
+    history: null
 };
 const utilSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createSlice"])({
     name: "props",
@@ -931,10 +933,14 @@ const utilSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modul
             console.log(action);
             state.product = action.payload;
             console.log(action.payload);
+        },
+        setHistory (state, action) {
+            state.history = action.payload;
+            console.log(state.history);
         }
     }
 });
-const { setProductData } = utilSlice.actions;
+const { setProductData, setHistory } = utilSlice.actions;
 const __TURBOPACK__default__export__ = utilSlice.reducer;
 }}),
 "[project]/src/app/_lib/store.js [app-rsc] (ecmascript)": ((__turbopack_context__) => {

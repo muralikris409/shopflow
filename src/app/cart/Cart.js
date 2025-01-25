@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { createOrder } from '../service/OrderService';
 import { setProductData } from '../_lib/utilReducer';
-
+import { setHistory } from '../_lib/utilReducer';
 const Cart = () => {
   const [products, setProducts] = useState([]);
   const [totalBill, setTotalBill] = useState(0);
@@ -111,6 +111,7 @@ const Cart = () => {
         quantity: product.quantity,
       }));
       const {order } = await createOrder(isLoggedIn.id, items);
+      console.log(order)
       const data = {
         orders: order
       };
@@ -123,7 +124,17 @@ const Cart = () => {
       setLoadingCheckout(false);
     }
   };
-
+   
+    const handleNavigation=(productId,productName)=>{
+      
+    dispatch(setProductData({id:productId}));
+    router.push(`/product/${productName}`);
+  
+    }
+    const calculateBill=()=>{
+      return products.reduce((a,c)=>a.offerPrice+c.offerPrice)
+    }
+    console.log(products)
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="max-w-7xl mx-auto py-8 px-4 lg:px-6">
@@ -139,11 +150,12 @@ const Cart = () => {
                 {products.map((product, index) => (
                   <CartTile
                     key={index}
+                    handleNavigation={handleNavigation}
                     product={isLoggedIn ? product.product : product}
                     onIncreaseQuantity={handleIncreaseQuantity}
                     onDecreaseQuantity={handleDecreaseQuantity}
                     onRemoveProduct={handleRemoveProduct}
-                    quantity={isLoggedIn ? product.quantity : null}
+                    quantity={product?.quantity}
                   />
                 ))}
               </ul>
@@ -165,7 +177,12 @@ const Cart = () => {
                 </div>
               </div>
               <button
-                onClick={handleCheckout}
+                onClick={isLoggedIn?handleCheckout:()=>{
+                  
+                  dispatch(setHistory({route:`/cart`}));
+                  router.push("/auth");
+                
+                }}
                 className={`w-full mt-4 py-2 rounded text-white ${
                   loadingCheckout ? 'bg-gray-500' : 'bg-gray-800 hover:bg-gray-900'
                 }`}
@@ -183,14 +200,14 @@ const Cart = () => {
 
 export default Cart;
 
-function CartTile({ product, onIncreaseQuantity, onDecreaseQuantity, onRemoveProduct, quantity }) {
+function CartTile({ handleNavigation,product, onIncreaseQuantity, onDecreaseQuantity, onRemoveProduct, quantity }) {
   const [tileLoading, setTileLoading] = useState(false);
 
   return (
-    <li className={`flex py-4 m-2 ${tileLoading ? 'border-2 border-double border-x-orange-500 animate-pulse' : ''}`}>
+    <li  className={`flex py-4 m-2 ${tileLoading ? 'border-2 border-double border-x-orange-500 animate-pulse ' : ''}`}>
       <img className="w-16 h-16 rounded object-cover" src={product?.image} alt={product?.name} />
       <div className="ml-4 flex-1">
-        <h3 className="text-gray-800 font-semibold">{product?.name}</h3>
+        <h3 onClick={()=>handleNavigation(product?.id,product?.name)} className="text-gray-800 font-semibold">{product?.name}</h3>
         <p className="text-gray-600 text-sm">
           ${product?.offerPrice?.toFixed(2)}{' '}
           <span className="line-through text-gray-400">${product?.actualPrice?.toFixed(2)}</span>

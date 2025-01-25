@@ -248,7 +248,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navi
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$sessionReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/app/_lib/sessionReducer.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next-auth/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/react-icons/fa/index.mjs [app-client] (ecmascript)"); // Import a user icon from react-icons
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/react-icons/fa/index.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
 'use client';
@@ -268,28 +268,17 @@ function UserMenu() {
     const user = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"])({
         "UserMenu.useSelector[user]": (state)=>state?.session?.user
     }["UserMenu.useSelector[user]"]);
-    const syncUser = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
-        "UserMenu.useCallback[syncUser]": ()=>{
-            const userData = localStorage.getItem("shopflow_session");
-            if (userData) {
-                try {
-                    const parsedData = JSON.parse(userData);
-                    dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$sessionReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["setSession"])(parsedData));
-                } catch (error) {
-                    console.error("Failed to parse user data:", error);
-                }
+    const syncUser = ()=>{
+        const userData = localStorage.getItem("shopflow_session");
+        if (userData) {
+            try {
+                const parsedData = JSON.parse(userData);
+                dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$sessionReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["setSession"])(parsedData));
+            } catch (error) {
+                console.error("Failed to parse user data:", error);
             }
         }
-    }["UserMenu.useCallback[syncUser]"], [
-        dispatch
-    ]);
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "UserMenu.useEffect": ()=>{
-            syncUser();
-        }
-    }["UserMenu.useEffect"], [
-        syncUser
-    ]);
+    };
     const toggleDropdown = ()=>{
         setIsOpen((prevState)=>!prevState);
     };
@@ -309,6 +298,7 @@ function UserMenu() {
     };
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "UserMenu.useEffect": ()=>{
+            syncUser();
             const handleClickOutside = {
                 "UserMenu.useEffect.handleClickOutside": (event)=>{
                     const dropdown = document.getElementById('dropdownAvatar');
@@ -347,7 +337,7 @@ function UserMenu() {
                                 className: "w-full h-full object-cover"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 209,
+                                lineNumber: 208,
                                 columnNumber: 5
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                 src: user?.profile_pic || '/_assets/user.png',
@@ -355,18 +345,18 @@ function UserMenu() {
                                 className: "w-full h-full object-cover"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 215,
+                                lineNumber: 214,
                                 columnNumber: 5
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fa$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaUserCircle"], {
                                 className: "text-white text-3xl"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 223,
+                                lineNumber: 222,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 206,
+                            lineNumber: 205,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -374,18 +364,18 @@ function UserMenu() {
                             children: user?.name || 'Sign in'
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 226,
+                            lineNumber: 225,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/_components/header/UserMenu.js",
-                    lineNumber: 204,
+                    lineNumber: 203,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                lineNumber: 196,
+                lineNumber: 195,
                 columnNumber: 7
             }, this),
             isOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -402,12 +392,12 @@ function UserMenu() {
                                 children: "Sign out"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 240,
+                                lineNumber: 239,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 239,
+                            lineNumber: 238,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -418,12 +408,12 @@ function UserMenu() {
                                 children: "My Account"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 248,
+                                lineNumber: 247,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 247,
+                            lineNumber: 246,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -434,12 +424,12 @@ function UserMenu() {
                                 children: "My Orders"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 253,
+                                lineNumber: 252,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 252,
+                            lineNumber: 251,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -450,12 +440,12 @@ function UserMenu() {
                                 children: "My Cart"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 258,
+                                lineNumber: 257,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 257,
+                            lineNumber: 256,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -466,18 +456,18 @@ function UserMenu() {
                                 children: "My Wishlist"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                                lineNumber: 263,
+                                lineNumber: 262,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/_components/header/UserMenu.js",
-                            lineNumber: 262,
+                            lineNumber: 261,
                             columnNumber: 15
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/_components/header/UserMenu.js",
-                    lineNumber: 238,
+                    lineNumber: 237,
                     columnNumber: 13
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "p-4 text-center",
@@ -487,27 +477,27 @@ function UserMenu() {
                         children: "Sign in or New Customer start here.."
                     }, void 0, false, {
                         fileName: "[project]/src/app/_components/header/UserMenu.js",
-                        lineNumber: 270,
+                        lineNumber: 269,
                         columnNumber: 15
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/_components/header/UserMenu.js",
-                    lineNumber: 269,
+                    lineNumber: 268,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/_components/header/UserMenu.js",
-                lineNumber: 233,
+                lineNumber: 232,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/_components/header/UserMenu.js",
-        lineNumber: 194,
+        lineNumber: 193,
         columnNumber: 5
     }, this);
 }
-_s(UserMenu, "cs8v7TSjf7GDW1+k+xc7ssiw8+k=", false, function() {
+_s(UserMenu, "CKX05m5Xdwp2lEiwYV+cqNFGUAg=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
@@ -1534,12 +1524,14 @@ var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_
 {
 __turbopack_esm__({
     "default": (()=>__TURBOPACK__default__export__),
+    "setHistory": (()=>setHistory),
     "setProductData": (()=>setProductData)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_import__("[project]/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs [app-client] (ecmascript) <locals>");
 ;
 const initialState = {
-    product: null
+    product: null,
+    history: null
 };
 const utilSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createSlice"])({
     name: "props",
@@ -1549,10 +1541,14 @@ const utilSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modul
             console.log(action);
             state.product = action.payload;
             console.log(action.payload);
+        },
+        setHistory (state, action) {
+            state.history = action.payload;
+            console.log(state.history);
         }
     }
 });
-const { setProductData } = utilSlice.actions;
+const { setProductData, setHistory } = utilSlice.actions;
 const __TURBOPACK__default__export__ = utilSlice.reducer;
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);

@@ -134,7 +134,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { setSession } from '@/app/_lib/sessionReducer';
 import { useSession, signOut } from 'next-auth/react';
-import { FaUserCircle } from 'react-icons/fa'; // Import a user icon from react-icons
+import { FaUserCircle } from 'react-icons/fa'; 
 
 export default function UserMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -142,8 +142,8 @@ export default function UserMenu() {
   const router = useRouter();
   const { data: session } = useSession();
   const user = useSelector(state => state?.session?.user);
-
-  const syncUser = useCallback(() => {
+   
+  const syncUser = () => {
     const userData = localStorage.getItem("shopflow_session");
     if (userData) {
       try {
@@ -153,11 +153,9 @@ export default function UserMenu() {
         console.error("Failed to parse user data:", error);
       }
     }
-  }, [dispatch]);
+  }
 
-  useEffect(() => {
-    syncUser();
-  }, [syncUser]);
+
 
   const toggleDropdown = () => {
     setIsOpen(prevState => !prevState);
@@ -177,6 +175,7 @@ export default function UserMenu() {
   };
 
   useEffect(() => {
+    syncUser();
     const handleClickOutside = (event) => {
       const dropdown = document.getElementById('dropdownAvatar');
       if (dropdown && !dropdown.contains(event.target)) {

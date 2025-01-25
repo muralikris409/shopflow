@@ -9,12 +9,10 @@ export default function Page() {
 
   const [isClient, setIsClient] = useState(false);
 
-  // Set a flag indicating that the component has mounted on the client
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // Only interact with localStorage on the client side
   useEffect(() => {
     if (isClient && pId) {
       localStorage.setItem("persistedData", JSON.stringify({ product: { id: pId } }));

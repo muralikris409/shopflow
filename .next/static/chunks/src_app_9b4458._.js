@@ -826,6 +826,15 @@ const ProductView = ({ product = {} })=>{
                 }));
         }
     };
+    const handleGuest = ()=>{
+        dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$utilReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["setHistory"])({
+            route: `/product/${product.name}`
+        }));
+        dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_lib$2f$utilReducer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["setProductData"])({
+            id: product.id
+        }));
+        router.push("/auth");
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -847,12 +856,12 @@ const ProductView = ({ product = {} })=>{
                                             children: "Home"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                            lineNumber: 113,
+                                            lineNumber: 118,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                        lineNumber: 112,
+                                        lineNumber: 117,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -863,7 +872,7 @@ const ProductView = ({ product = {} })=>{
                                                 children: "/"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                lineNumber: 116,
+                                                lineNumber: 121,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -872,24 +881,50 @@ const ProductView = ({ product = {} })=>{
                                                 children: "Products"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                lineNumber: 117,
+                                                lineNumber: 122,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                        lineNumber: 115,
+                                        lineNumber: 120,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                        className: "text-left",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "mx-2 text-gray-400",
+                                                children: "/"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/product/[name]/ProductView.js",
+                                                lineNumber: 125,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                                href: "#",
+                                                className: "rounded-md p-1 text-sm font-medium text-gray-600 hover:text-gray-800",
+                                                children: product.name
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/product/[name]/ProductView.js",
+                                                lineNumber: 126,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/product/[name]/ProductView.js",
+                                        lineNumber: 124,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                lineNumber: 111,
+                                lineNumber: 116,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                            lineNumber: 110,
+                            lineNumber: 115,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -904,7 +939,7 @@ const ProductView = ({ product = {} })=>{
                                             alt: name
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                            lineNumber: 126,
+                                            lineNumber: 135,
                                             columnNumber: 15
                                         }, this),
                                         isLoggedIn && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -927,7 +962,7 @@ const ProductView = ({ product = {} })=>{
                                                         strokeWidth: "4"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                        lineNumber: 137,
+                                                        lineNumber: 146,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -936,13 +971,13 @@ const ProductView = ({ product = {} })=>{
                                                         d: "M4 12a8 8 0 018-8v2a6 6 0 100 12v2a8 8 0 01-8-8z"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                        lineNumber: 138,
+                                                        lineNumber: 147,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                lineNumber: 136,
+                                                lineNumber: 145,
                                                 columnNumber: 19
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                                 className: "h-6 w-6 text-gray-600",
@@ -957,23 +992,23 @@ const ProductView = ({ product = {} })=>{
                                                     d: "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                    lineNumber: 142,
+                                                    lineNumber: 151,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                lineNumber: 141,
+                                                lineNumber: 150,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                            lineNumber: 128,
+                                            lineNumber: 137,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                    lineNumber: 125,
+                                    lineNumber: 134,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -984,7 +1019,7 @@ const ProductView = ({ product = {} })=>{
                                             children: name
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                            lineNumber: 150,
+                                            lineNumber: 159,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1003,17 +1038,17 @@ const ProductView = ({ product = {} })=>{
                                                                 d: "M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3. 292z"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                                lineNumber: 162,
+                                                                lineNumber: 171,
                                                                 columnNumber: 23
                                                             }, this)
                                                         }, index, false, {
                                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                            lineNumber: 155,
+                                                            lineNumber: 164,
                                                             columnNumber: 21
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                    lineNumber: 153,
+                                                    lineNumber: 162,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1024,13 +1059,13 @@ const ProductView = ({ product = {} })=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                    lineNumber: 166,
+                                                    lineNumber: 175,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                            lineNumber: 151,
+                                            lineNumber: 160,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1038,7 +1073,7 @@ const ProductView = ({ product = {} })=>{
                                             children: "Price"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                            lineNumber: 170,
+                                            lineNumber: 179,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1052,7 +1087,7 @@ const ProductView = ({ product = {} })=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                    lineNumber: 172,
+                                                    lineNumber: 181,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1063,7 +1098,7 @@ const ProductView = ({ product = {} })=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                    lineNumber: 173,
+                                                    lineNumber: 182,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1075,20 +1110,20 @@ const ProductView = ({ product = {} })=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                    lineNumber: 174,
+                                                    lineNumber: 183,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                            lineNumber: 171,
+                                            lineNumber: 180,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "mt-10 grid grid-col md:grid-row lg:grid-row gap-5 items-center space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    onClick: isLoggedIn ? handleBuy : ()=>router.push("/auth"),
+                                                    onClick: isLoggedIn ? handleBuy : handleGuest,
                                                     className: "inline-flex items-center justify-center rounded-md bg-gray-900 px-12 py-3 text-white hover:bg-gray-800",
                                                     disabled: loading.buy,
                                                     children: loading.buy ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -1106,7 +1141,7 @@ const ProductView = ({ product = {} })=>{
                                                                 strokeWidth: "4"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                                lineNumber: 182,
+                                                                lineNumber: 191,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1115,18 +1150,18 @@ const ProductView = ({ product = {} })=>{
                                                                 d: "M4 12a8 8 0 018-8v2a6 6 0 100 12v2a8 8 0 01-8-8z"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                                lineNumber: 183,
+                                                                lineNumber: 192,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                        lineNumber: 181,
+                                                        lineNumber: 190,
                                                         columnNumber: 21
                                                     }, this) : 'Buy Now'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                    lineNumber: 179,
+                                                    lineNumber: 188,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1148,7 +1183,7 @@ const ProductView = ({ product = {} })=>{
                                                                 strokeWidth: "4"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                                lineNumber: 190,
+                                                                lineNumber: 199,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1157,24 +1192,24 @@ const ProductView = ({ product = {} })=>{
                                                                 d: "M4 12a8 8 0 018-8v2a6 6 0 100 12v2a8 8 0 01-8-8z"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                                lineNumber: 191,
+                                                                lineNumber: 200,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                        lineNumber: 189,
+                                                        lineNumber: 198,
                                                         columnNumber: 21
                                                     }, this) : 'Add to Cart'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                    lineNumber: 187,
+                                                    lineNumber: 196,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                            lineNumber: 178,
+                                            lineNumber: 187,
                                             columnNumber: 15
                                         }, this),
                                         message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1182,7 +1217,7 @@ const ProductView = ({ product = {} })=>{
                                             children: message
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                            lineNumber: 199,
+                                            lineNumber: 208,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1204,19 +1239,19 @@ const ProductView = ({ product = {} })=>{
                                                                 d: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                                lineNumber: 208,
+                                                                lineNumber: 217,
                                                                 columnNumber: 21
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                            lineNumber: 207,
+                                                            lineNumber: 216,
                                                             columnNumber: 19
                                                         }, this),
                                                         "Free shipping worldwide"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                    lineNumber: 206,
+                                                    lineNumber: 215,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1235,31 +1270,31 @@ const ProductView = ({ product = {} })=>{
                                                                 d: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                                lineNumber: 215,
+                                                                lineNumber: 224,
                                                                 columnNumber: 21
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                            lineNumber: 213,
+                                                            lineNumber: 222,
                                                             columnNumber: 19
                                                         }, this),
                                                         "Cancel Anytime"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                                    lineNumber: 212,
+                                                    lineNumber: 221,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                            lineNumber: 205,
+                                            lineNumber: 214,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                    lineNumber: 149,
+                                    lineNumber: 158,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1270,41 +1305,41 @@ const ProductView = ({ product = {} })=>{
                                             children: description
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                            lineNumber: 225,
+                                            lineNumber: 234,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                        lineNumber: 224,
+                                        lineNumber: 233,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                                    lineNumber: 223,
+                                    lineNumber: 232,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/product/[name]/ProductView.js",
-                            lineNumber: 123,
+                            lineNumber: 132,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/product/[name]/ProductView.js",
-                    lineNumber: 108,
+                    lineNumber: 113,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                lineNumber: 107,
+                lineNumber: 112,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$_components$2f$SimilarProducts$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 subCategoryId: subCategoryId
             }, void 0, false, {
                 fileName: "[project]/src/app/product/[name]/ProductView.js",
-                lineNumber: 231,
+                lineNumber: 240,
                 columnNumber: 7
             }, this)
         ]
@@ -1352,13 +1387,11 @@ function Page() {
         "Page.useSelector[pId]": (state)=>state?.utils?.product?.id
     }["Page.useSelector[pId]"]);
     const [isClient, setIsClient] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    // Set a flag indicating that the component has mounted on the client
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Page.useEffect": ()=>{
             setIsClient(true);
         }
     }["Page.useEffect"], []);
-    // Only interact with localStorage on the client side
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Page.useEffect": ()=>{
             if (isClient && pId) {
@@ -1406,7 +1439,7 @@ function Page() {
             children: "Loading..."
         }, void 0, false, {
             fileName: "[project]/src/app/product/[name]/page.js",
-            lineNumber: 52,
+            lineNumber: 50,
             columnNumber: 12
         }, this);
     }
@@ -1415,7 +1448,7 @@ function Page() {
             children: "Product not found"
         }, void 0, false, {
             fileName: "[project]/src/app/product/[name]/page.js",
-            lineNumber: 56,
+            lineNumber: 54,
             columnNumber: 12
         }, this);
     }
@@ -1423,7 +1456,7 @@ function Page() {
         product: product
     }, void 0, false, {
         fileName: "[project]/src/app/product/[name]/page.js",
-        lineNumber: 60,
+        lineNumber: 58,
         columnNumber: 5
     }, this);
 }
