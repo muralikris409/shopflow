@@ -19,7 +19,7 @@ const withoutAuth = (WrappedComponent) => {
 
     useEffect(() => {
       if (!loading && isLoggedIn) {
-        router.back();
+        router.push("/");
       }
     }, [loading, isLoggedIn, router]);
 

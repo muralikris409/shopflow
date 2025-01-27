@@ -55,7 +55,7 @@ import { setHistory, setProductData } from '@/app/_lib/utilReducer';
         const userId = isLoggedIn ? isLoggedIn.id : "";
         const items = [{ productId: id, quantity: 1 }];
         const order = await createOrder(userId, items);
-        console.log("Order:", order);
+        console.log("OrderTest:", order);
         showMessage('Order created successfully! Redirecting to checkout...', 'success');
         handleNavigation(order);
       } catch (err) {
@@ -104,6 +104,7 @@ import { setHistory, setProductData } from '@/app/_lib/utilReducer';
     const handleGuest=()=>{
       dispatch(setHistory({route:`/product/${product.name}`}))
       dispatch(setProductData({id:product.id}));
+      console.log("test");
       router.push("/auth");
     }
 

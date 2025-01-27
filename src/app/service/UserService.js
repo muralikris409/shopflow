@@ -1,5 +1,67 @@
 import { axiosInstance as axios, axiosInstance } from "../api/axios";
 
+
+// export async function login(req, res, formdata) {
+//   const { email, password } = formdata;
+
+//   try {
+//     const response = await axios.post("user/login", {
+//       email: email,
+//       password: password,
+//     });
+
+//     const { token, data } = response.data;
+
+//     // Set cookie with serialized value
+//     res.setHeader(
+//       "Set-Cookie",
+//       serialize("shopflow_session", JSON.stringify({ user: data, token }), {
+//         httpOnly: true, // Prevent access via JavaScript
+//         secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+//         sameSite: "strict", // SameSite policy
+//         path: "/", // Cookie accessible to the entire app
+//         maxAge: 7 * 24 * 60 * 60, // 7 days
+//       })
+//     );
+
+//     return { data, token };
+//   } catch (error) {
+//     throw new Error(
+//       error.response?.data?.message || "An error occurred during login."
+//     );
+//   }
+// }
+
+// export async function googleOAuth(req, res, data) {
+//   try {
+//     const response = await axios.post("user/oauth", {
+//       name: data.name,
+//       email: data.email,
+//       image: data.image,
+//       id: data.id,
+//     });
+
+//     const { token, data: user } = response.data;
+
+//     res.setHeader(
+//       "Set-Cookie",
+//       serialize("shopflow_session", JSON.stringify({ user, token }), {
+//         httpOnly: true,
+//         secure: process.env.NODE_ENV === "production",
+//         sameSite: "strict",
+//         path: "/",
+//         maxAge: 7 * 24 * 60 * 60, // 7 days
+//       })
+//     );
+
+//     return response.data;
+//   } catch (error) {
+//     throw new Error(
+//       error.response?.data?.message || "An error occurred during Google OAuth."
+//     );
+//   }
+// }
+
 export async function login(formdata) {
     const { email, password } = formdata;
   
@@ -19,7 +81,25 @@ export async function login(formdata) {
        
     }
 }
+export async function googleOAuth(data) {
+  try {
+      const response = await axios.post("user/oauth", {
+          name: data.name,
+          email: data.email,
+          image: data.image,
+          id: data.id
+      });
 
+      const { token, data: user } = response.data;
+
+      localStorage.setItem("shopflow_session", JSON.stringify({ user: user, token }));
+      return response.data;
+  } catch (error) {
+     
+          throw new Error(error.response.data.message || "An error occurred during Google OAuth.");
+     
+  }
+}
 export async function signUp(formdata) {
     const { username: name, email, password } = formdata;
 
@@ -42,25 +122,7 @@ export async function signUp(formdata) {
     }
 }
 
-export async function googleOAuth(data) {
-    try {
-        const response = await axios.post("user/oauth", {
-            name: data.name,
-            email: data.email,
-            image: data.image,
-            id: data.id
-        });
 
-        const { token, data: user } = response.data;
-
-        localStorage.setItem("shopflow_session", JSON.stringify({ user: user, token }));
-        return response.data;
-    } catch (error) {
-       
-            throw new Error(error.response.data.message || "An error occurred during Google OAuth.");
-       
-    }
-}
 
 export async function forgotPassword(email) {
   try {
